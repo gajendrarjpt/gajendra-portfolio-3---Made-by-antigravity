@@ -55,13 +55,13 @@ export default function ContactBridge({ onOpenBridge }) {
               Available for Senior Network Engineer roles, Tier 2/3 NOC operations, enterprise network architecture, multi-vendor firewall hardening, and mission-critical reliability engagements.
             </p>
 
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3.5">
               <MagneticButton>
                 <a
                   href={socials.email.url}
-                  className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center justify-between gap-6"
+                  className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center justify-between gap-4"
                 >
-                  <span>EMAIL ME DIRECT</span>
+                  <span>EMAIL DIRECT</span>
                   <span>→</span>
                 </a>
               </MagneticButton>
@@ -71,9 +71,21 @@ export default function ContactBridge({ onOpenBridge }) {
                   href={socials.linkedin.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-6"
+                  className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-4"
                 >
-                  <span>LINKEDIN DIRECT</span>
+                  <span>LINKEDIN</span>
+                  <span>↗</span>
+                </a>
+              </MagneticButton>
+
+              <MagneticButton>
+                <a
+                  href={socials.github.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-4"
+                >
+                  <span>GITHUB</span>
                   <span>↗</span>
                 </a>
               </MagneticButton>
@@ -81,10 +93,12 @@ export default function ContactBridge({ onOpenBridge }) {
               <MagneticButton>
                 <a
                   href={profile.resume.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   download="Gajendra_Rajput_Resume.pdf"
-                  className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-6"
+                  className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 border border-[#0052FF] text-[#0052FF] dark:text-[#00E5FF] hover:bg-[#0052FF] hover:text-white transition-all flex items-center justify-between gap-4"
                 >
-                  <span>DOWNLOAD RESUME</span>
+                  <span>VIEW RESUME (PDF)</span>
                   <span>↓</span>
                 </a>
               </MagneticButton>

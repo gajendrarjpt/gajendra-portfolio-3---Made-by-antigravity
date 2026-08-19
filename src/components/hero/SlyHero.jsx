@@ -176,15 +176,15 @@ export default function SlyHero({ onOpenBridge }) {
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-2 pb-8 lg:pt-4 lg:pb-12 z-10">
         
         {/* Left Headline Column */}
-        <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8 overflow-hidden">
+        <div className="lg:col-span-7 flex flex-col gap-5 md:gap-7 overflow-hidden">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#F4F1EA] dark:bg-[#111111] border border-[#121212]/15 dark:border-[#2A2A2A] rounded-full w-fit">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0052FF] dark:bg-[#00FF66] animate-pulse" />
-            <span className="font-mono text-[10px] text-[#121212] dark:text-[#AAAAAA] uppercase tracking-wider font-semibold">
-              SENIOR NETWORK ENGINEER // NOC OPERATIONS
+            <span className="w-2 h-2 rounded-full bg-[#0052FF] dark:bg-[#00FF66] animate-pulse" />
+            <span className="font-mono text-[10.5px] text-[#121212] dark:text-[#AAAAAA] uppercase tracking-wider font-semibold">
+              SENIOR NETWORK ENGINEER · NOC TIER 2/3 · AVAILABLE FOR ROLES
             </span>
           </div>
 
-          <div className="flex flex-col gap-2 max-w-full">
+          <div className="flex flex-col gap-1.5 max-w-full">
             <h1 className="font-display text-4xl sm:text-6xl lg:text-5xl xl:text-7xl font-bold tracking-tight uppercase leading-[0.92] text-[#121212] dark:text-white break-words">
               GAJENDRA RAJPUT.
             </h1>
@@ -194,29 +194,40 @@ export default function SlyHero({ onOpenBridge }) {
           </div>
 
           <p className="font-body text-base sm:text-lg lg:text-xl text-[#5A5A57] dark:text-[#AAAAAA] max-w-xl font-normal leading-relaxed">
-            I design, troubleshoot, and operate the enterprise infrastructure people rarely see, but depend on every second — spanning Cisco routing & switching, multi-vendor firewalls, deep Wireshark telemetry, and mission-critical NOC incident command.
+            I design, troubleshoot, and operate the enterprise infrastructure people rarely see, but depend on every second — specializing in enterprise routing & switching, multi-vendor firewalls, deep packet dissection, and mission-critical NOC incident command.
           </p>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          {/* Recruiter-Centric 3-Tier Action CTAs */}
+          <div className="flex flex-wrap items-center gap-3.5 pt-1 font-mono text-xs">
             <MagneticButton>
-              <button
-                onClick={onOpenBridge}
-                className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center gap-3 cursor-pointer"
+              <a
+                href="/resume/Gajendra_Rajput_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold uppercase tracking-wider px-7 py-3.5 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center gap-2.5 cursor-pointer"
               >
-                <span>INITIATE BRIDGE</span>
-                <span>→</span>
-              </button>
+                <span>VIEW RESUME</span>
+                <span>↓</span>
+              </a>
             </MagneticButton>
 
             <MagneticButton>
               <a
-                href="#journey"
-                className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#FAF8F5] dark:bg-[#0A0A0A] hover:bg-[#F4F1EA] dark:hover:bg-[#111111] transition-all inline-block"
+                href="#contact"
+                className="font-bold uppercase tracking-wider px-6 py-3.5 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#FAF8F5] dark:bg-[#0A0A0A] hover:bg-[#F4F1EA] dark:hover:bg-[#111111] transition-all inline-flex items-center gap-2"
               >
-                FOLLOW THE PACKET ↓
+                <span>CONTACT ME</span>
+                <span>→</span>
               </a>
             </MagneticButton>
+
+            <a
+              href="#journey"
+              className="font-semibold text-xs text-[#0052FF] dark:text-[#00FF66] hover:underline px-2 py-3 inline-flex items-center gap-1.5 transition-all"
+            >
+              <span>FOLLOW THE PACKET</span>
+              <span>↓</span>
+            </a>
           </div>
         </div>
 

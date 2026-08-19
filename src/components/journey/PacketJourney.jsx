@@ -14,6 +14,7 @@ const STAGE_LABELS = [
 
 export default function PacketJourney() {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [inspectLogs, setInspectLogs] = useState(false);
   const activeStage = packetJourneyStages[activeStepIndex] || packetJourneyStages[0];
 
   return (
@@ -122,50 +123,58 @@ export default function PacketJourney() {
                   {activeStage.layer}
                 </div>
 
-                <h3 className="font-display text-2xl sm:text-4xl font-bold tracking-tight uppercase text-[#121212] dark:text-white leading-tight">
+                <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight uppercase text-[#121212] dark:text-white leading-tight">
                   {activeStage.description}
                 </h3>
 
                 <div className="p-3.5 bg-[#FAF8F5] dark:bg-[#111111] border border-[#121212]/10 dark:border-[#222222] rounded-xs font-mono text-xs">
-                  <span className="text-[10px] text-[#5A5A57] dark:text-[#888888] block uppercase mb-1">
-                    PACKET METRICS
+                  <span className="text-[10px] text-[#5A5A57] dark:text-[#888888] block uppercase mb-1 font-semibold">
+                    LIVE TELEMETRY
                   </span>
                   <p className="text-[11.5px] font-semibold text-[#121212] dark:text-[#CCCCCC]">
                     {activeStage.telemetry}
                   </p>
                 </div>
 
-                {/* Navigation Buttons */}
-                <div className="flex items-center gap-3 pt-2 font-mono text-xs">
+                {/* Navigation & Progressive Disclosure Toggle */}
+                <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs">
                   <button
                     type="button"
                     disabled={activeStepIndex === 0}
                     onClick={() => setActiveStepIndex(Math.max(0, activeStepIndex - 1))}
-                    className="px-5 py-2.5 border border-[#121212]/20 dark:border-[#333] font-bold uppercase disabled:opacity-30 hover:bg-[#121212]/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                    className="px-4 py-2 border border-[#121212]/20 dark:border-[#333] font-bold uppercase disabled:opacity-30 hover:bg-[#121212]/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
                   >
-                    ← PREVIOUS
+                    ← PREV
                   </button>
 
                   <button
                     type="button"
                     disabled={activeStepIndex === packetJourneyStages.length - 1}
                     onClick={() => setActiveStepIndex(Math.min(packetJourneyStages.length - 1, activeStepIndex + 1))}
-                    className={`px-6 py-2.5 font-bold uppercase text-white transition-all shadow-md cursor-pointer ${
+                    className={`px-5 py-2 font-bold uppercase text-white transition-all shadow-md cursor-pointer ${
                       activeStage.id === 'the-incident' ? 'bg-[#FF3344] hover:bg-[#DD2233]' : 'bg-[#0052FF] hover:bg-[#0042D0]'
                     }`}
                   >
                     {activeStepIndex === packetJourneyStages.length - 2 ? 'RESOLVE FAILOVER →' : 'NEXT HOP →'}
                   </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setInspectLogs(!inspectLogs)}
+                    className="px-3.5 py-2 border border-[#121212]/20 dark:border-[#333] text-[#5A5A57] dark:text-[#AAAAAA] hover:text-[#121212] dark:hover:text-white font-semibold text-[11px] uppercase transition-colors cursor-pointer ml-auto"
+                  >
+                    {inspectLogs ? 'HIDE LOGS' : 'INSPECT LOGS ▾'}
+                  </button>
                 </div>
               </div>
 
-              {/* Right Decoded CLI Console */}
-              <div className="lg:col-span-6 bg-[#000000] text-[#00FF66] font-mono text-xs p-5 rounded-xs border border-[#222222] shadow-2xl overflow-x-auto max-h-[320px]">
+              {/* Right Decoded CLI Console with Progressive Disclosure */}
+              <div className="lg:col-span-6 bg-[#000000] text-[#00FF66] font-mono text-xs p-5 rounded-xs border border-[#222222] shadow-2xl overflow-x-auto">
                 <div className="text-[10px] text-[#888888] border-b border-[#222] pb-2 mb-3 flex justify-between uppercase">
                   <span>TERMINAL LOG DISSECTION // {activeStage.device}</span>
-                  <span>BUFFER: CAPTURED</span>
+                  <span className="text-[#00FF66]">LIVE BUFFER</span>
                 </div>
-                <pre className="whitespace-pre-wrap leading-relaxed font-mono text-[11.5px] text-[#00FF66]">
+                <pre className="whitespace-pre-wrap leading-relaxed font-mono text-[11px] sm:text-[11.5px] text-[#00FF66] max-h-[220px] overflow-y-auto">
                   {activeStage.cliSnippet}
                 </pre>
               </div>

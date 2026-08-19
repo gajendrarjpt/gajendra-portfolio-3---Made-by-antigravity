@@ -61,9 +61,9 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
             ))}
           </nav>
 
-          {/* Action Controls: Live Clock + Theme Switcher + Terminal + Bridge */}
-          <div className="hidden md:flex items-center gap-2 sm:gap-3 shrink-0">
-            <LiveClock showStatus={false} className="hidden lg:flex mr-2" />
+          {/* Action Controls: Live Clock + Theme Switcher + Resume + Terminal + Bridge */}
+          <div className="hidden md:flex items-center gap-2 sm:gap-2.5 shrink-0">
+            <LiveClock showStatus={false} className="hidden xl:flex mr-1" />
 
             {/* Prominent Dark/Light Theme Button with Trending Animated SVG Icons */}
             <button
@@ -76,14 +76,13 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
                 const rect = e.currentTarget.getBoundingClientRect();
                 toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
               }}
-              className={`font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase w-[90px] sm:w-[98px] justify-center py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-2 shrink-0 group ${
+              className={`font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase w-[88px] justify-center py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-1.5 shrink-0 group ${
                 isSwitching ? 'pointer-events-none opacity-80' : 'cursor-pointer pointer-events-auto'
               }`}
               title="Toggle Dark / Light Theme"
             >
               {theme === 'dark' ? (
                 <>
-                  {/* Interactive Solar Burst Icon (Switch to Light) */}
                   <span className="relative flex items-center justify-center w-4 h-4 text-[#00FF66] transition-transform duration-500 ease-out group-hover:rotate-90 group-hover:scale-110">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="12" r="4.5" fill="currentColor" fillOpacity="0.25" />
@@ -101,11 +100,9 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
                 </>
               ) : (
                 <>
-                  {/* Interactive Crescent & Orbital Sparkle Icon (Switch to Dark) */}
                   <span className="relative flex items-center justify-center w-4 h-4 text-[#0052FF] transition-transform duration-500 ease-out group-hover:-rotate-12 group-hover:scale-110">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" fillOpacity="0.2" />
-                      {/* Orbital Twinkle Star */}
+                      <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z" fill="currentColor" fillOpacity="0.2" />
                       <path
                         d="M19 3v4M17 5h4"
                         strokeWidth="1.8"
@@ -118,12 +115,22 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
               )}
             </button>
 
+            {/* Direct 1-Click Recruiter Resume Button */}
+            <a
+              href="/resume/Gajendra_Rajput_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[10.5px] sm:text-xs font-bold px-3 py-2 border border-[#0052FF] text-[#0052FF] dark:text-[#00E5FF] hover:bg-[#0052FF] hover:text-white uppercase tracking-wider transition-all shrink-0 cursor-pointer pointer-events-auto"
+            >
+              RESUME ↓
+            </a>
+
             <button
               type="button"
               onClick={onOpenTerminal}
-              className="font-mono text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-2 bg-[#121212] dark:bg-[#111111] hover:bg-[#0052FF] text-white border border-[#121212] dark:border-[#2A2A2A] uppercase tracking-wider transition-all cursor-pointer pointer-events-auto shrink-0"
+              className="font-mono text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-2 bg-[#121212] dark:bg-[#111111] hover:bg-[#0052FF] text-white border border-[#121212] dark:border-[#2A2A2A] uppercase tracking-wider transition-all cursor-pointer pointer-events-auto shrink-0 hidden lg:block"
             >
-              CTRL+K TERMINAL
+              CLI
             </button>
 
             <MagneticButton>
@@ -132,7 +139,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
                 onClick={onOpenBridge}
                 className="font-mono text-[11px] sm:text-xs font-bold px-3.5 sm:px-4 py-2 bg-[#0052FF] hover:bg-[#0042D0] text-white uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-lg shadow-[#0052FF]/20 cursor-pointer pointer-events-auto shrink-0 whitespace-nowrap"
               >
-                <span>INITIATE BRIDGE</span>
+                <span>CONNECT</span>
                 <span>→</span>
               </button>
             </MagneticButton>
@@ -254,15 +261,25 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
             )}
           </button>
 
+          <a
+            href="/resume/Gajendra_Rajput_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full py-3 bg-[#0052FF] text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto shadow-md"
+          >
+            VIEW RESUME (PDF) ↓
+          </a>
+
           <button
             type="button"
             onClick={() => {
               setMobileMenuOpen(false);
               onOpenBridge();
             }}
-            className="w-full py-3 bg-[#0052FF] text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto"
+            className="w-full py-3 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto"
           >
-            INITIATE BRIDGE →
+            CONTACT ME →
           </button>
         </div>
       </div>

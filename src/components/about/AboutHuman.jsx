@@ -1,5 +1,5 @@
 import React from 'react';
-import { mechanicalToNetworkStory, profile } from '../../data/portfolioData';
+import { mechanicalToNetworkStory } from '../../data/portfolioData';
 
 export default function AboutHuman() {
   return (
@@ -7,14 +7,14 @@ export default function AboutHuman() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header with Generous Rhythm */}
-        <div className="flex flex-col gap-3 mb-16">
+        <div className="flex flex-col gap-4 mb-16">
           <div className="flex items-center gap-2 font-mono text-xs text-[#0052FF] dark:text-[#00FF66] tracking-widest uppercase">
             <span>04 / ENGINEERING THINKING</span>
             <span>·</span>
             <span>THE HUMAN BEHIND THE NETWORK</span>
           </div>
-          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter uppercase text-[#121212] dark:text-white max-w-4xl leading-[0.92]">
-            THE ENGINEERING MINDSET.
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight uppercase text-[#121212] dark:text-white max-w-4xl leading-[1.05]">
+            “I LEARNED TO THINK IN SYSTEMS BEFORE I LEARNED TO OPERATE NETWORKS.”
           </h2>
           <p className="font-body text-base sm:text-lg text-[#5A5A57] dark:text-[#AAAAAA] max-w-2xl font-normal leading-relaxed">
             {mechanicalToNetworkStory.subtitle}
@@ -24,7 +24,7 @@ export default function AboutHuman() {
         {/* Editorial Story Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* Left Editorial Column */}
+          {/* Left Editorial Narrative */}
           <div className="lg:col-span-6 flex flex-col gap-6 font-body text-base sm:text-lg text-[#5A5A57] dark:text-[#AAAAAA] leading-relaxed">
             {mechanicalToNetworkStory.narrative.map((paragraph, idx) => (
               <p key={idx} className={idx === 0 ? 'text-lg sm:text-xl text-[#121212] dark:text-[#E0E0E0] font-medium leading-relaxed' : ''}>
