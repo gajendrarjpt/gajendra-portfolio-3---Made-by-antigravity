@@ -42,8 +42,8 @@ export default function ContactBridge({ onOpenBridge }) {
           </div>
 
           <div className="flex items-center gap-4 text-[11px] text-[#5A5A57] dark:text-[#888888]">
-            <span>LATENCY: <strong className="text-[#121212] dark:text-white">0.84 ms</strong></span>
-            <span>BACKBONE: <strong className="text-[#008833] dark:text-[#00FF66]">NOMINAL</strong></span>
+            <span>ICMP PING: <strong className="text-[#121212] dark:text-white">0.84 ms (NOMINAL)</strong></span>
+            <span>STATUS: <strong className="text-[#008833] dark:text-[#00FF66]">AVAILABLE</strong></span>
           </div>
         </div>
 

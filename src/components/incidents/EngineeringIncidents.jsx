@@ -13,15 +13,15 @@ export default function EngineeringIncidents() {
         {/* Section Header */}
         <div className="flex flex-col gap-3 mb-12">
           <div className="flex items-center gap-2 font-mono text-xs text-[#0052FF] dark:text-[#00FF66] tracking-widest uppercase">
-            <span>03 / CASE REEL</span>
+            <span>03 / ENGINEERING PLAYBOOKS</span>
             <span>·</span>
-            <span>INCIDENT POST-MORTEMS & RCA</span>
+            <span>SIMULATED POST-MORTEMS & RCA</span>
           </div>
           <h2 className="font-display text-4xl sm:text-6xl font-bold tracking-tighter uppercase text-[#121212] dark:text-white max-w-4xl leading-[0.92]">
-            ENGINEERING INCIDENTS.
+            INCIDENT PLAYBOOKS.
           </h2>
           <p className="font-body text-base sm:text-lg text-[#5A5A57] dark:text-[#AAAAAA] max-w-2xl font-normal leading-relaxed">
-            Real enterprise outages and technical failures investigated methodically through telemetry correlation, packet analysis, and permanent corrective action (CAPA).
+            Technical post-mortem scenarios demonstrating root cause analysis (RCA), packet dissection, and permanent corrective action (CAPA) across complex network failure modes.
           </p>
         </div>
 

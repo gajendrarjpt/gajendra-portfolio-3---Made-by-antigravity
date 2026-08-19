@@ -15,15 +15,15 @@ export default function PacketJourney() {
         {/* Section Header */}
         <div className="flex flex-col gap-3 mb-12">
           <div className="flex items-center gap-2 font-mono text-xs text-[#0052FF] dark:text-[#00FF66] tracking-widest uppercase">
-            <span>01.5 / SIGNATURE SEQUENCE</span>
+            <span>01.5 / ARCHITECTURAL WALKTHROUGH</span>
             <span>·</span>
-            <span>FOLLOW THE PACKET</span>
+            <span>PACKET LIFECYCLE SIMULATION</span>
           </div>
           <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter uppercase text-[#121212] dark:text-white max-w-4xl leading-[0.92]">
             THE ANATOMY OF A PACKET.
           </h2>
           <p className="font-body text-base sm:text-lg text-[#5A5A57] dark:text-[#AAAAAA] max-w-2xl font-normal leading-relaxed">
-            Follow a single 1500-byte data stream as it traverses untrusted transit, perimeter security, and core switching fabrics — and witness what happens when a critical fiber link fails.
+            A reference walkthrough tracing a single 1500-byte data stream as it traverses transit routing, perimeter inspection, and core switching fabrics — demonstrating failover behavior during link degradation.
           </p>
         </div>
 
@@ -170,7 +170,7 @@ export default function PacketJourney() {
                 href="#incidents"
                 className="px-6 py-2.5 bg-[#0052FF] text-white font-bold uppercase tracking-wider text-center"
               >
-                EXPLORE ENGINEERING INCIDENTS ↓
+                EXPLORE INCIDENT PLAYBOOKS ↓
               </a>
             </motion.div>
           )}

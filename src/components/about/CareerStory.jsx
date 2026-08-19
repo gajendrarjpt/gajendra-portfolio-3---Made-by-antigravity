@@ -9,35 +9,35 @@ const STAGE_DEEP_DIVES = [
     severityHandling: 'P3 / P4 User Incidents & Alert Ingestion',
     keyTools: ['Ping / Traceroute', 'ServiceNow', 'Cisco CLI', 'Syslog Ingestion'],
     responsibilities: [
-      'Monitored 24/7 solar telemetry across 150+ network nodes.',
-      'Triaged customer-impacting network alarms within strict 15-minute SLA.',
-      'Conducted initial Layer 1-3 diagnostics before senior escalation.'
+      'Monitored 24/7 network telemetry across infrastructure estate.',
+      'Triaged customer-impacting network alarms and isolated Layer 1-3 faults.',
+      'Documented diagnostic steps and managed SLA escalation workflows.'
     ],
-    uptimeImpact: '99.8% SLA adherence on first-touch incident response.'
+    uptimeImpact: 'Consistent first-touch SLA response and ticket lifecycle discipline.'
   },
   {
     stageIndex: 1,
     scope: 'ENTERPRISE ROUTING, SWITCHING & MULTI-VENDOR FIREWALLS',
     severityHandling: 'P2 Intermediate Outages & Change Requests',
-    keyTools: ['Palo Alto PA-3000', 'FortiGate', 'Sophos XG', 'Cisco Catalyst STP', 'Aruba WLAN', 'Nessus'],
+    keyTools: ['Palo Alto PA-3220', 'FortiGate', 'Sophos XG', 'Cisco Catalyst STP', 'Aruba WLAN', 'Nessus'],
     responsibilities: [
       'Configured 802.1Q VLAN trunks, RSTP root bridges, and L3 EtherChannels.',
       'Managed perimeter security policies, IPsec site-to-site VPNs, and Nessus vulnerability scans.',
-      'Executed scheduled maintenance window firmware upgrades with zero unscheduled downtime.'
+      'Executed scheduled maintenance window firmware upgrades with documented rollback plans.'
     ],
-    uptimeImpact: 'Zero security breaches; 100% compliance across gold-standard config audits.'
+    uptimeImpact: 'Disciplined operational reliability and configuration audit compliance across multi-vendor infrastructure.'
   },
   {
     stageIndex: 2,
     scope: 'SENIOR NOC ESCALATION, P1/P2 INCIDENT BRIDGES & CAPA',
-    severityHandling: 'P1 Mission-Critical Outages & Core Network Failure',
-    keyTools: ['Wireshark Deep PCAP', 'BGP Fast-Reroute', 'SolarWinds NPM', 'Dell PowerVault SAN', 'VMware vDS', 'CAPA RCA'],
+    severityHandling: 'P1 Mission-Critical Outages & Core Network Escalation',
+    keyTools: ['Wireshark Deep PCAP', 'BGP Routing', 'SolarWinds NPM', 'Dell PowerVault SAN', 'VMware vDS', 'CAPA RCA'],
     responsibilities: [
-      'Lead live high-priority P1/P2 technical incident bridges with cross-functional stakeholders.',
-      'Perform deep packet inspection (TCP window sizing, SYN floods, retransmission bursts) to locate root causes.',
+      'Lead live high-priority P1/P2 technical incident bridges with cross-functional teams.',
+      'Perform deep packet inspection (TCP window sizing, SYN floods, retransmissions) to isolate root causes.',
       'Author formal Corrective and Preventive Action (CAPA) reports and Post-Incident Reviews (PIR).'
     ],
-    uptimeImpact: 'Maintained 99.99% enterprise backbone reliability across hybrid enterprise infrastructure.'
+    uptimeImpact: 'Systematic root-cause isolation and permanent CAPA remediation on mission-critical escalations.'
   }
 ];
 
