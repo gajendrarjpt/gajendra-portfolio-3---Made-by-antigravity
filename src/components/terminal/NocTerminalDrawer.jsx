@@ -116,7 +116,7 @@ export default function NocTerminalDrawer({ externalOpen, onClose }) {
       case 'ping':
         newHistory.push({
           type: 'res',
-          content: `PING core-rtr-01.phntech.internal (192.168.10.1): 56 data bytes
+          content: `PING core-rtr-01.lab.internal (192.168.10.1): 56 data bytes
 64 bytes from 192.168.10.1: icmp_seq=1 ttl=64 time=0.82 ms
 64 bytes from 192.168.10.1: icmp_seq=2 ttl=64 time=0.84 ms
 64 bytes from 192.168.10.1: icmp_seq=3 ttl=64 time=0.79 ms
