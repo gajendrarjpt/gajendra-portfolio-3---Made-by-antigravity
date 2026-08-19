@@ -110,7 +110,7 @@ export default function NocTerminalDrawer({ externalOpen, onClose }) {
 
       case 'resume':
         newHistory.push({ type: 'res', content: '→ Initiating resume download: /resume/Gajendra_Rajput_Resume.pdf' });
-        window.open(profile.resume.url, '_blank');
+        window.open(profile.resume.url, '_blank', 'noopener,noreferrer');
         break;
 
       case 'ping':

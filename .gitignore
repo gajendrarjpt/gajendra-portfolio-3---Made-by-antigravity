@@ -1,3 +1,10 @@
 node_modules
 dist
 .freebuff
+.env
+.env.*
+*.local
+*.log
+*.pem
+*.key
+.DS_Store
