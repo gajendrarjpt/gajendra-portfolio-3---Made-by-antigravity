@@ -102,7 +102,7 @@ export default function IntelligenceEngine() {
   }, [activeDomain, viewMode, hoveredNodeId]);
 
   return (
-    <section id="engine" className="py-24 md:py-36 border-b border-[#1F1F1F] bg-[#000000] relative">
+    <section id="engine" className="py-24 md:py-36 border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] text-[#121212] dark:text-white relative transition-colors">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -112,22 +112,22 @@ export default function IntelligenceEngine() {
               <span>·</span>
               <span>ENTERPRISE NETWORK INSTRUMENT</span>
             </div>
-            <h2 className="font-display text-4xl sm:text-6xl font-bold tracking-tighter uppercase text-white">
+            <h2 className="font-display text-4xl sm:text-6xl font-bold tracking-tighter uppercase text-[#121212] dark:text-white">
               NETWORK ARCHITECTURE & DIAGRAMS.
             </h2>
-            <p className="font-body text-lg text-[#AAAAAA] max-w-2xl font-normal">
+            <p className="font-body text-lg text-[#5A5A57] dark:text-[#AAAAAA] max-w-2xl font-normal">
               Enterprise MNC network topology schematics & NOC telemetry dashboards across core routing, switching stacks, multi-vendor firewalls, WLAN, infrastructure, and monitoring.
             </p>
           </div>
 
           {/* View Mode Switcher (Schematic Diagram vs Interactive Mesh) */}
-          <div className="flex items-center gap-2 p-1 bg-[#0A0A0A] border border-[#1F1F1F]">
+          <div className="flex items-center gap-2 p-1 bg-[#F4F1EA] dark:bg-[#0A0A0A] border border-[#121212]/15 dark:border-[#1F1F1F]">
             <button
               onClick={() => setViewMode('schematic')}
               className={`px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                 viewMode === 'schematic'
                   ? 'bg-[#0052FF] text-white shadow-lg'
-                  : 'text-[#888888] hover:text-white'
+                  : 'text-[#5A5A57] dark:text-[#888888] hover:text-[#121212] dark:hover:text-white'
               }`}
             >
               [+] MNC SCHEMATIC DIAGRAM
@@ -137,7 +137,7 @@ export default function IntelligenceEngine() {
               className={`px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                 viewMode === 'mesh'
                   ? 'bg-[#0052FF] text-white shadow-lg'
-                  : 'text-[#888888] hover:text-white'
+                  : 'text-[#5A5A57] dark:text-[#888888] hover:text-[#121212] dark:hover:text-white'
               }`}
             >
               [+] INTERACTIVE MESH
@@ -155,28 +155,28 @@ export default function IntelligenceEngine() {
                 onClick={() => setActiveDomainId(dom.id)}
                 className={`py-3 px-3.5 font-semibold tracking-wider uppercase border transition-all flex items-center justify-between text-left truncate ${
                   isActive
-                    ? 'bg-[#111111] text-white border-[#0052FF]'
-                    : 'bg-[#0A0A0A] text-[#888888] border-[#1F1F1F] hover:text-white hover:border-[#2A2A2A]'
+                    ? 'bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white border-[#0052FF]'
+                    : 'bg-[#FAF8F5] dark:bg-[#0A0A0A] text-[#5A5A57] dark:text-[#888888] border-[#121212]/15 dark:border-[#1F1F1F] hover:text-[#121212] dark:hover:text-white hover:border-[#121212]/30 dark:hover:border-[#2A2A2A]'
                 }`}
               >
                 <span className="truncate">{dom.id}</span>
-                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ml-1 ${isActive ? 'bg-[#00FF66]' : 'bg-transparent'}`} />
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ml-1 ${isActive ? 'bg-[#0052FF] dark:bg-[#00FF66]' : 'bg-transparent'}`} />
               </button>
             );
           })}
         </div>
 
         {/* Responsive Geometry Box */}
-        <div className="w-full min-h-[540px] sm:min-h-[580px] border border-[#1F1F1F] bg-[#0A0A0A] relative flex flex-col justify-between p-5 sm:p-8 overflow-hidden shadow-2xl">
+        <div className="w-full min-h-[540px] sm:min-h-[580px] border border-[#121212]/15 dark:border-[#1F1F1F] bg-[#F4F1EA] dark:bg-[#0A0A0A] relative flex flex-col justify-between p-5 sm:p-8 overflow-hidden shadow-2xl">
           {/* Top Panel Header */}
-          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#888888] border-b border-[#1F1F1F] pb-4 z-10 bg-[#0A0A0A]/90">
+          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#5A5A57] dark:text-[#888888] border-b border-[#121212]/10 dark:border-[#1F1F1F] pb-4 z-10 bg-[#F4F1EA]/90 dark:bg-[#0A0A0A]/90">
             <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#00FF66] animate-pulse" />
-              <span className="font-bold text-white uppercase">{activeDomain.label}</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#0052FF] dark:bg-[#00FF66] animate-pulse" />
+              <span className="font-bold text-[#121212] dark:text-white uppercase">{activeDomain.label}</span>
               <span>·</span>
-              <span className="text-[#00FF66]">{activeDomain.status}</span>
+              <span className="text-[#0052FF] dark:text-[#00FF66]">{activeDomain.status}</span>
             </div>
-            <div className="flex items-center gap-4 text-[10px] text-[#60605C] uppercase">
+            <div className="flex items-center gap-4 text-[10px] text-[#5A5A57] dark:text-[#60605C] uppercase">
               <span>FORMAT: MNC ENTERPRISE SPEC</span>
               {activeDomain.diagramImage && viewMode === 'schematic' && (
                 <button
@@ -193,7 +193,7 @@ export default function IntelligenceEngine() {
           {viewMode === 'schematic' && activeDomain.diagramImage && (
             <div
               onClick={() => setFullscreenImage(activeDomain.diagramImage)}
-              className="relative w-full h-[320px] sm:h-[360px] my-auto overflow-hidden border border-[#1F1F1F] rounded-xs cursor-pointer group bg-[#000000] flex items-center justify-center"
+              className="relative w-full h-[320px] sm:h-[360px] my-auto overflow-hidden border border-[#121212]/15 dark:border-[#1F1F1F] rounded-xs cursor-pointer group bg-[#FAF8F5] dark:bg-[#000000] flex items-center justify-center"
             >
               <img
                 src={activeDomain.diagramImage}
@@ -226,7 +226,7 @@ export default function IntelligenceEngine() {
                     <div className={`mt-6 font-mono text-[10px] font-bold px-2 py-1 uppercase tracking-wider transition-all shadow-lg whitespace-nowrap ${
                       isHovered
                         ? 'bg-[#0052FF] text-white scale-110'
-                        : 'bg-[#111111] text-[#E0E0E0] border border-[#222222]'
+                        : 'bg-[#FAF8F5] dark:bg-[#111111] text-[#121212] dark:text-[#E0E0E0] border border-[#121212]/15 dark:border-[#222222]'
                     }`}>
                       {node.label}
                     </div>
@@ -237,12 +237,12 @@ export default function IntelligenceEngine() {
           )}
 
           {/* Bottom Panel Metadata */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center border-t border-[#1F1F1F] pt-4 z-10 bg-[#0A0A0A]/90">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center border-t border-[#121212]/10 dark:border-[#1F1F1F] pt-4 z-10 bg-[#F4F1EA]/90 dark:bg-[#0A0A0A]/90">
             <div className="md:col-span-8 flex flex-col gap-1">
-              <h4 className="font-display text-lg font-bold text-white uppercase tracking-tight">
+              <h4 className="font-display text-lg font-bold text-[#121212] dark:text-white uppercase tracking-tight">
                 {activeDomain.title}
               </h4>
-              <p className="font-body text-xs sm:text-sm text-[#AAAAAA] line-clamp-2">
+              <p className="font-body text-xs sm:text-sm text-[#5A5A57] dark:text-[#AAAAAA] line-clamp-2">
                 {activeDomain.summary}
               </p>
             </div>
@@ -251,7 +251,7 @@ export default function IntelligenceEngine() {
               {activeDomain.items.map((item) => (
                 <span
                   key={item}
-                  className="px-2.5 py-1 bg-[#111111] text-white border border-[#222222] uppercase font-medium"
+                  className="px-2.5 py-1 bg-[#FAF8F5] dark:bg-[#111111] text-[#121212] dark:text-white border border-[#121212]/15 dark:border-[#222222] uppercase font-medium"
                 >
                   {item}
                 </span>

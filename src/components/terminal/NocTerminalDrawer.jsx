@@ -139,11 +139,11 @@ MONITORING: Wireshark, Syslog, Telemetry, SolarWinds`
     <>
       <button
         onClick={() => setInternalOpen(true)}
-        className="fixed bottom-6 right-6 z-40 font-mono text-xs font-bold px-4 py-3 bg-[#111111] text-white border border-[#0052FF] shadow-xl flex items-center gap-2.5 hover:scale-105 transition-all"
+        className="fixed bottom-6 right-6 z-40 font-mono text-xs font-bold px-4 py-3 bg-[#FAF8F5] dark:bg-[#111111] text-[#121212] dark:text-white border border-[#0052FF] shadow-2xl flex items-center gap-2.5 hover:scale-105 transition-all cursor-pointer"
       >
-        <span className="w-2 h-2 rounded-full bg-[#00FF66] animate-pulse" />
+        <span className="w-2 h-2 rounded-full bg-[#0052FF] dark:bg-[#00FF66] animate-pulse" />
         <span>[+] NOC TERMINAL</span>
-        <span className="text-[10px] text-[#888888] hidden sm:inline">(CTRL+K)</span>
+        <span className="text-[10px] text-[#5A5A57] dark:text-[#888888] hidden sm:inline">(CTRL+K)</span>
       </button>
 
       <div
