@@ -18,27 +18,51 @@ export function ThemeProvider({ children }) {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // Trending circular ripple expansion theme transition
+  // Precise button-anchored circular reveal theme transition
   const toggleTheme = (e) => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
 
-    // Get click position or default to viewport center
-    const x = e?.clientX ?? window.innerWidth / 2;
-    const y = e?.clientY ?? window.innerHeight / 2;
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setTheme(nextTheme);
+      return;
+    }
 
-    // Calculate maximum radius to cover screen
+    // Get click button bounding box center or default to pointer coordinates / screen center
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+
+    const targetEl = e?.currentTarget || e?.target?.closest('button');
+    if (targetEl && typeof targetEl.getBoundingClientRect === 'function') {
+      const rect = targetEl.getBoundingClientRect();
+      x = rect.left + rect.width / 2;
+      y = rect.top + rect.height / 2;
+    } else if (e?.clientX !== undefined && e?.clientY !== undefined) {
+      x = e.clientX;
+      y = e.clientY;
+    }
+
+    // Calculate maximum radius required to cover the furthest viewport corner
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
     );
 
-    // If View Transitions API is supported by browser
+    // Suppress individual element transitions during theme switch to prevent flicker
+    document.documentElement.classList.add('theme-switching');
+
+    // If View Transitions API is supported
     if (document.startViewTransition) {
       const transition = document.startViewTransition(() => {
         setTheme(nextTheme);
       });
 
+      transition.finished.finally(() => {
+        document.documentElement.classList.remove('theme-switching');
+      });
+
       transition.ready.then(() => {
+        const isDark = nextTheme === 'dark';
         const clipPath = [
           `circle(0px at ${x}px ${y}px)`,
           `circle(${endRadius}px at ${x}px ${y}px)`
@@ -46,17 +70,17 @@ export function ThemeProvider({ children }) {
 
         document.documentElement.animate(
           {
-            clipPath: nextTheme === 'dark' ? clipPath : [...clipPath].reverse()
+            clipPath: isDark ? clipPath : [...clipPath].reverse()
           },
           {
-            duration: 600,
-            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            pseudoElement: nextTheme === 'dark' ? '::view-transition-new(root)' : '::view-transition-old(root)'
+            duration: 550,
+            easing: 'cubic-bezier(0.65, 0, 0.35, 1)',
+            pseudoElement: isDark ? '::view-transition-new(root)' : '::view-transition-old(root)'
           }
         );
       });
     } else {
-      // Fallback: Custom procedural circular ripple overlay animation
+      // Fallback: Custom procedural circular ripple overlay animation anchored to button center
       const ripple = document.createElement('div');
       ripple.className = 'theme-ripple-overlay';
       ripple.style.left = `${x}px`;
@@ -78,7 +102,8 @@ export function ThemeProvider({ children }) {
         ripple.classList.add('theme-ripple-fade');
         setTimeout(() => {
           if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
-        }, 400);
+          document.documentElement.classList.remove('theme-switching');
+        }, 350);
       }, 550);
     }
   };

@@ -216,44 +216,49 @@ export default function SlyHero({ onOpenBridge }) {
                       </svg>
                     )}
 
-                    {/* Router Icon (Cisco Circular 4-Arrow Symbol) */}
+                    {/* Router Icon */}
                     {node.type === 'router' && (
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="9" />
-                        <path d="M12 7v10M7 12h10M9 9l6 6M15 9l-6 6" strokeLinecap="round" />
+                        <rect x="3" y="10" width="18" height="8" rx="1.5" />
+                        <path d="M8 10V6a1 1 0 011-1h6a1 1 0 011 1v4" />
+                        <path d="M7 14h.01M11 14h.01M15 14h.01" strokeWidth="2.6" strokeLinecap="round" />
+                        <path d="M9 5l-1-2M15 5l1-2" strokeLinecap="round" />
                       </svg>
                     )}
 
-                    {/* Firewall Icon (Palo Alto Shield / Brick Wall) */}
+                    {/* Firewall Icon */}
                     {node.type === 'firewall' && (
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <path d="M8 10h8M8 14h8M12 6v12" strokeWidth="1.5" />
+                        <path d="M12 21c4.5-2 7-5.5 7-10V6l-7-3-7 3v5c0 4.5 2.5 8 7 10z" />
+                        <path d="M8 10h3M13 10h3M8 13.5h4.5M14.5 13.5h1.5" strokeLinecap="round" />
                       </svg>
                     )}
 
-                    {/* Switch Icon (Cisco Layer 3 Multi-Layer Switch) */}
+                    {/* Switch Icon */}
                     {node.type === 'switch' && (
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="6" width="18" height="12" rx="2" />
-                        <path d="M7 10l3-2M7 14l3 2M17 10l-3-2M17 14l-3 2" strokeLinecap="round" />
+                        <rect x="2.5" y="7" width="19" height="10" rx="1" />
+                        <path d="M5.5 10.5v3M8.5 10.5v3M11.5 10.5v3M14.5 10.5v3M17.5 10.5v3" strokeLinecap="round" />
                       </svg>
                     )}
 
                     {/* WiFi Access Point Icon */}
                     {node.type === 'wifi' && (
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12.55a11 11 0 0114 0M8.5 16.1a7 7 0 017 0M12 20h.01" />
+                        <rect x="8" y="15" width="8" height="4" rx="1" />
+                        <circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none" />
+                        <path d="M9 12a4 4 0 016 0M6.5 9.5a8 8 0 0111 0" strokeLinecap="round" />
                       </svg>
                     )}
 
                     {/* Server Rack Icon */}
                     {node.type === 'server' && (
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="4" y="4" width="16" height="6" rx="1" />
-                        <rect x="4" y="14" width="16" height="6" rx="1" />
-                        <circle cx="7" cy="7" r="1" fill="currentColor" />
-                        <circle cx="7" cy="17" r="1" fill="currentColor" />
+                        <rect x="3.5" y="4" width="17" height="6" rx="1" />
+                        <rect x="3.5" y="14" width="17" height="6" rx="1" />
+                        <circle cx="7" cy="7" r="0.6" fill="currentColor" stroke="none" />
+                        <circle cx="7" cy="17" r="0.6" fill="currentColor" stroke="none" />
+                        <path d="M11 7h6M11 17h6" strokeLinecap="round" />
                       </svg>
                     )}
 

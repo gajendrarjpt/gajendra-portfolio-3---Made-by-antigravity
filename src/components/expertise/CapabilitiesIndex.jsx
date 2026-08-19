@@ -1,13 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { expertiseCategories } from '../../data/portfolioData';
 
 export default function CapabilitiesIndex() {
   const [activeId, setActiveId] = useState('routing-switching');
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mq.matches);
+    const handler = (e) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   const activeCategory = expertiseCategories.find((cat) => cat.id === activeId) || expertiseCategories[0];
 
   return (
-    <section id="capabilities" className="py-24 md:py-36 border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] text-[#121212] dark:text-white transition-colors">
+    <section id="capabilities" className="pt-8 pb-20 md:pt-10 md:pb-28 border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] text-[#121212] dark:text-white transition-colors">
+      {/* Inline 3D Panel Flip Keyframe Animation */}
+      <style>{`
+        @keyframes capPanelFlip {
+          0% {
+            opacity: 0;
+            transform: perspective(1000px) rotateY(10deg) scale(0.98);
+          }
+          100% {
+            opacity: 1;
+            transform: perspective(1000px) rotateY(0deg) scale(1);
+          }
+        }
+        .animate-cap-flip {
+          animation: capPanelFlip 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes capPanelFade {
+          0% { opacity: 0; }
+          100% { opacity: 1; }
+        }
+        .animate-cap-fade {
+          animation: capPanelFade 200ms ease-out forwards;
+        }
+      `}</style>
+
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="flex flex-col gap-3 mb-16">
@@ -26,8 +59,8 @@ export default function CapabilitiesIndex() {
 
         {/* Capabilities Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch min-h-[480px]">
-          {/* Left Index List */}
-          <div className="lg:col-span-6 flex flex-col justify-between border-y border-[#121212]/10 dark:border-[#1F1F1F] divide-y divide-[#121212]/10 dark:divide-[#1F1F1F]">
+          {/* Left Index List with Row-Press Depth */}
+          <div className="lg:col-span-6 flex flex-col justify-between border-y border-[#121212]/10 dark:border-[#1F1F1F] divide-y divide-[#121212]/10 dark:divide-[#1F1F1F] perspective-[800px]">
             {expertiseCategories.map((item) => {
               const isActive = activeId === item.id;
               return (
@@ -35,10 +68,21 @@ export default function CapabilitiesIndex() {
                   key={item.id}
                   onMouseEnter={() => setActiveId(item.id)}
                   onClick={() => setActiveId(item.id)}
-                  className={`py-5 px-4 transition-all cursor-pointer flex items-center justify-between group ${
+                  style={{
+                    transform: prefersReducedMotion
+                      ? 'none'
+                      : isActive
+                      ? 'perspective(600px) rotateX(0deg)'
+                      : undefined,
+                    boxShadow: isActive
+                      ? 'inset 2px 2px 8px rgba(0, 0, 0, 0.08)'
+                      : 'none',
+                    transition: 'transform 180ms ease-out, background-color 180ms ease-out, box-shadow 180ms ease-out',
+                  }}
+                  className={`py-5 px-4 cursor-pointer flex items-center justify-between group select-none ${
                     isActive
                       ? 'bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white border-l-4 border-l-[#0052FF]'
-                      : 'bg-transparent text-[#5A5A57] dark:text-[#888888] hover:text-[#121212] dark:hover:text-white hover:bg-[#F4F1EA]/60 dark:hover:bg-[#0A0A0A]'
+                      : 'bg-transparent text-[#5A5A57] dark:text-[#888888] hover:text-[#121212] dark:hover:text-white hover:bg-[#F4F1EA]/60 dark:hover:bg-[#0A0A0A] hover:[transform:perspective(600px)_rotateX(2.5deg)]'
                   }`}
                 >
                   <div className="flex items-baseline gap-4">
@@ -66,42 +110,49 @@ export default function CapabilitiesIndex() {
             })}
           </div>
 
-          {/* Right Detail Box */}
-          <div className="lg:col-span-6 relative border border-[#121212]/15 dark:border-[#1F1F1F] bg-[#F4F1EA] dark:bg-[#0A0A0A] p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[480px] overflow-hidden shadow-2xl">
-            <div className="flex justify-between items-center font-mono text-xs text-[#5A5A57] dark:text-[#888888] uppercase border-b border-[#121212]/10 dark:border-[#1F1F1F] pb-4">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#0052FF] dark:bg-[#00FF66]" />
-                DOMAIN // {activeCategory.number}
-              </span>
-              <span className="text-[#0052FF] font-semibold">
-                {activeCategory.shortName}
-              </span>
-            </div>
-
-            <div className="my-auto flex flex-col gap-6">
-              <h4 className="font-display text-3xl sm:text-4xl font-bold tracking-tight uppercase text-[#121212] dark:text-white">
-                {activeCategory.title}
-              </h4>
-
-              <p className="font-body text-base text-[#5A5A57] dark:text-[#AAAAAA] leading-relaxed font-normal">
-                {activeCategory.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2 pt-2 font-mono text-xs">
-                {activeCategory.items.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1.5 bg-[#FAF8F5] dark:bg-[#111111] text-[#121212] dark:text-white border border-[#121212]/15 dark:border-[#222222] uppercase font-medium"
-                  >
-                    {tech}
-                  </span>
-                ))}
+          {/* Right Detail Box with 3D Flip-Turn Reveal Animation */}
+          <div className="lg:col-span-6 relative border border-[#121212]/15 dark:border-[#1F1F1F] bg-[#F4F1EA] dark:bg-[#0A0A0A] p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[480px] overflow-hidden shadow-2xl [perspective:1000px] [transform-style:preserve-3d]">
+            <div
+              key={activeCategory.id}
+              className={`flex flex-col justify-between h-full w-full ${
+                prefersReducedMotion ? 'animate-cap-fade' : 'animate-cap-flip'
+              }`}
+            >
+              <div className="flex justify-between items-center font-mono text-xs text-[#5A5A57] dark:text-[#888888] uppercase border-b border-[#121212]/10 dark:border-[#1F1F1F] pb-4">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#0052FF] dark:bg-[#00FF66]" />
+                  DOMAIN // {activeCategory.number}
+                </span>
+                <span className="text-[#0052FF] font-semibold">
+                  {activeCategory.shortName}
+                </span>
               </div>
-            </div>
 
-            <div className="flex justify-between items-center font-mono text-[10px] text-[#5A5A57] dark:text-[#60605C] uppercase border-t border-[#121212]/10 dark:border-[#1F1F1F] pt-4">
-              <span>SCOPE: {activeCategory.metrics}</span>
-              <span>VERIFIED EXPERTISE</span>
+              <div className="my-auto flex flex-col gap-6 py-6">
+                <h4 className="font-display text-3xl sm:text-4xl font-bold tracking-tight uppercase text-[#121212] dark:text-white">
+                  {activeCategory.title}
+                </h4>
+
+                <p className="font-body text-base text-[#5A5A57] dark:text-[#AAAAAA] leading-relaxed font-normal">
+                  {activeCategory.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 pt-2 font-mono text-xs">
+                  {activeCategory.items.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1.5 bg-[#FAF8F5] dark:bg-[#111111] text-[#121212] dark:text-white border border-[#121212]/15 dark:border-[#222222] uppercase font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center font-mono text-[10px] text-[#5A5A57] dark:text-[#60605C] uppercase border-t border-[#121212]/10 dark:border-[#1F1F1F] pt-4">
+                <span>SCOPE: {activeCategory.metrics}</span>
+                <span>VERIFIED EXPERTISE</span>
+              </div>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ export default function CareerStory() {
   const [activeStage, setActiveStage] = useState(2);
 
   return (
-    <section id="story" className="py-24 md:py-36 border-b border-[#121212]/10 dark:border-[#222222] bg-[#FAF8F5] dark:bg-[#000000] relative transition-colors">
+    <section id="story" className="pt-8 pb-20 md:pt-10 md:pb-28 border-b border-[#121212]/10 dark:border-[#222222] bg-[#FAF8F5] dark:bg-[#000000] relative transition-colors">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="flex flex-col gap-3 mb-16">

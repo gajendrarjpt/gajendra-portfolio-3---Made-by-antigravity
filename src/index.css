@@ -94,9 +94,21 @@ html.dark .bg-sly-grid {
   transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s ease;
 }
 
+/* Suppress individual element transitions while a theme switch is actively running */
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+}
+
 /* Canvas, video, images, buttons, and animations excluded from background color transitions for performance */
 canvas, img, svg, video, .no-theme-transition {
   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Exclude procedural canvas animations and status LEDs from View Transitions root snapshot to keep them live */
+canvas, .animate-pulse {
+  view-transition-name: none;
 }
 
 /* Circular View Transitions API styling */

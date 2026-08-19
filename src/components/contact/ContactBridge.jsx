@@ -3,7 +3,7 @@ import { profile, socials, certifications, education } from '../../data/portfoli
 
 export default function ContactBridge({ onOpenBridge }) {
   return (
-    <section id="contact" className="py-24 md:py-36 border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] text-[#121212] dark:text-white relative transition-colors">
+    <section id="contact" className="pt-8 pb-20 md:pt-10 md:pb-28 border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] text-[#121212] dark:text-white relative transition-colors">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex items-center gap-2 font-mono text-xs text-[#0052FF] tracking-widest uppercase mb-8">
           <span>06 / DIRECT CONNECT</span>
