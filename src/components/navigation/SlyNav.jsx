@@ -67,11 +67,12 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
             {/* Prominent Dark/Light Theme Button with Trending SVG Icons */}
             <button
               type="button"
-              id="theme-toggle-btn"
+              id="theme-toggle-desktop-btn"
               data-theme-toggle="true"
               onClick={(e) => {
                 e.stopPropagation();
-                toggleTheme(e);
+                const rect = e.currentTarget.getBoundingClientRect();
+                toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
               }}
               className="font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase px-3 sm:px-4 py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-2 cursor-pointer pointer-events-auto shrink-0 group"
               title="Toggle Dark / Light Theme"
@@ -87,7 +88,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
               ) : (
                 <>
                   <svg className="w-3.5 h-3.5 text-[#0052FF] transition-transform duration-300 group-hover:-rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z" />
                   </svg>
                   <span>DARK</span>
                 </>
@@ -118,10 +119,12 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
           <div className="xl:hidden flex items-center gap-2">
             <button
               type="button"
+              id="theme-toggle-mobile-btn"
               data-theme-toggle="true"
               onClick={(e) => {
                 e.stopPropagation();
-                toggleTheme(e);
+                const rect = e.currentTarget.getBoundingClientRect();
+                toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
               }}
               className="font-mono text-[10px] font-bold px-2.5 py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] cursor-pointer pointer-events-auto flex items-center gap-1.5"
             >
@@ -136,7 +139,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
               ) : (
                 <>
                   <svg className="w-3 h-3 text-[#0052FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z" />
                   </svg>
                   <span>DARK</span>
                 </>
@@ -181,7 +184,12 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
         <div className="flex flex-col gap-4 pt-6 border-t border-[#121212]/10 dark:border-[#1F1F1F] font-mono text-xs text-[#5A5A57] dark:text-[#888888]">
           <button
             type="button"
-            onClick={(e) => toggleTheme(e)}
+            id="theme-toggle-drawer-btn"
+            data-theme-toggle="true"
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+            }}
             className="w-full py-3 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto flex items-center justify-center gap-2"
           >
             {theme === 'dark' ? (
