@@ -125,7 +125,7 @@ export default function SlyHero({ onOpenBridge }) {
   }, []);
 
   return (
-    <section className="relative pt-36 pb-20 md:pt-44 md:pb-32 min-h-[92vh] flex flex-col justify-between border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] bg-sly-grid overflow-hidden transition-colors">
+    <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 min-h-[90vh] flex flex-col justify-between border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] bg-sly-grid overflow-hidden transition-colors">
       {/* Ambient Radial Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-blue-glow pointer-events-none" />
 
