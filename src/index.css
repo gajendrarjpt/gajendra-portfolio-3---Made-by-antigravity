@@ -28,7 +28,6 @@
     -webkit-font-smoothing: antialiased;
     overscroll-behavior: none;
     overflow-x: clip;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   html.dark {
@@ -89,9 +88,9 @@ html.dark .bg-sly-grid {
   scrollbar-width: none;
 }
 
-/* Smooth global component transitions */
-* {
-  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s ease;
+/* Smooth component transitions for interactive hover states */
+a, button, input {
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
 /* Suppress individual element transitions while a theme switch is actively running */

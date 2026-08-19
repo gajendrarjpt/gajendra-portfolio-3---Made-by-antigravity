@@ -8,8 +8,8 @@ export function ThemeProvider({ children }) {
     return saved ? saved : 'light';
   });
 
+  const [isSwitching, setIsSwitching] = useState(false);
   const lastButtonCenter = useRef({ x: window.innerWidth - 220, y: 36 });
-  const isThrottledRef = useRef(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -81,11 +81,8 @@ export function ThemeProvider({ children }) {
     }
 
     // Prevent clashing rapid clicks from desynchronizing coordinates
-    if (isThrottledRef.current) return;
-    isThrottledRef.current = true;
-    setTimeout(() => {
-      isThrottledRef.current = false;
-    }, 400);
+    if (isSwitching) return;
+    setIsSwitching(true);
 
     // Always accurately anchor to the Dark/Light theme button
     const { x, y } = getThemeButtonCenter(e, explicitCoords);
@@ -116,28 +113,32 @@ export function ThemeProvider({ children }) {
             },
             {
               duration: 480,
-              easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+              easing: 'cubic-bezier(0.2, 0, 0, 1)',
               fill: 'forwards',
               pseudoElement: '::view-transition-new(root)'
             }
           );
 
           anim.finished.finally(() => {
+            setIsSwitching(false);
             requestAnimationFrame(() => {
               document.documentElement.classList.remove('theme-switching');
             });
           });
         }).catch(() => {
+          setIsSwitching(false);
           document.documentElement.classList.remove('theme-switching');
         });
 
         transition.finished.finally(() => {
+          setIsSwitching(false);
           requestAnimationFrame(() => {
             document.documentElement.classList.remove('theme-switching');
           });
         });
       } catch (err) {
         setTheme(nextTheme);
+        setIsSwitching(false);
         document.documentElement.classList.remove('theme-switching');
       }
     } else {
@@ -163,6 +164,7 @@ export function ThemeProvider({ children }) {
         ripple.classList.add('theme-ripple-fade');
         setTimeout(() => {
           if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+          setIsSwitching(false);
           document.documentElement.classList.remove('theme-switching');
         }, 280);
       }, 420);
@@ -170,7 +172,7 @@ export function ThemeProvider({ children }) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, isSwitching }}>
       {children}
     </ThemeContext.Provider>
   );
