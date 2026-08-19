@@ -88,3 +88,56 @@ html.dark .bg-sly-grid {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Smooth global component transitions */
+* {
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s ease;
+}
+
+/* Canvas, video, images, buttons, and animations excluded from background color transitions for performance */
+canvas, img, svg, video, .no-theme-transition {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Circular View Transitions API styling */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* Procedural Circular Ripple Overlay Fallback */
+.theme-ripple-overlay {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%) scale(0);
+  width: var(--ripple-radius, 2000px);
+  height: var(--ripple-radius, 2000px);
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+}
+
+.theme-ripple-overlay.theme-ripple-active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.theme-ripple-overlay.theme-ripple-fade {
+  opacity: 0;
+}

@@ -68,7 +68,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                toggleTheme();
+                toggleTheme(e);
               }}
               className="font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase px-3 sm:px-4 py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-1.5 cursor-pointer pointer-events-auto shrink-0"
               title="Toggle Dark / Light Theme"
@@ -100,7 +100,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                toggleTheme();
+                toggleTheme(e);
               }}
               className="font-mono text-[10px] font-bold px-2.5 py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] cursor-pointer pointer-events-auto"
             >
@@ -145,7 +145,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
         <div className="flex flex-col gap-4 pt-6 border-t border-[#121212]/10 dark:border-[#1F1F1F] font-mono text-xs text-[#5A5A57] dark:text-[#888888]">
           <button
             type="button"
-            onClick={toggleTheme}
+            onClick={(e) => toggleTheme(e)}
             className="w-full py-3 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto"
           >
             SWITCH TO {theme === 'dark' ? '☀️ LIGHT MODE' : '🌙 DARK MODE'}
