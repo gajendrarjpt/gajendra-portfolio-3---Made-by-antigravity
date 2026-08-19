@@ -18,11 +18,12 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
   }, []);
 
   const navLinks = [
-    { label: 'ABOUT', href: '#about' },
-    { label: 'ENGINE', href: '#engine' },
-    { label: 'SCREENING ROOM', href: '#screening-room' },
-    { label: 'CAPABILITIES', href: '#capabilities' },
-    { label: 'CAREER LOG', href: '#log' },
+    { label: 'JOURNEY', href: '#journey' },
+    { label: 'STORY', href: '#story' },
+    { label: 'LAB', href: '#engine' },
+    { label: 'INCIDENTS', href: '#incidents' },
+    { label: 'PHILOSOPHY', href: '#philosophy' },
+    { label: 'EXPERIENCE', href: '#log' },
     { label: 'CONNECT', href: '#contact' },
   ];
 

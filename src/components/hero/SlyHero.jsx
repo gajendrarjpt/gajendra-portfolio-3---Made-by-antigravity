@@ -171,15 +171,15 @@ export default function SlyHero({ onOpenBridge }) {
 
           <div className="flex flex-col gap-2 max-w-full">
             <h1 className="font-display text-4xl sm:text-6xl lg:text-5xl xl:text-7xl font-bold tracking-tight uppercase leading-[0.92] text-[#121212] dark:text-white break-words">
-              NETWORKS THAT SCALE.
+              GAJENDRA RAJPUT.
             </h1>
-            <h1 className="font-display text-4xl sm:text-6xl lg:text-5xl xl:text-7xl font-bold tracking-tight uppercase leading-[0.92] text-[#5A5A57] dark:text-[#888888] break-words">
-              ENTERPRISE INFRASTRUCTURE.
+            <h1 className="font-display text-3xl sm:text-5xl lg:text-4xl xl:text-6xl font-bold tracking-tight uppercase leading-[0.94] text-[#5A5A57] dark:text-[#888888] break-words">
+              ENGINEERING THE INVISIBLE.
             </h1>
           </div>
 
           <p className="font-body text-base sm:text-lg lg:text-xl text-[#5A5A57] dark:text-[#AAAAAA] max-w-xl font-normal leading-relaxed">
-            I design, troubleshoot, and operate high-availability enterprise networks where uptime matters — spanning Cisco routing & switching, multi-vendor firewalls, deep Wireshark telemetry, and NOC incident leadership.
+            I design, troubleshoot, and operate the enterprise infrastructure people rarely see, but depend on every second — spanning Cisco routing & switching, multi-vendor firewalls, deep Wireshark telemetry, and mission-critical NOC incident command.
           </p>
 
           {/* Action CTAs */}
@@ -196,10 +196,10 @@ export default function SlyHero({ onOpenBridge }) {
 
             <MagneticButton>
               <a
-                href="#engine"
+                href="#journey"
                 className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#FAF8F5] dark:bg-[#0A0A0A] hover:bg-[#F4F1EA] dark:hover:bg-[#111111] transition-all inline-block"
               >
-                EXPLORE PROTOCOL LAB
+                FOLLOW THE PACKET ↓
               </a>
             </MagneticButton>
           </div>

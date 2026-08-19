@@ -7,9 +7,12 @@ import ScrollProgress from './components/layout/ScrollProgress';
 import FilmGrainOverlay from './components/ui/FilmGrainOverlay';
 import SlyNav from './components/navigation/SlyNav';
 import SlyHero from './components/hero/SlyHero';
+import PacketJourney from './components/journey/PacketJourney';
 import CareerStory from './components/about/CareerStory';
 import IntelligenceEngine from './components/lab/IntelligenceEngine';
+import EngineeringIncidents from './components/incidents/EngineeringIncidents';
 import ScreeningRoom from './components/notes/ScreeningRoom';
+import AboutHuman from './components/about/AboutHuman';
 import CapabilitiesIndex from './components/expertise/CapabilitiesIndex';
 import CareerLog from './components/experience/CareerLog';
 import ContactBridge from './components/contact/ContactBridge';
@@ -73,13 +76,12 @@ export default function App() {
 
       <main className={`transition-opacity duration-700 ${loadingComplete ? 'opacity-100' : 'opacity-0'}`}>
         <SlyHero onOpenBridge={handleOpenBridge} />
-        
-        <div id="about">
-          <CareerStory />
-        </div>
-
+        <PacketJourney />
+        <CareerStory />
         <IntelligenceEngine />
+        <EngineeringIncidents />
         <ScreeningRoom />
+        <AboutHuman />
         <CapabilitiesIndex />
         <CareerLog />
         <ContactBridge onOpenBridge={handleOpenBridge} />
