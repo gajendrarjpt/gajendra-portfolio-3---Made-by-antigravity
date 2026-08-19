@@ -137,15 +137,6 @@ MONITORING: Wireshark, Syslog, Telemetry, SolarWinds`
 
   return (
     <>
-      <button
-        onClick={() => setInternalOpen(true)}
-        className="fixed bottom-6 right-6 z-40 font-mono text-xs font-bold px-4 py-3 bg-[#111111] text-white border border-[#0052FF] shadow-2xl flex items-center gap-2.5 hover:scale-105 transition-all cursor-pointer no-theme-transition"
-      >
-        <span className="w-2 h-2 rounded-full bg-[#00FF66] animate-pulse" />
-        <span>[+] NOC TERMINAL</span>
-        <span className="text-[10px] text-[#888888] hidden sm:inline">(CTRL+K)</span>
-      </button>
-
       <div
         className={`fixed inset-0 z-50 bg-black/80 backdrop-blur-xs transition-opacity duration-300 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
