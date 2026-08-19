@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { networkLabDomains } from '../../data/portfolioData';
+import { networkLabDomains, protocolStateMachines } from '../../data/portfolioData';
 
 export default function IntelligenceEngine() {
   const [activeDomainId, setActiveDomainId] = useState('routing');
-  const [viewMode, setViewMode] = useState('schematic'); // 'schematic' (MNC Diagram) | 'mesh' (Interactive Nodes)
+  const [viewMode, setViewMode] = useState('schematic'); // 'schematic' | 'protocol' | 'mesh'
   const [hoveredNodeId, setHoveredNodeId] = useState(null);
   const [fullscreenImage, setFullscreenImage] = useState(null);
+  const [activeProtocolId, setActiveProtocolId] = useState('ospf-convergence');
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const canvasRef = useRef(null);
 
   const activeDomain = networkLabDomains.find((d) => d.id === activeDomainId) || networkLabDomains[0];
+  const activeProtocol = protocolStateMachines.find((p) => p.id === activeProtocolId) || protocolStateMachines[0];
+  const currentStep = activeProtocol.steps[activeStepIndex] || activeProtocol.steps[0];
 
   // Canvas mesh render for interactive mode
   useEffect(() => {
@@ -37,6 +41,8 @@ export default function IntelligenceEngine() {
       if (progress > 1) progress = 0;
       ctx.clearRect(0, 0, width, height);
 
+      const isDark = document.documentElement.classList.contains('dark');
+
       activeDomain.connections.forEach((conn) => {
         const sourceNode = activeDomain.nodes.find((n) => n.id === conn.from);
         const targetNode = activeDomain.nodes.find((n) => n.id === conn.to);
@@ -50,7 +56,7 @@ export default function IntelligenceEngine() {
           ctx.beginPath();
           ctx.moveTo(x1, y1);
           ctx.lineTo(x2, y2);
-          ctx.strokeStyle = conn.signal ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.08)';
+          ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(18, 18, 18, 0.15)';
           ctx.lineWidth = 1.5;
           ctx.stroke();
 
@@ -60,14 +66,8 @@ export default function IntelligenceEngine() {
 
             ctx.beginPath();
             ctx.arc(sx, sy, 3.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#00FF66';
+            ctx.fillStyle = isDark ? '#00FF66' : '#0052FF';
             ctx.fill();
-
-            ctx.beginPath();
-            ctx.arc(sx, sy, 7, 0, Math.PI * 2);
-            ctx.strokeStyle = 'rgba(0, 255, 102, 0.4)';
-            ctx.lineWidth = 1;
-            ctx.stroke();
           }
         }
       });
@@ -78,17 +78,12 @@ export default function IntelligenceEngine() {
         const isNodeHovered = hoveredNodeId === node.id;
 
         ctx.beginPath();
-        ctx.arc(nx, ny, isNodeHovered ? 12 : 8, 0, Math.PI * 2);
-        ctx.fillStyle = '#0A0A0A';
+        ctx.arc(nx, ny, isNodeHovered ? 11 : 7, 0, Math.PI * 2);
+        ctx.fillStyle = isDark ? '#111111' : '#FAF8F5';
         ctx.fill();
-        ctx.strokeStyle = isNodeHovered ? '#00FF66' : '#FFFFFF';
+        ctx.strokeStyle = isNodeHovered ? (isDark ? '#00FF66' : '#0052FF') : (isDark ? '#444' : '#BBB');
         ctx.lineWidth = isNodeHovered ? 2 : 1.5;
         ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(nx, ny, 3, 0, Math.PI * 2);
-        ctx.fillStyle = isNodeHovered ? '#00FF66' : '#FFFFFF';
-        ctx.fill();
       });
 
       animationFrameId = requestAnimationFrame(render);
@@ -105,84 +100,133 @@ export default function IntelligenceEngine() {
   return (
     <section id="engine" className="pt-8 pb-20 md:pt-10 md:pb-28 border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] text-[#121212] dark:text-white relative transition-colors">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
+        
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2 font-mono text-xs text-[#0052FF] tracking-widest uppercase">
+            <div className="flex items-center gap-2 font-mono text-xs text-[#0052FF] dark:text-[#00FF66] tracking-widest uppercase">
               <span>02 / INTELLIGENCE ENGINE</span>
               <span>·</span>
               <span>ENTERPRISE NETWORK INSTRUMENT</span>
             </div>
             <h2 className="font-display text-4xl sm:text-6xl font-bold tracking-tighter uppercase text-[#121212] dark:text-white">
-              NETWORK ARCHITECTURE & DIAGRAMS.
+              NETWORK ARCHITECTURE & LABS.
             </h2>
             <p className="font-body text-lg text-[#5A5A57] dark:text-[#AAAAAA] max-w-2xl font-normal">
-              Enterprise MNC network topology schematics & NOC telemetry dashboards across core routing, switching stacks, multi-vendor firewalls, WLAN, infrastructure, and monitoring.
+              Enterprise MNC network topology schematics, live protocol state-machine step-throughs, and NOC telemetry dashboards across core routing, multi-vendor firewalls, and switching stacks.
             </p>
           </div>
 
-          {/* View Mode Switcher (Schematic Diagram vs Interactive Mesh) */}
-          <div className="flex items-center gap-2 p-1 bg-[#F4F1EA] dark:bg-[#0A0A0A] border border-[#121212]/15 dark:border-[#1F1F1F]">
+          {/* View Mode Switcher */}
+          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-[#F4F1EA] dark:bg-[#0A0A0A] border border-[#121212]/15 dark:border-[#1F1F1F]">
             <button
               onClick={() => setViewMode('schematic')}
-              className={`px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider transition-all ${
+              className={`px-3.5 py-1.5 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 viewMode === 'schematic'
-                  ? 'bg-[#0052FF] text-white shadow-lg'
+                  ? 'bg-[#0052FF] text-white shadow-md'
                   : 'text-[#5A5A57] dark:text-[#888888] hover:text-[#121212] dark:hover:text-white'
               }`}
             >
-              [+] MNC SCHEMATIC DIAGRAM
+              [+] MNC SCHEMATICS
             </button>
+
+            <button
+              onClick={() => setViewMode('protocol')}
+              className={`px-3.5 py-1.5 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                viewMode === 'protocol'
+                  ? 'bg-[#0052FF] text-white shadow-md'
+                  : 'text-[#5A5A57] dark:text-[#888888] hover:text-[#121212] dark:hover:text-white'
+              }`}
+            >
+              [+] PROTOCOL STATE MACHINE
+            </button>
+
             <button
               onClick={() => setViewMode('mesh')}
-              className={`px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider transition-all ${
+              className={`px-3.5 py-1.5 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 viewMode === 'mesh'
-                  ? 'bg-[#0052FF] text-white shadow-lg'
+                  ? 'bg-[#0052FF] text-white shadow-md'
                   : 'text-[#5A5A57] dark:text-[#888888] hover:text-[#121212] dark:hover:text-white'
               }`}
             >
-              [+] INTERACTIVE MESH
+              [+] LIVE MESH
             </button>
           </div>
         </div>
 
-        {/* Domain Selector Track */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-8 font-mono text-[11px] sm:text-xs">
-          {networkLabDomains.map((dom) => {
-            const isActive = activeDomainId === dom.id;
-            return (
-              <button
-                key={dom.id}
-                onClick={() => setActiveDomainId(dom.id)}
-                className={`py-3 px-3.5 font-semibold tracking-wider uppercase border transition-all flex items-center justify-between text-left truncate ${
-                  isActive
-                    ? 'bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white border-[#0052FF]'
-                    : 'bg-[#FAF8F5] dark:bg-[#0A0A0A] text-[#5A5A57] dark:text-[#888888] border-[#121212]/15 dark:border-[#1F1F1F] hover:text-[#121212] dark:hover:text-white hover:border-[#121212]/30 dark:hover:border-[#2A2A2A]'
-                }`}
-              >
-                <span className="truncate">{dom.id}</span>
-                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ml-1 ${isActive ? 'bg-[#0052FF] dark:bg-[#00FF66]' : 'bg-transparent'}`} />
-              </button>
-            );
-          })}
-        </div>
+        {/* View Mode 1 & 3: Domain Selector Track */}
+        {viewMode !== 'protocol' && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-8 font-mono text-[11px] sm:text-xs">
+            {networkLabDomains.map((dom) => {
+              const isActive = activeDomainId === dom.id;
+              return (
+                <button
+                  key={dom.id}
+                  onClick={() => setActiveDomainId(dom.id)}
+                  className={`py-3 px-3.5 font-semibold tracking-wider uppercase border transition-all flex items-center justify-between text-left truncate cursor-pointer ${
+                    isActive
+                      ? 'bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white border-[#0052FF]'
+                      : 'bg-[#FAF8F5] dark:bg-[#0A0A0A] text-[#5A5A57] dark:text-[#888888] border-[#121212]/15 dark:border-[#1F1F1F] hover:text-[#121212] dark:hover:text-white hover:border-[#121212]/30 dark:hover:border-[#2A2A2A]'
+                  }`}
+                >
+                  <span className="truncate">{dom.id}</span>
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ml-1 ${isActive ? 'bg-[#0052FF] dark:bg-[#00FF66]' : 'bg-transparent'}`} />
+                </button>
+              );
+            })}
+          </div>
+        )}
 
-        {/* Responsive Geometry Box */}
+        {/* View Mode 2: Protocol Selector Track */}
+        {viewMode === 'protocol' && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-8 font-mono text-xs">
+            {protocolStateMachines.map((proto) => {
+              const isActive = activeProtocolId === proto.id;
+              return (
+                <button
+                  key={proto.id}
+                  onClick={() => {
+                    setActiveProtocolId(proto.id);
+                    setActiveStepIndex(0);
+                  }}
+                  className={`py-3 px-4 font-bold tracking-wider uppercase border transition-all flex items-center justify-between text-left cursor-pointer ${
+                    isActive
+                      ? 'bg-[#0052FF] text-white border-[#0052FF] shadow-lg'
+                      : 'bg-[#F4F1EA] dark:bg-[#111111] text-[#5A5A57] dark:text-[#AAAAAA] border-[#121212]/15 dark:border-[#1F1F1F] hover:border-[#0052FF]'
+                  }`}
+                >
+                  <div>
+                    <div className="text-[10px] opacity-75">{proto.category}</div>
+                    <div className="truncate font-display">{proto.protocol}</div>
+                  </div>
+                  <span className="text-xs">→</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Main Interactive Deck */}
         <div className="w-full min-h-[540px] sm:min-h-[580px] border border-[#121212]/15 dark:border-[#1F1F1F] bg-[#F4F1EA] dark:bg-[#0A0A0A] relative flex flex-col justify-between p-5 sm:p-8 overflow-hidden shadow-2xl">
+          
           {/* Top Panel Header */}
           <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#5A5A57] dark:text-[#888888] border-b border-[#121212]/10 dark:border-[#1F1F1F] pb-4 z-10 bg-[#F4F1EA]/90 dark:bg-[#0A0A0A]/90">
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#0052FF] dark:bg-[#00FF66] animate-pulse" />
-              <span className="font-bold text-[#121212] dark:text-white uppercase">{activeDomain.label}</span>
+              <span className="font-bold text-[#121212] dark:text-white uppercase">
+                {viewMode === 'protocol' ? activeProtocol.title : activeDomain.label}
+              </span>
               <span>·</span>
-              <span className="text-[#0052FF] dark:text-[#00FF66]">{activeDomain.status}</span>
+              <span className="text-[#0052FF] dark:text-[#00FF66]">
+                {viewMode === 'protocol' ? `STEP ${activeStepIndex + 1} OF ${activeProtocol.steps.length}` : activeDomain.status}
+              </span>
             </div>
+
             <div className="flex items-center gap-4 text-[10px] text-[#5A5A57] dark:text-[#60605C] uppercase">
-              <span>FORMAT: MNC ENTERPRISE SPEC</span>
               {activeDomain.diagramImage && viewMode === 'schematic' && (
                 <button
                   onClick={() => setFullscreenImage(activeDomain.diagramImage)}
-                  className="text-[#0052FF] hover:underline font-bold uppercase"
+                  className="text-[#0052FF] hover:underline font-bold uppercase cursor-pointer"
                 >
                   EXPAND FULLSCREEN ↗
                 </button>
@@ -190,7 +234,7 @@ export default function IntelligenceEngine() {
             </div>
           </div>
 
-          {/* View Mode 1: MNC Professional Network Architecture Diagram */}
+          {/* VIEW 1: MNC Schematic Architecture Diagram */}
           {viewMode === 'schematic' && activeDomain.diagramImage && (
             <div
               onClick={() => setFullscreenImage(activeDomain.diagramImage)}
@@ -210,11 +254,72 @@ export default function IntelligenceEngine() {
             </div>
           )}
 
-          {/* View Mode 2: Interactive Topology Canvas Mesh */}
+          {/* VIEW 2: Interactive Protocol Step-Through State Machine Engine */}
+          {viewMode === 'protocol' && (
+            <div className="flex flex-col gap-6 my-auto z-10">
+              
+              {/* Step Navigation Track */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#121212]/10 dark:border-[#222]">
+                {activeProtocol.steps.map((s, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveStepIndex(idx)}
+                    className={`px-3 py-2 font-mono text-xs font-bold uppercase whitespace-nowrap rounded-xs border transition-all cursor-pointer ${
+                      activeStepIndex === idx
+                        ? 'bg-[#0052FF] text-white border-[#0052FF]'
+                        : 'bg-[#FAF8F5] dark:bg-[#111111] text-[#5A5A57] dark:text-[#888888] border-[#121212]/10 dark:border-[#2A2A2A] hover:text-[#121212] dark:hover:text-white'
+                    }`}
+                  >
+                    <span>0{s.step}: {s.state}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* State Description & Telemetry CLI Output */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <div className="lg:col-span-5 flex flex-col gap-3 font-body">
+                  <div className="font-mono text-xs text-[#0052FF] dark:text-[#00FF66] font-bold uppercase">
+                    STATE // {currentStep.state}
+                  </div>
+                  <h3 className="font-display text-xl font-bold uppercase tracking-tight text-[#121212] dark:text-white">
+                    {currentStep.desc}
+                  </h3>
+                  <div className="flex gap-2 pt-2 font-mono text-xs">
+                    <button
+                      disabled={activeStepIndex === 0}
+                      onClick={() => setActiveStepIndex(Math.max(0, activeStepIndex - 1))}
+                      className="px-4 py-2 border border-[#121212]/20 dark:border-[#333] font-bold uppercase disabled:opacity-40 cursor-pointer"
+                    >
+                      ← PREVIOUS
+                    </button>
+                    <button
+                      disabled={activeStepIndex === activeProtocol.steps.length - 1}
+                      onClick={() => setActiveStepIndex(Math.min(activeProtocol.steps.length - 1, activeStepIndex + 1))}
+                      className="px-4 py-2 bg-[#0052FF] text-white font-bold uppercase disabled:opacity-40 cursor-pointer"
+                    >
+                      NEXT STEP →
+                    </button>
+                  </div>
+                </div>
+
+                {/* Real-time CLI / Wireshark Hex Telemetry Display */}
+                <div className="lg:col-span-7 bg-[#000000] text-[#00FF66] font-mono text-xs p-4 rounded-xs border border-[#222222] shadow-inner overflow-x-auto max-h-[260px]">
+                  <div className="text-[10px] text-[#888888] border-b border-[#222] pb-1.5 mb-2.5 flex justify-between">
+                    <span>LIVE CISCO IOS / WIRESHARK TERMINAL TELEMETRY</span>
+                    <span>BUFFER: OK</span>
+                  </div>
+                  <pre className="whitespace-pre-wrap leading-relaxed">
+                    {currentStep.cli}
+                  </pre>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* VIEW 3: Live Topology Canvas Mesh */}
           {viewMode === 'mesh' && (
             <div className="relative w-full h-[320px] sm:h-[360px] my-auto">
               <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block" />
-
               {activeDomain.nodes.map((node) => {
                 const isHovered = hoveredNodeId === node.id;
                 return (

@@ -506,3 +506,88 @@ export const socials = {
     url: 'https://www.instagram.com/_gajendra.______/'
   }
 };
+
+// Hero Live Network Interactive Simulations
+export const heroSimulations = {
+  normal: {
+    id: 'normal',
+    label: 'NORMAL L2/L3 FORWARDING',
+    badge: 'STEADY STATE',
+    badgeTone: 'emerald',
+    description: 'BGP AS65001 WAN peering active. Palo Alto Layer 7 App-ID inspection nominal. Cisco Cat 9300 core stack forwarding VLAN 10/20 at 10Gbps line rate.',
+    packetSpeed: 0.012,
+    packetType: 'clean',
+    metrics: { latency: '0.84 ms', loss: '0.00%', throughput: '9.82 Gbps', linkStatus: 'OPTIMAL' }
+  },
+  failover: {
+    id: 'failover',
+    label: '⚡ SIMULATE FIBER CUT (BGP / OSPF FAILOVER)',
+    badge: 'HA ACTIVE',
+    badgeTone: 'amber',
+    description: 'Primary WAN Gi0/0/1 severed. BFD triggers sub-second fast-reroute; OSPF neighbor convergence instantly redirects enterprise traffic via backup secondary gateway.',
+    packetSpeed: 0.018,
+    packetType: 'failover',
+    metrics: { latency: '2.14 ms', loss: '0.01%', throughput: '8.40 Gbps', linkStatus: 'FAILOVER REROUTED' }
+  },
+  threat: {
+    id: 'threat',
+    label: '🛡️ SIMULATE DDoS / THREAT MITIGATION',
+    badge: 'SECURITY SCRUBBING',
+    badgeTone: 'rose',
+    description: 'Malicious SYN flood detected at boundary. Palo Alto PA-3220 enforces Zone-Protection profile: scrubbing rogue red packets while green enterprise payloads pass untouched.',
+    packetSpeed: 0.015,
+    packetType: 'threat',
+    metrics: { latency: '1.02 ms', loss: '0.00% (Legitimate)', throughput: 'Clean 9.1 Gbps', linkStatus: 'ATTACK MITIGATED' }
+  },
+  wireshark: {
+    id: 'wireshark',
+    label: '🔍 DEEP PACKET INSPECTION (SPAN MIRROR)',
+    badge: 'PCAP ACTIVE',
+    badgeTone: 'blue',
+    description: 'Capturing live Ethernet Frame on Core Switch Port Gi1/0/24 SPAN mirror. Decoding 802.1Q tag, IP Header TTL, and TCP 3-Way Handshake flags.',
+    packetSpeed: 0.008,
+    packetType: 'wireshark',
+    metrics: { latency: '0.78 ms', loss: '0.00%', throughput: '10.0 Gbps SPAN', linkStatus: 'TELEMETRY STREAMING' }
+  }
+};
+
+// Protocol Step-Through State Machine Engine
+export const protocolStateMachines = [
+  {
+    id: 'ospf-convergence',
+    title: 'OSPFv2 Multi-Area Adjacency & Link-State Convergence',
+    protocol: 'OSPF (RFC 2328)',
+    category: 'Routing Protocol',
+    steps: [
+      { step: 1, state: 'DOWN', desc: 'No Hello packets received on interface Gi0/0/1.', cli: 'R1# show ip ospf neighbor\nNeighbor ID  Pri  State  Dead Time  Address  Interface\n(No active adjacencies found)' },
+      { step: 2, state: 'INIT', desc: 'Received Hello packet from Neighbor R2, but R1 Router-ID is not yet listed in neighbor active list.', cli: 'R1# debug ip ospf events\n*Mar 1 09:12:01.104: OSPF-1 EVENT: Received Hello from 192.168.1.2 on Gi0/0/1 (INIT state)' },
+      { step: 3, state: '2-WAY', desc: 'Bidirectional communication established. DR/BDR election begins on broadcast multi-access segment.', cli: 'R1# show ip ospf neighbor\nNeighbor ID: 192.168.1.2  Pri: 1  State: 2WAY/DROTHER  Address: 192.168.1.2' },
+      { step: 4, state: 'EXSTART / EXCHANGE', desc: 'Master/Slave negotiation using Database Description (DBD) packets with Initial Sequence Number (ISN).', cli: 'R1# debug ip ospf packet\n*Mar 1 09:12:01.320: OSPF-1 PACKET: Send DBD to 192.168.1.2 seq 0x1A40 (Exchange State)' },
+      { step: 5, state: 'LOADING', desc: 'Link State Requests (LSR) sent for missing LSAs; Link State Updates (LSU) flooding link-state database.', cli: 'R1# show ip ospf database\n            OSPF Router with ID (192.168.1.1) (Process ID 1)\n                Router Link States (Area 0)\nLink ID         ADV Router      Age         Seq#       Checksum\n192.168.1.1     192.168.1.1     42          0x80000003 0x00A1F2' },
+      { step: 6, state: 'FULL (CONVERGED)', desc: 'Shortest Path First (Dijkstra SPF) recalculation completed. All OSPF LSDBs identical across Area 0.', cli: 'R1# show ip route ospf\nO    10.0.10.0/24 [110/2] via 192.168.1.2, 00:14:22, GigabitEthernet0/0/1\nO    10.0.20.0/24 [110/2] via 192.168.1.2, 00:14:22, GigabitEthernet0/0/1\nSTATUS: TOPOLOGY 100% CONVERGED' }
+    ]
+  },
+  {
+    id: 'tcp-handshake',
+    title: 'Wireshark TCP 3-Way Handshake & Deep Packet Flow',
+    protocol: 'TCP/IP (RFC 793)',
+    category: 'Deep Packet Inspection',
+    steps: [
+      { step: 1, state: '[SYN] CLIENT REQUEST', desc: 'Client sends SYN packet with Initial Sequence Number (Seq=0) and MSS negotiation (MSS=1460).', cli: 'Frame 1: 74 bytes on wire (592 bits)\nTransmission Control Protocol, Src Port: 54102, Dst Port: 443 (HTTPS)\nFlags: 0x002 (SYN)\nSequence Number: 0    (relative sequence number)\nAcknowledgment Number: 0' },
+      { step: 2, state: '[SYN, ACK] SERVER ACKNOWLEDGMENT', desc: 'Server responds with SYN-ACK, acknowledging Client Seq+1 and proposing its own Server Seq=0.', cli: 'Frame 2: 74 bytes on wire (592 bits)\nTransmission Control Protocol, Src Port: 443, Dst Port: 54102\nFlags: 0x012 (SYN, ACK)\nSequence Number: 0\nAcknowledgment Number: 1    (relative ack number)\nWindow Size: 65535 (scale factor 8)' },
+      { step: 3, state: '[ACK] CONNECTION ESTABLISHED', desc: 'Client sends final ACK packet. Socket transitions to ESTABLISHED; TLS 1.3 ClientHello payload begins transmission.', cli: 'Frame 3: 66 bytes on wire (528 bits)\nTransmission Control Protocol, Src Port: 54102, Dst Port: 443\nFlags: 0x010 (ACK)\nSequence Number: 1\nAcknowledgment Number: 1\nSTATUS: TCP SOCKET ESTABLISHED (RTT: 0.84ms)' }
+    ]
+  },
+  {
+    id: 'rstp-loop-prevention',
+    title: 'Rapid Spanning Tree (802.1w) Root Bridge Election & Port States',
+    protocol: 'IEEE 802.1w RSTP',
+    category: 'Switching Protocol',
+    steps: [
+      { step: 1, state: 'BPDU PROPOSAL', desc: 'Core Switches exchange Bridge Protocol Data Units (BPDUs) comparing Priority + MAC Address.', cli: 'SW1# show spanning-tree vlan 10\nVLAN0010\n  Spanning tree enabled protocol rstp\n  Root ID    Priority    4096\n             Address     001a.a12b.4400\n             This bridge is the root\n             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec' },
+      { step: 2, state: 'ROOT PORT / DESIGNATED PORT', desc: 'Switch Cat 9300 elects Gi1/0/1 as Root Port (Cost: 4, 10Gbps). Access ports placed into Designated Forwarding.', cli: 'SW2# show spanning-tree interface gi1/0/1\nPort 1 (GigabitEthernet1/0/1) of VLAN0010 is Root Forwarding\n   Port path cost 4, Designated root has priority 4096\n   Designated bridge has priority 4096, address 001a.a12b.4400' },
+      { step: 3, state: 'BLOCKING (ALTERNATE PORT)', desc: 'Redundant interconnect Gi1/0/2 placed in Discarding/Alternate state, physically preventing switching loops and broadcast storms.', cli: 'SW2# show spanning-tree summary\nSwitch is in rapid-pvst mode\nRoot bridge for: none\nPort Gi1/0/2 is Alternate Discarding (Loop Free Prevention)\nSTATUS: ZERO BROADCAST STORMS DETECTED' }
+    ]
+  }
+];
+
