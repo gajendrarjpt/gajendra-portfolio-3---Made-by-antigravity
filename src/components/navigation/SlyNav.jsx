@@ -64,7 +64,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
           <div className="hidden md:flex items-center gap-2 sm:gap-3 shrink-0">
             <LiveClock showStatus={false} className="hidden lg:flex mr-2" />
 
-            {/* Prominent Dark/Light Theme Button with Trending SVG Icons */}
+            {/* Prominent Dark/Light Theme Button with Trending Animated SVG Icons */}
             <button
               type="button"
               id="theme-toggle-desktop-btn"
@@ -75,24 +75,43 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
                 const rect = e.currentTarget.getBoundingClientRect();
                 toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
               }}
-              className={`font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase w-[86px] sm:w-[94px] justify-center py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-2 shrink-0 group ${
+              className={`font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase w-[90px] sm:w-[98px] justify-center py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-2 shrink-0 group ${
                 isSwitching ? 'pointer-events-none opacity-80' : 'cursor-pointer pointer-events-auto'
               }`}
               title="Toggle Dark / Light Theme"
             >
               {theme === 'dark' ? (
                 <>
-                  <svg className="w-3.5 h-3.5 text-[#00FF66] transition-transform duration-300 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                  </svg>
+                  {/* Interactive Solar Burst Icon (Switch to Light) */}
+                  <span className="relative flex items-center justify-center w-4 h-4 text-[#00FF66] transition-transform duration-500 ease-out group-hover:rotate-90 group-hover:scale-110">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="4.5" fill="currentColor" fillOpacity="0.25" />
+                      <line x1="12" y1="1" x2="12" y2="3.5" />
+                      <line x1="12" y1="20.5" x2="12" y2="23" />
+                      <line x1="4.22" y1="4.22" x2="5.99" y2="5.99" />
+                      <line x1="18.01" y1="18.01" x2="19.78" y2="19.78" />
+                      <line x1="1" y1="12" x2="3.5" y2="12" />
+                      <line x1="20.5" y1="12" x2="23" y2="12" />
+                      <line x1="4.22" y1="19.78" x2="5.99" y2="18.01" />
+                      <line x1="18.01" y1="5.99" x2="19.78" y2="4.22" />
+                    </svg>
+                  </span>
                   <span>LIGHT</span>
                 </>
               ) : (
                 <>
-                  <svg className="w-3.5 h-3.5 text-[#0052FF] transition-transform duration-300 group-hover:-rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z" />
-                  </svg>
+                  {/* Interactive Crescent & Orbital Sparkle Icon (Switch to Dark) */}
+                  <span className="relative flex items-center justify-center w-4 h-4 text-[#0052FF] transition-transform duration-500 ease-out group-hover:-rotate-12 group-hover:scale-110">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" fillOpacity="0.2" />
+                      {/* Orbital Twinkle Star */}
+                      <path
+                        d="M19 3v4M17 5h4"
+                        strokeWidth="1.8"
+                        className="transition-transform duration-300 group-hover:scale-125 origin-center"
+                      />
+                    </svg>
+                  </span>
                   <span>DARK</span>
                 </>
               )}
@@ -130,22 +149,28 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
                 const rect = e.currentTarget.getBoundingClientRect();
                 toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
               }}
-              className={`font-mono text-[10px] font-bold w-[78px] justify-center py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] flex items-center gap-1.5 ${
+              className={`font-mono text-[10px] font-bold w-[82px] justify-center py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] flex items-center gap-1.5 ${
                 isSwitching ? 'pointer-events-none opacity-80' : 'cursor-pointer pointer-events-auto'
               }`}
             >
               {theme === 'dark' ? (
                 <>
-                  <svg className="w-3 h-3 text-[#00FF66]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2" />
+                  <svg className="w-3.5 h-3.5 text-[#00FF66]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="4.5" fill="currentColor" fillOpacity="0.25" />
+                    <line x1="12" y1="1" x2="12" y2="3.5" />
+                    <line x1="12" y1="20.5" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.99" y2="5.99" />
+                    <line x1="18.01" y1="18.01" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3.5" y2="12" />
+                    <line x1="20.5" y1="12" x2="23" y2="12" />
                   </svg>
                   <span>LIGHT</span>
                 </>
               ) : (
                 <>
-                  <svg className="w-3 h-3 text-[#0052FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z" />
+                  <svg className="w-3.5 h-3.5 text-[#0052FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" fillOpacity="0.2" />
+                    <path d="M19 3v4M17 5h4" strokeWidth="1.8" />
                   </svg>
                   <span>DARK</span>
                 </>
@@ -196,21 +221,33 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
               const rect = e.currentTarget.getBoundingClientRect();
               toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
             }}
-            className="w-full py-3 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto flex items-center justify-center gap-2"
+            className="w-full py-3 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto flex items-center justify-center gap-2 group"
           >
             {theme === 'dark' ? (
               <>
-                <svg className="w-4 h-4 text-[#00FF66]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2" />
-                </svg>
+                <span className="text-[#00FF66] transition-transform duration-500 group-hover:rotate-90">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="4.5" fill="currentColor" fillOpacity="0.25" />
+                    <line x1="12" y1="1" x2="12" y2="3.5" />
+                    <line x1="12" y1="20.5" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.99" y2="5.99" />
+                    <line x1="18.01" y1="18.01" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3.5" y2="12" />
+                    <line x1="20.5" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.99" y2="18.01" />
+                    <line x1="18.01" y1="5.99" x2="19.78" y2="4.22" />
+                  </svg>
+                </span>
                 <span>SWITCH TO LIGHT MODE</span>
               </>
             ) : (
               <>
-                <svg className="w-4 h-4 text-[#0052FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                </svg>
+                <span className="text-[#0052FF] transition-transform duration-500 group-hover:-rotate-12">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" fillOpacity="0.2" />
+                    <path d="M19 3v4M17 5h4" strokeWidth="1.8" />
+                  </svg>
+                </span>
                 <span>SWITCH TO DARK MODE</span>
               </>
             )}
