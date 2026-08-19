@@ -180,7 +180,7 @@ TELEMETRY: Wireshark Deep PCAP, SolarWinds NPM, Syslog Ingestion, SNMP`
         break;
     }
 
-    setHistory(newHistory);
+    setHistory(newHistory.slice(-50));
     setInputVal('');
   };
 
