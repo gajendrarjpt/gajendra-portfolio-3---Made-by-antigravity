@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { profile, highlights } from '../../data/portfolioData';
+import MagneticButton from '../ui/MagneticButton';
 
 // Packet Tracer / GNS3 Topology Node Definitions (Spacious 2D Layout)
 const LAB_NODES = [
@@ -106,27 +107,10 @@ export default function SlyHero({ onOpenBridge }) {
   }, [pingActive]);
 
   return (
-    <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 min-h-[90vh] flex flex-col justify-between border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] bg-sly-grid overflow-hidden transition-colors">
-      {/* Ambient Radial Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-blue-glow pointer-events-none" />
-
-      {/* Top Telemetry Status Ticker */}
-      <div className="max-w-7xl mx-auto w-full px-6 md:px-12 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#5A5A57] dark:text-[#888888] tracking-widest uppercase border-b border-[#121212]/10 dark:border-[#1F1F1F] pb-4 z-10">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#0052FF] dark:bg-[#00FF66] animate-pulse" />
-          <span className="text-[#121212] dark:text-white font-semibold">LIVE STATUS: ALL SYSTEMS OPERATIONAL</span>
-        </div>
-        <div className="flex items-center gap-6 text-[11px]">
-          <span>LATENCY: 1.12ms</span>
-          <span>·</span>
-          <span>PACKET LOSS: 0.00%</span>
-          <span>·</span>
-          <span className="text-[#0052FF] dark:text-[#00FF66] font-semibold">NOC TIER 2/3</span>
-        </div>
-      </div>
+    <section className="relative pt-16 pb-12 md:pt-20 md:pb-16 flex flex-col justify-between border-b border-[#121212]/10 dark:border-[#1F1F1F] bg-[#FAF8F5] dark:bg-[#000000] bg-sly-grid overflow-hidden transition-colors">
 
       {/* Hero Headline & Intro */}
-      <div className="max-w-7xl mx-auto w-full px-6 md:px-12 my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-8 lg:py-12 z-10">
+      <div className="max-w-7xl mx-auto w-full px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-2 pb-8 lg:pt-4 lg:pb-12 z-10">
         {/* Left Headline Column (No text overflow) */}
         <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8 overflow-hidden">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#F4F1EA] dark:bg-[#111111] border border-[#121212]/15 dark:border-[#2A2A2A] rounded-full w-fit">
@@ -151,20 +135,24 @@ export default function SlyHero({ onOpenBridge }) {
 
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            <button
-              onClick={onOpenBridge}
-              className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center gap-3 cursor-pointer"
-            >
-              <span>INITIATE BRIDGE</span>
-              <span>→</span>
-            </button>
+            <MagneticButton>
+              <button
+                onClick={onOpenBridge}
+                className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center gap-3 cursor-pointer"
+              >
+                <span>INITIATE BRIDGE</span>
+                <span>→</span>
+              </button>
+            </MagneticButton>
 
-            <a
-              href="#engine"
-              className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#FAF8F5] dark:bg-[#0A0A0A] hover:bg-[#F4F1EA] dark:hover:bg-[#111111] transition-all"
-            >
-              EXPLORE NETWORK ENGINE
-            </a>
+            <MagneticButton>
+              <a
+                href="#engine"
+                className="font-mono text-xs font-bold uppercase tracking-wider px-7 py-4 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#FAF8F5] dark:bg-[#0A0A0A] hover:bg-[#F4F1EA] dark:hover:bg-[#111111] transition-all inline-block"
+              >
+                EXPLORE NETWORK ENGINE
+              </a>
+            </MagneticButton>
           </div>
         </div>
 

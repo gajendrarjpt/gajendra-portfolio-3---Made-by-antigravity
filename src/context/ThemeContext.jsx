@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 const ThemeContext = createContext();
 
@@ -7,6 +7,8 @@ export function ThemeProvider({ children }) {
     const saved = localStorage.getItem('theme');
     return saved ? saved : 'light';
   });
+
+  const lastButtonCenter = useRef({ x: window.innerWidth - 120, y: 32 });
 
   useEffect(() => {
     const root = document.documentElement;
@@ -28,25 +30,30 @@ export function ThemeProvider({ children }) {
       return;
     }
 
-    // Get click button bounding box center or default to pointer coordinates / screen center
-    let x = window.innerWidth / 2;
-    let y = window.innerHeight / 2;
+    // Always locate exact theme toggle button bounding box center in DOM
+    let x = lastButtonCenter.current.x;
+    let y = lastButtonCenter.current.y;
 
-    const targetEl = e?.currentTarget || e?.target?.closest('button');
-    if (targetEl && typeof targetEl.getBoundingClientRect === 'function') {
-      const rect = targetEl.getBoundingClientRect();
-      x = rect.left + rect.width / 2;
-      y = rect.top + rect.height / 2;
-    } else if (e?.clientX !== undefined && e?.clientY !== undefined) {
-      x = e.clientX;
-      y = e.clientY;
+    const btnEl =
+      e?.currentTarget ||
+      e?.target?.closest('button') ||
+      document.querySelector('[title="Toggle Dark / Light Theme"]') ||
+      document.querySelector('#theme-toggle-btn');
+
+    if (btnEl && typeof btnEl.getBoundingClientRect === 'function') {
+      const rect = btnEl.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        x = rect.left + rect.width / 2;
+        y = rect.top + rect.height / 2;
+        lastButtonCenter.current = { x, y };
+      }
     }
 
-    // Calculate maximum radius required to cover the furthest viewport corner
+    // Calculate maximum radius required to cover the furthest viewport corner (with 60px safety buffer)
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
-    );
+    ) + 60;
 
     // Suppress individual element transitions during theme switch to prevent flicker
     document.documentElement.classList.add('theme-switching');
@@ -57,27 +64,33 @@ export function ThemeProvider({ children }) {
         setTheme(nextTheme);
       });
 
-      transition.finished.finally(() => {
-        document.documentElement.classList.remove('theme-switching');
-      });
-
       transition.ready.then(() => {
-        const isDark = nextTheme === 'dark';
-        const clipPath = [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`
-        ];
-
-        document.documentElement.animate(
+        const anim = document.documentElement.animate(
           {
-            clipPath: isDark ? clipPath : [...clipPath].reverse()
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`
+            ]
           },
           {
-            duration: 550,
-            easing: 'cubic-bezier(0.65, 0, 0.35, 1)',
-            pseudoElement: isDark ? '::view-transition-new(root)' : '::view-transition-old(root)'
+            duration: 600,
+            easing: 'cubic-bezier(0.7, 0, 0.84, 0)',
+            fill: 'forwards',
+            pseudoElement: '::view-transition-new(root)'
           }
         );
+
+        anim.finished.finally(() => {
+          requestAnimationFrame(() => {
+            document.documentElement.classList.remove('theme-switching');
+          });
+        });
+      });
+
+      transition.finished.finally(() => {
+        requestAnimationFrame(() => {
+          document.documentElement.classList.remove('theme-switching');
+        });
       });
     } else {
       // Fallback: Custom procedural circular ripple overlay animation anchored to button center

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { networkLabDomains } from '../../data/portfolioData';
 
 export default function IntelligenceEngine() {
@@ -199,7 +200,7 @@ export default function IntelligenceEngine() {
                 src={activeDomain.diagramImage}
                 alt={`${activeDomain.title} Diagram`}
                 loading="lazy"
-                className="w-full h-full object-contain group-hover:scale-102 transition-transform duration-500"
+                className="w-full h-full object-contain contrast-110 saturate-85 group-hover:scale-102 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <span className="px-4 py-2 bg-[#0052FF] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg">

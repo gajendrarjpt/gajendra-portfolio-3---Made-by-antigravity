@@ -111,11 +111,16 @@ canvas, .animate-pulse {
   view-transition-name: none;
 }
 
-/* Circular View Transitions API styling */
+/* Circular View Transitions API styling — Liquid Smooth 120 FPS GPU compositor pipeline */
+::view-transition-group(root),
+::view-transition-image-pair(root),
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+  animation: none !important;
+  mix-blend-mode: normal !important;
+  will-change: clip-path, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 ::view-transition-old(root) {
@@ -124,14 +129,6 @@ canvas, .animate-pulse {
 
 ::view-transition-new(root) {
   z-index: 9999;
-}
-
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-
-.dark::view-transition-new(root) {
-  z-index: 1;
 }
 
 /* Procedural Circular Ripple Overlay Fallback */

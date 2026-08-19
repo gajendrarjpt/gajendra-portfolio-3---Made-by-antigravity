@@ -1,5 +1,6 @@
 import React from 'react';
 import { profile, socials, certifications, education } from '../../data/portfolioData';
+import MagneticButton from '../ui/MagneticButton';
 
 export default function ContactBridge({ onOpenBridge }) {
   return (
@@ -28,32 +29,38 @@ export default function ContactBridge({ onOpenBridge }) {
             </p>
 
             <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-              <a
-                href={socials.email.url}
-                className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center justify-between gap-6"
-              >
-                <span>EMAIL ME DIRECT</span>
-                <span>→</span>
-              </a>
+              <MagneticButton>
+                <a
+                  href={socials.email.url}
+                  className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center justify-between gap-6"
+                >
+                  <span>EMAIL ME DIRECT</span>
+                  <span>→</span>
+                </a>
+              </MagneticButton>
 
-              <a
-                href={socials.linkedin.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-6"
-              >
-                <span>LINKEDIN DIRECT</span>
-                <span>↗</span>
-              </a>
+              <MagneticButton>
+                <a
+                  href={socials.linkedin.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-6"
+                >
+                  <span>LINKEDIN DIRECT</span>
+                  <span>↗</span>
+                </a>
+              </MagneticButton>
 
-              <a
-                href={profile.resume.url}
-                download="Gajendra_Rajput_Resume.pdf"
-                className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-6"
-              >
-                <span>DOWNLOAD RESUME</span>
-                <span>↓</span>
-              </a>
+              <MagneticButton>
+                <a
+                  href={profile.resume.url}
+                  download="Gajendra_Rajput_Resume.pdf"
+                  className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-6"
+                >
+                  <span>DOWNLOAD RESUME</span>
+                  <span>↓</span>
+                </a>
+              </MagneticButton>
             </div>
 
             <div className="font-mono text-xs text-[#5A5A57] dark:text-[#888888] flex flex-col gap-1 pt-4">

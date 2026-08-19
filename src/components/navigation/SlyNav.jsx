@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { socials } from '../../data/portfolioData';
+import LiveClock from '../ui/LiveClock';
+import MagneticButton from '../ui/MagneticButton';
 
 export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,20 +36,17 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between gap-4 relative">
-          {/* Brand Mark & Live Ticker Dot */}
-          <a href="#" className="flex items-center gap-3 group shrink-0">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#0052FF] dark:bg-[#00FF66] animate-pulse" />
-            <div className="flex flex-col">
-              <span className="font-display font-bold text-sm sm:text-base tracking-wider uppercase text-[#121212] dark:text-white group-hover:text-[#0052FF] dark:group-hover:text-[#00FF66] transition-colors">
-                GAJENDRA
-              </span>
-              <span className="font-mono text-[8px] sm:text-[9px] text-[#5A5A57] dark:text-[#888888] tracking-widest uppercase">
-                SENIOR NETWORK ENGINEER
-              </span>
-            </div>
+          {/* Stark Typography-Only Logo Mark */}
+          <a href="#" className="flex items-center gap-2 group shrink-0 select-none">
+            <span className="font-display font-black text-lg sm:text-xl tracking-tighter uppercase text-[#121212] dark:text-white group-hover:text-[#0052FF] dark:group-hover:text-[#00FF66] transition-colors">
+              GAJENDRA<span className="text-[#0052FF] dark:text-[#00FF66] font-mono font-medium ml-1">//</span>
+            </span>
+            <span className="font-mono text-[9px] text-[#5A5A57] dark:text-[#888888] tracking-widest uppercase hidden sm:inline-block">
+              RAJPUT
+            </span>
           </a>
 
-          {/* Desktop Nav Links (Clean Flex Center, No Absolute Overlap) */}
+          {/* Desktop Nav Links */}
           <nav className="hidden xl:flex items-center gap-5 xl:gap-7 font-mono text-xs font-semibold tracking-widest uppercase shrink">
             {navLinks.map((link) => (
               <a
@@ -61,19 +60,36 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
             ))}
           </nav>
 
-          {/* Action Controls: Theme Switcher + Terminal + Bridge */}
+          {/* Action Controls: Live Clock + Theme Switcher + Terminal + Bridge */}
           <div className="hidden md:flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Prominent Dark/Light Theme Button */}
+            <LiveClock showStatus={false} className="hidden lg:flex mr-2" />
+
+            {/* Prominent Dark/Light Theme Button with Trending SVG Icons */}
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 toggleTheme(e);
               }}
-              className="font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase px-3 sm:px-4 py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-1.5 cursor-pointer pointer-events-auto shrink-0"
+              className="font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase px-3 sm:px-4 py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-2 cursor-pointer pointer-events-auto shrink-0 group"
               title="Toggle Dark / Light Theme"
             >
-              <span>{theme === 'dark' ? '☀️ LIGHT' : '🌙 DARK'}</span>
+              {theme === 'dark' ? (
+                <>
+                  <svg className="w-3.5 h-3.5 text-[#00FF66] transition-transform duration-300 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                  </svg>
+                  <span>LIGHT</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-3.5 h-3.5 text-[#0052FF] transition-transform duration-300 group-hover:-rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                  </svg>
+                  <span>DARK</span>
+                </>
+              )}
             </button>
 
             <button
@@ -84,14 +100,16 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
               CTRL+K TERMINAL
             </button>
 
-            <button
-              type="button"
-              onClick={onOpenBridge}
-              className="font-mono text-[11px] sm:text-xs font-bold px-3.5 sm:px-4 py-2 bg-[#0052FF] hover:bg-[#0042D0] text-white uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-lg shadow-[#0052FF]/20 cursor-pointer pointer-events-auto shrink-0 whitespace-nowrap"
-            >
-              <span>INITIATE BRIDGE</span>
-              <span>→</span>
-            </button>
+            <MagneticButton>
+              <button
+                type="button"
+                onClick={onOpenBridge}
+                className="font-mono text-[11px] sm:text-xs font-bold px-3.5 sm:px-4 py-2 bg-[#0052FF] hover:bg-[#0042D0] text-white uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-lg shadow-[#0052FF]/20 cursor-pointer pointer-events-auto shrink-0 whitespace-nowrap"
+              >
+                <span>INITIATE BRIDGE</span>
+                <span>→</span>
+              </button>
+            </MagneticButton>
           </div>
 
           {/* Mobile/Tablet Menu Toggle & Theme Switcher */}
@@ -102,9 +120,24 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
                 e.stopPropagation();
                 toggleTheme(e);
               }}
-              className="font-mono text-[10px] font-bold px-2.5 py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] cursor-pointer pointer-events-auto"
+              className="font-mono text-[10px] font-bold px-2.5 py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] cursor-pointer pointer-events-auto flex items-center gap-1.5"
             >
-              {theme === 'dark' ? '☀️ LIGHT' : '🌙 DARK'}
+              {theme === 'dark' ? (
+                <>
+                  <svg className="w-3 h-3 text-[#00FF66]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2" />
+                  </svg>
+                  <span>LIGHT</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-3 h-3 text-[#0052FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                  </svg>
+                  <span>DARK</span>
+                </>
+              )}
             </button>
 
             <button
@@ -146,9 +179,24 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
           <button
             type="button"
             onClick={(e) => toggleTheme(e)}
-            className="w-full py-3 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto"
+            className="w-full py-3 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto flex items-center justify-center gap-2"
           >
-            SWITCH TO {theme === 'dark' ? '☀️ LIGHT MODE' : '🌙 DARK MODE'}
+            {theme === 'dark' ? (
+              <>
+                <svg className="w-4 h-4 text-[#00FF66]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2" />
+                </svg>
+                <span>SWITCH TO LIGHT MODE</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4 text-[#0052FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg>
+                <span>SWITCH TO DARK MODE</span>
+              </>
+            )}
           </button>
 
           <button

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { careerStages, profile } from '../../data/portfolioData';
 
 export default function CareerStory() {
@@ -8,7 +9,13 @@ export default function CareerStory() {
     <section id="story" className="pt-8 pb-20 md:pt-10 md:pb-28 border-b border-[#121212]/10 dark:border-[#222222] bg-[#FAF8F5] dark:bg-[#000000] relative transition-colors">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
-        <div className="flex flex-col gap-3 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col gap-3 mb-16"
+        >
           <div className="flex items-center gap-2 font-mono text-xs text-[#0052FF] tracking-widest uppercase">
             <span>01 / CAREER STORY</span>
             <span>·</span>
@@ -20,7 +27,7 @@ export default function CareerStory() {
           <p className="font-body text-lg text-[#5A5A57] dark:text-[#A0A09C] max-w-2xl font-normal">
             A career built around uptime, deep packet troubleshooting, security controls, and enterprise network reliability.
           </p>
-        </div>
+        </motion.div>
 
         {/* Editorial Story Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">

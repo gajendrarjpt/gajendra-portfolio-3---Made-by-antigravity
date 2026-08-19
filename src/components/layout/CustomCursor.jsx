@@ -1,6 +1,6 @@
 import React from 'react';
 
-// CustomCursor returns null to use clean, high-visibility native browser cursor
+// Returns null to use clean native browser cursor
 export default function CustomCursor() {
   return null;
 }

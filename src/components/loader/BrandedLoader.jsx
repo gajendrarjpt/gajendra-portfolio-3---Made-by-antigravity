@@ -23,7 +23,7 @@ export default function BrandedLoader({ onComplete }) {
     }, 16);
 
     return () => clearInterval(interval);
-  }, [onComplete]);
+  }, []);
 
   if (isFinished) return null;
 
