@@ -19,8 +19,8 @@ export const profile = {
     'NOC Tier 2/3 Operations'
   ],
   resume: {
-    available: false,
-    url: '/resume/gajendra-rajput.pdf',
+    available: true,
+    url: '/resume/Gajendra_Rajput_Resume.pdf',
   }
 };
 
@@ -239,7 +239,7 @@ export const networkLabDomains = [
     summary: 'Multi-site OSPF Area 0 backbone, BGP Autonomous System AS65000 edge peering, MPLS WAN clouds, and active-active failover routes.',
     items: ['OSPF Area 0', 'BGP AS65000', 'MPLS WAN', 'Cisco Catalyst 9600', 'ASR 1000s', 'NAT / QoS'],
     status: 'MNC SCHEMATIC ACTIVE',
-    diagramImage: '/diagrams/routing.jpg',
+    diagramImage: '/diagrams/routing.webp',
     nodes: [
       { id: 'r1', label: 'CORE-01 (Catalyst 9600)', x: 25, y: 25, type: 'router' },
       { id: 'r2', label: 'CORE-02 (Catalyst 9600)', x: 75, y: 25, type: 'gateway' },
@@ -261,7 +261,7 @@ export const networkLabDomains = [
     summary: 'StackWise Virtual Core stacks, Spanning Tree RSTP Root Bridge, LACP EtherChannel trunks (802.3ad), and isolated VLAN trunking.',
     items: ['Catalyst Switch Stack', 'StackWise Virtual', 'RSTP Root Bridge', 'LACP (802.3ad)', 'VLAN 10/20/30'],
     status: 'MNC SCHEMATIC ACTIVE',
-    diagramImage: '/diagrams/switching.jpg',
+    diagramImage: '/diagrams/switching.webp',
     nodes: [
       { id: 's1', label: 'CORE-SW-STACK-01', x: 30, y: 25, type: 'switch' },
       { id: 's2', label: 'CORE-SW-STACK-02', x: 70, y: 25, type: 'switch' },
@@ -283,7 +283,7 @@ export const networkLabDomains = [
     summary: 'Palo Alto Networks PA-3420 HA Pair, Fortinet FG-600F Edge Gateway, Sophos VPN Concentrator, Isolated DMZ, and Nessus Scanner.',
     items: ['Palo Alto PA-3420', 'Fortinet FG-600F', 'Sophos VPN', 'Nessus Professional', 'IPsec Tunnels', 'DMZ Zone'],
     status: 'MNC SCHEMATIC ACTIVE',
-    diagramImage: '/diagrams/security.jpg',
+    diagramImage: '/diagrams/security.webp',
     nodes: [
       { id: 'sec1', label: 'PALO ALTO PA-3420 HA', x: 50, y: 40, type: 'firewall' },
       { id: 'sec2', label: 'FORTINET EDGE FG-600F', x: 30, y: 20, type: 'firewall' },
@@ -305,7 +305,7 @@ export const networkLabDomains = [
     summary: 'Cisco Catalyst 9800 WLC Active/Standby Cluster, Aruba Mobility Conductor, Cisco ISE RADIUS Auth, Wi-Fi 6E Access Points, and Client Roaming.',
     items: ['Cisco WLC 9800', 'Aruba Mobility Conductor', 'Cisco ISE RADIUS', 'Cisco AP 9120', 'Aruba AP 505', '802.1X WPA3'],
     status: 'MNC SCHEMATIC ACTIVE',
-    diagramImage: '/diagrams/wireless.jpg',
+    diagramImage: '/diagrams/wireless.webp',
     nodes: [
       { id: 'w1', label: 'CISCO WLC 9800-40', x: 50, y: 20, type: 'controller' },
       { id: 'w2', label: 'ARUBA CONDUCTOR', x: 80, y: 35, type: 'ap' },
@@ -327,7 +327,7 @@ export const networkLabDomains = [
     summary: 'ESXi Host Clusters, VMware vDS Virtual Distributed Switch, 16Gb Fiber Channel Fabrics, Dell PowerVault SAN Array, and Immutable Backup Vaults.',
     items: ['ESXi Cluster', 'VMware vDS', 'Dell PowerVault SAN', '16Gb Fiber Channel', 'Veeam Backup', 'Firmware Lifecycle'],
     status: 'MNC SCHEMATIC ACTIVE',
-    diagramImage: '/diagrams/infrastructure.jpg',
+    diagramImage: '/diagrams/infrastructure.webp',
     nodes: [
       { id: 'i1', label: 'ESXI HOST CLUSTER', x: 25, y: 35, type: 'hypervisor' },
       { id: 'i2', label: 'DELL POWERVAULT SAN', x: 75, y: 35, type: 'storage' },
@@ -349,7 +349,7 @@ export const networkLabDomains = [
     summary: 'SPAN/RSPAN Port Mirroring flows, Wireshark Deep Packet Capture, Syslog Log Ingestion, and SolarWinds Network Performance Monitor.',
     items: ['SolarWinds NPM', 'Wireshark Analyzer', 'Syslog Collector', 'SPAN Port Mirror', 'SNMP Telemetry', 'Packet Capture'],
     status: 'MNC SCHEMATIC ACTIVE',
-    diagramImage: '/diagrams/monitoring.jpg',
+    diagramImage: '/diagrams/monitoring.webp',
     nodes: [
       { id: 'm1', label: 'SPAN MIRROR PORT', x: 25, y: 25, type: 'capture' },
       { id: 'm2', label: 'WIRESHARK ANALYZER', x: 75, y: 25, type: 'analyzer' },
@@ -439,6 +439,22 @@ export const certifications = [
     name: 'CCNA',
     fullName: 'Cisco Certified Network Associate',
     issuer: 'Cisco Systems',
+    status: 'VERIFIED CERTIFIED',
+    badgeTone: 'blue'
+  },
+  {
+    id: 'ceh',
+    name: 'CEH v12',
+    fullName: 'Certified Ethical Hacker v12',
+    issuer: 'EC-Council',
+    status: 'VERIFIED CERTIFIED',
+    badgeTone: 'blue'
+  },
+  {
+    id: 'fortinet-nse3',
+    name: 'Fortinet NSE 3',
+    fullName: 'Fortinet Network Security Expert 3',
+    issuer: 'Fortinet',
     status: 'VERIFIED CERTIFIED',
     badgeTone: 'blue'
   },

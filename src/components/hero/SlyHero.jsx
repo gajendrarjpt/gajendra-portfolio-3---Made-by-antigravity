@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { profile, highlights } from '../../data/portfolioData';
 
-// Packet Tracer / GNS3 Topology Node Definitions
+// Packet Tracer / GNS3 Topology Node Definitions (Spacious 2D Layout)
 const LAB_NODES = [
-  { id: 'cloud', label: 'INTERNET_WAN', type: 'cloud', ip: '203.0.113.1', model: 'BGP Cloud Provider', protocol: 'AS65001 WAN', x: 50, y: 12, status: 'CONNECTED' },
-  { id: 'router', label: 'R1_EDGE_ROUTER', type: 'router', ip: '192.168.1.1', model: 'Cisco ISR 4451 Router', protocol: 'OSPF / BGP Gateway', x: 50, y: 30, status: 'ONLINE' },
-  { id: 'firewall', label: 'FW1_PALO_ALTO', type: 'firewall', ip: '10.0.1.1', model: 'Palo Alto PA-3220 FW', protocol: 'IPsec / Threat Prevention', x: 50, y: 48, status: 'PROTECTED' },
-  { id: 'switch', label: 'SW1_CORE_STACK', type: 'switch', ip: '10.0.2.1', model: 'Cisco Cat 9300 L3 Stack', protocol: 'VLAN 10/20 / Spanning Tree', x: 50, y: 68, status: 'FORWARDING' },
-  { id: 'wifi', label: 'AP1_WIFI_WLAN', type: 'wifi', ip: '10.0.5.10', model: 'Aruba / Cisco AP', protocol: 'SSID: CORP-SECURE 802.1X', x: 18, y: 84, status: 'BROADCASTING' },
-  { id: 'server', label: 'SRV1_DATA_CENTER', type: 'server', ip: '10.0.10.50', model: 'Dell R750 Enterprise Svr', protocol: 'SAN / RADIUS / Wireshark', x: 50, y: 86, status: 'ACTIVE' },
-  { id: 'pc', label: 'PC1_WORKSTATION', type: 'pc', ip: '10.0.20.105', model: 'Corporate User PC', protocol: 'DHCP Lease / VLAN 20', x: 82, y: 84, status: 'CONNECTED' },
+  { id: 'cloud', label: 'INTERNET_WAN', type: 'cloud', ip: '203.0.113.1', model: 'BGP Cloud Provider', protocol: 'AS65001 WAN', x: 24, y: 18, status: 'CONNECTED' },
+  { id: 'router', label: 'R1_EDGE_ROUTER', type: 'router', ip: '192.168.1.1', model: 'Cisco ISR 4451 Router', protocol: 'OSPF / BGP Gateway', x: 76, y: 18, status: 'ONLINE' },
+  { id: 'firewall', label: 'FW1_PALO_ALTO', type: 'firewall', ip: '10.0.1.1', model: 'Palo Alto PA-3220 FW', protocol: 'IPsec / Threat Prevention', x: 50, y: 46, status: 'PROTECTED' },
+  { id: 'wifi', label: 'AP1_WIFI_WLAN', type: 'wifi', ip: '10.0.5.10', model: 'Aruba / Cisco AP', protocol: 'SSID: CORP-SECURE 802.1X', x: 20, y: 78, status: 'BROADCASTING' },
+  { id: 'switch', label: 'SW1_CORE_STACK', type: 'switch', ip: '10.0.2.1', model: 'Cisco Cat 9300 L3 Stack', protocol: 'VLAN 10/20 / Spanning Tree', x: 50, y: 78, status: 'FORWARDING' },
+  { id: 'server', label: 'SRV1_DATA_CENTER', type: 'server', ip: '10.0.10.50', model: 'Dell R750 Enterprise Svr', protocol: 'SAN / RADIUS / Wireshark', x: 80, y: 78, status: 'ACTIVE' },
 ];
 
 const LAB_LINKS = [
@@ -18,7 +17,6 @@ const LAB_LINKS = [
   { from: 'firewall', to: 'switch', label: 'eth1/1 Trunk', speed: '10 Gbps SFP+' },
   { from: 'switch', to: 'wifi', label: 'Fa0/1 PoE+', speed: '1000 Mbps' },
   { from: 'switch', to: 'server', label: 'Gi1/0/24 SPAN', speed: '10 Gbps SFP+' },
-  { from: 'switch', to: 'pc', label: 'Fa0/2 Access', speed: '1000 Mbps' },
 ];
 
 export default function SlyHero({ onOpenBridge }) {

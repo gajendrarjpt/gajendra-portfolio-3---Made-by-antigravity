@@ -28,13 +28,13 @@ export default function ContactBridge({ onOpenBridge }) {
             </p>
 
             <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-              <button
-                onClick={onOpenBridge}
+              <a
+                href={socials.email.url}
                 className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 bg-[#0052FF] hover:bg-[#0042D0] text-white transition-all shadow-lg shadow-[#0052FF]/25 flex items-center justify-between gap-6"
               >
-                <span>INITIATE INCIDENT BRIDGE</span>
+                <span>EMAIL ME DIRECT</span>
                 <span>→</span>
-              </button>
+              </a>
 
               <a
                 href={socials.linkedin.url}
@@ -45,10 +45,27 @@ export default function ContactBridge({ onOpenBridge }) {
                 <span>LINKEDIN DIRECT</span>
                 <span>↗</span>
               </a>
+
+              <a
+                href={profile.resume.url}
+                download="Gajendra_Rajput_Resume.pdf"
+                className="font-mono text-xs font-bold uppercase tracking-wider px-8 py-5 border border-[#121212]/20 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white text-[#121212] dark:text-white bg-[#F4F1EA] dark:bg-[#0A0A0A] hover:bg-[#FAF8F5] dark:hover:bg-[#111111] transition-all flex items-center justify-between gap-6"
+              >
+                <span>DOWNLOAD RESUME</span>
+                <span>↓</span>
+              </a>
             </div>
 
             <div className="font-mono text-xs text-[#5A5A57] dark:text-[#888888] flex flex-col gap-1 pt-4">
-              <span>EMAIL ADDRESS: {profile.email}</span>
+              <span>
+                EMAIL ADDRESS:{' '}
+                <a
+                  href={socials.email.url}
+                  className="text-[#121212] dark:text-white font-semibold underline hover:text-[#0052FF] dark:hover:text-[#00FF66] transition-colors"
+                >
+                  {profile.email}
+                </a>
+              </span>
               <span>LOCATION: {profile.location}</span>
             </div>
           </div>

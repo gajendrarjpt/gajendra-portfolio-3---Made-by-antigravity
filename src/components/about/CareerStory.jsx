@@ -27,6 +27,9 @@ export default function CareerStory() {
           {/* Left Narrative Block */}
           <div className="lg:col-span-5 flex flex-col gap-6 font-body text-base text-[#5A5A57] dark:text-[#A0A09C] leading-relaxed">
             <p>
+              Holding a degree in Mechanical Engineering, I made a deliberate career pivot into Network Engineering — applying analytical rigor and system mechanics to enterprise routing, packet-level telemetry, and mission-critical infrastructure reliability.
+            </p>
+            <p>
               Starting in first-line NOC support, I built a foundation on immediate SLA-driven incident response, ticket triage, and clear stakeholder escalation paths.
             </p>
             <p>
