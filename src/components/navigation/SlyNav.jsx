@@ -67,6 +67,8 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
             {/* Prominent Dark/Light Theme Button with Trending SVG Icons */}
             <button
               type="button"
+              id="theme-toggle-btn"
+              data-theme-toggle="true"
               onClick={(e) => {
                 e.stopPropagation();
                 toggleTheme(e);
@@ -116,6 +118,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
           <div className="xl:hidden flex items-center gap-2">
             <button
               type="button"
+              data-theme-toggle="true"
               onClick={(e) => {
                 e.stopPropagation();
                 toggleTheme(e);

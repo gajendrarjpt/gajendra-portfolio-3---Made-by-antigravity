@@ -8,7 +8,8 @@ export function ThemeProvider({ children }) {
     return saved ? saved : 'light';
   });
 
-  const lastButtonCenter = useRef({ x: window.innerWidth - 120, y: 32 });
+  const lastButtonCenter = useRef({ x: window.innerWidth - 280, y: 36 });
+  const isTransitioningRef = useRef(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -20,6 +21,49 @@ export function ThemeProvider({ children }) {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  // Helper to locate the exact center of the active Dark/Light theme button
+  const getThemeButtonCenter = (e) => {
+    let btnEl = null;
+
+    // 1. Check event target / currentTarget first if it's the theme button
+    if (e && e.currentTarget && typeof e.currentTarget.getBoundingClientRect === 'function') {
+      const isThemeBtn = e.currentTarget.hasAttribute('data-theme-toggle') || e.currentTarget.id === 'theme-toggle-btn' || e.currentTarget.title?.includes('Theme');
+      if (isThemeBtn) {
+        btnEl = e.currentTarget;
+      }
+    }
+
+    if (!btnEl && e && e.target && typeof e.target.closest === 'function') {
+      btnEl = e.target.closest('[data-theme-toggle="true"], #theme-toggle-btn, [title="Toggle Dark / Light Theme"]');
+    }
+
+    // 2. Query DOM for the currently visible theme toggle button
+    if (!btnEl) {
+      const candidates = document.querySelectorAll('[data-theme-toggle="true"], #theme-toggle-btn, [title="Toggle Dark / Light Theme"]');
+      for (const el of candidates) {
+        const r = el.getBoundingClientRect();
+        if (r.width > 0 && r.height > 0 && r.top < window.innerHeight && r.bottom > 0) {
+          btnEl = el;
+          break;
+        }
+      }
+    }
+
+    // 3. Extract exact center coordinates
+    if (btnEl && typeof btnEl.getBoundingClientRect === 'function') {
+      const rect = btnEl.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        lastButtonCenter.current = { x, y };
+        return { x, y };
+      }
+    }
+
+    // Fallback: stored center or computed header theme button region
+    return lastButtonCenter.current;
+  };
+
   // Precise button-anchored circular reveal theme transition
   const toggleTheme = (e) => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
@@ -30,26 +74,17 @@ export function ThemeProvider({ children }) {
       return;
     }
 
-    // Always locate exact theme toggle button bounding box center in DOM
-    let x = lastButtonCenter.current.x;
-    let y = lastButtonCenter.current.y;
-
-    const btnEl =
-      e?.currentTarget ||
-      e?.target?.closest('button') ||
-      document.querySelector('[title="Toggle Dark / Light Theme"]') ||
-      document.querySelector('#theme-toggle-btn');
-
-    if (btnEl && typeof btnEl.getBoundingClientRect === 'function') {
-      const rect = btnEl.getBoundingClientRect();
-      if (rect.width > 0 && rect.height > 0) {
-        x = rect.left + rect.width / 2;
-        y = rect.top + rect.height / 2;
-        lastButtonCenter.current = { x, y };
-      }
+    // Prevent clashing rapid transitions
+    if (isTransitioningRef.current) {
+      setTheme(nextTheme);
+      return;
     }
+    isTransitioningRef.current = true;
 
-    // Calculate maximum radius required to cover the furthest viewport corner (with 60px safety buffer)
+    // Always accurately anchor to the Dark/Light theme button
+    const { x, y } = getThemeButtonCenter(e);
+
+    // Calculate maximum radius required to cover the furthest viewport corner (with safety buffer)
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
@@ -73,7 +108,7 @@ export function ThemeProvider({ children }) {
             ]
           },
           {
-            duration: 600,
+            duration: 550,
             easing: 'cubic-bezier(0.7, 0, 0.84, 0)',
             fill: 'forwards',
             pseudoElement: '::view-transition-new(root)'
@@ -81,6 +116,7 @@ export function ThemeProvider({ children }) {
         );
 
         anim.finished.finally(() => {
+          isTransitioningRef.current = false;
           requestAnimationFrame(() => {
             document.documentElement.classList.remove('theme-switching');
           });
@@ -88,6 +124,7 @@ export function ThemeProvider({ children }) {
       });
 
       transition.finished.finally(() => {
+        isTransitioningRef.current = false;
         requestAnimationFrame(() => {
           document.documentElement.classList.remove('theme-switching');
         });
@@ -109,15 +146,16 @@ export function ThemeProvider({ children }) {
 
       setTimeout(() => {
         setTheme(nextTheme);
-      }, 250);
+      }, 200);
 
       setTimeout(() => {
         ripple.classList.add('theme-ripple-fade');
         setTimeout(() => {
           if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+          isTransitioningRef.current = false;
           document.documentElement.classList.remove('theme-switching');
-        }, 350);
-      }, 550);
+        }, 300);
+      }, 500);
     }
   };
 
