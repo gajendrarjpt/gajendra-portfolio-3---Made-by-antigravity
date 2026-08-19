@@ -67,7 +67,7 @@ export default function CapabilitiesIndex() {
           </div>
 
           {/* Right Detail Box */}
-          <div className="lg:col-span-6 relative border border-[#1F1F1F] bg-[#0A0A0A] p-8 md:p-10 flex flex-col justify-between h-[480px] overflow-hidden shadow-2xl">
+          <div className="lg:col-span-6 relative border border-[#1F1F1F] bg-[#0A0A0A] p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[480px] overflow-hidden shadow-2xl">
             <div className="flex justify-between items-center font-mono text-xs text-[#888888] uppercase border-b border-[#1F1F1F] pb-4">
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#00FF66]" />

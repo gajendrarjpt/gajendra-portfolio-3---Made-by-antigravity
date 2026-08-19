@@ -146,28 +146,28 @@ export default function IntelligenceEngine() {
         </div>
 
         {/* Domain Selector Track */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-8 font-mono text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-8 font-mono text-[11px] sm:text-xs">
           {networkLabDomains.map((dom) => {
             const isActive = activeDomainId === dom.id;
             return (
               <button
                 key={dom.id}
                 onClick={() => setActiveDomainId(dom.id)}
-                className={`py-3.5 px-4 font-semibold tracking-wider uppercase border transition-all flex items-center justify-between text-left ${
+                className={`py-3 px-3.5 font-semibold tracking-wider uppercase border transition-all flex items-center justify-between text-left truncate ${
                   isActive
                     ? 'bg-[#111111] text-white border-[#0052FF]'
                     : 'bg-[#0A0A0A] text-[#888888] border-[#1F1F1F] hover:text-white hover:border-[#2A2A2A]'
                 }`}
               >
-                <span>{dom.id}</span>
-                <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#00FF66]' : 'bg-transparent'}`} />
+                <span className="truncate">{dom.id}</span>
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ml-1 ${isActive ? 'bg-[#00FF66]' : 'bg-transparent'}`} />
               </button>
             );
           })}
         </div>
 
-        {/* Locked Reserved Geometry Box (580px) */}
-        <div className="w-full h-[540px] sm:h-[580px] border border-[#1F1F1F] bg-[#0A0A0A] relative flex flex-col justify-between p-6 sm:p-8 overflow-hidden shadow-2xl">
+        {/* Responsive Geometry Box */}
+        <div className="w-full min-h-[540px] sm:min-h-[580px] border border-[#1F1F1F] bg-[#0A0A0A] relative flex flex-col justify-between p-5 sm:p-8 overflow-hidden shadow-2xl">
           {/* Top Panel Header */}
           <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#888888] border-b border-[#1F1F1F] pb-4 z-10 bg-[#0A0A0A]/90">
             <div className="flex items-center gap-3">

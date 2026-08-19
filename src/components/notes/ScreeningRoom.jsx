@@ -30,7 +30,7 @@ export default function ScreeningRoom() {
           {featuredProjects.map((proj) => (
             <div
               key={proj.id}
-              className="snap-start shrink-0 w-[340px] sm:w-[480px] md:w-[580px] border border-[#1F1F1F] bg-[#0A0A0A] p-8 md:p-10 flex flex-col justify-between hover:border-[#0052FF] transition-all group"
+              className="snap-start shrink-0 w-[290px] sm:w-[440px] md:w-[540px] max-w-[85vw] border border-[#1F1F1F] bg-[#0A0A0A] p-6 sm:p-8 md:p-10 flex flex-col justify-between hover:border-[#0052FF] transition-all group"
             >
               <div className="flex flex-col gap-6">
                 <div className="flex justify-between items-center font-mono text-xs">
@@ -87,7 +87,7 @@ export default function ScreeningRoom() {
           {engineeringNotes.map((note) => (
             <div
               key={note.id}
-              className="snap-start shrink-0 w-[320px] sm:w-[420px] md:w-[480px] border border-[#1F1F1F] bg-[#0A0A0A] p-8 flex flex-col justify-between hover:border-white transition-all group"
+              className="snap-start shrink-0 w-[280px] sm:w-[380px] md:w-[450px] max-w-[85vw] border border-[#1F1F1F] bg-[#0A0A0A] p-6 sm:p-8 flex flex-col justify-between hover:border-white transition-all group"
             >
               <div className="flex flex-col gap-6">
                 <div className="flex justify-between items-baseline font-mono text-xs border-b border-[#1F1F1F] pb-4">
