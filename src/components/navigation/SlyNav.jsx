@@ -74,7 +74,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
                 const rect = e.currentTarget.getBoundingClientRect();
                 toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
               }}
-              className="font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase px-3 sm:px-4 py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-2 cursor-pointer pointer-events-auto shrink-0 group"
+              className="font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase w-[86px] sm:w-[94px] justify-center py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-2 cursor-pointer pointer-events-auto shrink-0 group"
               title="Toggle Dark / Light Theme"
             >
               {theme === 'dark' ? (
@@ -126,7 +126,7 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
                 const rect = e.currentTarget.getBoundingClientRect();
                 toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
               }}
-              className="font-mono text-[10px] font-bold px-2.5 py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] cursor-pointer pointer-events-auto flex items-center gap-1.5"
+              className="font-mono text-[10px] font-bold w-[78px] justify-center py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] cursor-pointer pointer-events-auto flex items-center gap-1.5"
             >
               {theme === 'dark' ? (
                 <>

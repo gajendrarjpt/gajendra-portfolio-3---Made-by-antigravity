@@ -8,8 +8,8 @@ export function ThemeProvider({ children }) {
     return saved ? saved : 'light';
   });
 
-  const lastButtonCenter = useRef({ x: window.innerWidth - 280, y: 36 });
-  const isTransitioningRef = useRef(false);
+  const lastButtonCenter = useRef({ x: window.innerWidth - 220, y: 36 });
+  const isThrottledRef = useRef(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -80,6 +80,13 @@ export function ThemeProvider({ children }) {
       return;
     }
 
+    // Prevent clashing rapid clicks from desynchronizing coordinates
+    if (isThrottledRef.current) return;
+    isThrottledRef.current = true;
+    setTimeout(() => {
+      isThrottledRef.current = false;
+    }, 400);
+
     // Always accurately anchor to the Dark/Light theme button
     const { x, y } = getThemeButtonCenter(e, explicitCoords);
 
@@ -108,8 +115,8 @@ export function ThemeProvider({ children }) {
               ]
             },
             {
-              duration: 550,
-              easing: 'cubic-bezier(0.7, 0, 0.84, 0)',
+              duration: 480,
+              easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
               fill: 'forwards',
               pseudoElement: '::view-transition-new(root)'
             }
@@ -150,15 +157,15 @@ export function ThemeProvider({ children }) {
 
       setTimeout(() => {
         setTheme(nextTheme);
-      }, 200);
+      }, 180);
 
       setTimeout(() => {
         ripple.classList.add('theme-ripple-fade');
         setTimeout(() => {
           if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
           document.documentElement.classList.remove('theme-switching');
-        }, 300);
-      }, 500);
+        }, 280);
+      }, 420);
     }
   };
 
