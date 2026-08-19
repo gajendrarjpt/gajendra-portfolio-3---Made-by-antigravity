@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@variant dark (.dark &);
+
+@layer base {
+  :root {
+    --bg-black: #000000;
+    --bg-dark-card: #0A0A0A;
+    --bg-dark-subtle: #111111;
+    --text-white: #FFFFFF;
+    --text-sub-gray: #888888;
+    --text-mid-gray: #AAAAAA;
+    --border-dark: #1F1F1F;
+    --border-light: #2A2A2A;
+    --accent-emerald: #00FF66;
+    --accent-blue: #0052FF;
+    --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html {
+    background-color: #FAF8F5;
+    color: #121212;
+    font-family: var(--font-body);
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+    overflow-x: clip;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.dark {
+    background-color: #000000;
+    color: #FFFFFF;
+  }
+
+  body {
+    background-color: transparent;
+    color: inherit;
+    min-height: 100vh;
+    overflow-x: clip;
+    max-width: 100vw;
+  }
+}
+
+/* Sly Typography Classes */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Sly Background Grids & Ambient Glows */
+.bg-sly-grid {
+  background-image: 
+    linear-gradient(to right, rgba(18, 18, 18, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 18, 18, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+html.dark .bg-sly-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.bg-emerald-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 255, 102, 0.08) 0%, transparent 70%);
+}
+
+.bg-blue-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 82, 255, 0.1) 0%, transparent 70%);
+}
+
+/* Hide scrollbar for filmstrip horizontal reels */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
