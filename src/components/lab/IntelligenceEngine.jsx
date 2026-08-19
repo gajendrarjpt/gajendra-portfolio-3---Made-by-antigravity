@@ -15,13 +15,14 @@ export default function IntelligenceEngine() {
   const activeProtocol = protocolStateMachines.find((p) => p.id === activeProtocolId) || protocolStateMachines[0];
   const currentStep = activeProtocol.steps[activeStepIndex] || activeProtocol.steps[0];
 
-  // Canvas mesh render for interactive mode
+  // Canvas mesh render for interactive mode with IntersectionObserver
   useEffect(() => {
     if (viewMode !== 'mesh') return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
+    let isVisible = true;
 
     let width = (canvas.width = canvas.parentElement.clientWidth);
     let height = (canvas.height = canvas.parentElement.clientHeight);
@@ -32,11 +33,27 @@ export default function IntelligenceEngine() {
       height = canvas.height = canvas.parentElement.clientHeight;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animationFrameId) {
+          render();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
 
     let progress = 0;
 
     const render = () => {
+      if (!isVisible) {
+        animationFrameId = null;
+        return;
+      }
+
       progress += 0.01;
       if (progress > 1) progress = 0;
       ctx.clearRect(0, 0, width, height);
@@ -93,6 +110,7 @@ export default function IntelligenceEngine() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
     };
   }, [activeDomain, viewMode, hoveredNodeId]);

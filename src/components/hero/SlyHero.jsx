@@ -31,12 +31,13 @@ export default function SlyHero({ onOpenBridge }) {
   const activeNode = LAB_NODES.find((n) => n.id === (hoveredNodeId || selectedNodeId)) || LAB_NODES[2];
   const sim = heroSimulations[activeSimMode] || heroSimulations.normal;
 
-  // Real-time Canvas Packet Simulation Engine
+  // Real-time Canvas Packet Simulation Engine with IntersectionObserver
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
+    let isVisible = true;
 
     let width = (canvas.width = canvas.parentElement.clientWidth);
     let height = (canvas.height = canvas.parentElement.clientHeight);
@@ -47,11 +48,28 @@ export default function SlyHero({ onOpenBridge }) {
       height = canvas.height = canvas.parentElement.clientHeight;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    // IntersectionObserver to pause rendering when offscreen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animationFrameId) {
+          render();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
 
     let progress = 0;
 
     const render = () => {
+      if (!isVisible) {
+        animationFrameId = null;
+        return;
+      }
+
       progress += sim.packetSpeed;
       if (progress > 1) progress = 0;
       ctx.clearRect(0, 0, width, height);
@@ -63,12 +81,11 @@ export default function SlyHero({ onOpenBridge }) {
 
       // 1. Draw Topology Links
       LAB_LINKS.forEach((link) => {
-        // Under failover mode, primary r1-fw1 is severed, and backup cloud-fw1-backup becomes active
         const isSevered = activeSimMode === 'failover' && link.id === 'r1-fw1';
         const isBackupActive = activeSimMode === 'failover' && link.id === 'cloud-fw1-backup';
         const isBackupInactive = activeSimMode !== 'failover' && !link.isPrimary;
 
-        if (isBackupInactive) return; // Do not render backup link during normal operation
+        if (isBackupInactive) return;
 
         const n1 = LAB_NODES.find((n) => n.id === link.from);
         const n2 = LAB_NODES.find((n) => n.id === link.to);
@@ -90,7 +107,6 @@ export default function SlyHero({ onOpenBridge }) {
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // Draw link severed indicator badge
             const midX = (x1 + x2) / 2;
             const midY = (y1 + y2) / 2;
             ctx.fillStyle = '#FF3B30';
@@ -114,10 +130,9 @@ export default function SlyHero({ onOpenBridge }) {
             const py = y1 + (y2 - y1) * progress;
 
             if (activeSimMode === 'threat' && (link.id === 'wan-link' || link.id === 'r1-fw1')) {
-              // Threat packets entering perimeter
               ctx.beginPath();
               ctx.arc(px, py, 4, 0, Math.PI * 2);
-              ctx.fillStyle = '#FF3344'; // Red attack packet
+              ctx.fillStyle = '#FF3344';
               ctx.fill();
 
               ctx.beginPath();
@@ -126,7 +141,6 @@ export default function SlyHero({ onOpenBridge }) {
               ctx.lineWidth = 1.2;
               ctx.stroke();
             } else {
-              // Clean verified payload
               const packetColor = isDark ? '#00FF66' : '#0052FF';
               ctx.beginPath();
               ctx.arc(px, py, 3.5, 0, Math.PI * 2);
@@ -150,6 +164,7 @@ export default function SlyHero({ onOpenBridge }) {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
     };
   }, [activeSimMode, sim.packetSpeed]);

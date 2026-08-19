@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000" />
+      <stop offset="100%" stop-color="#0A0A0A" />
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052FF" />
+      <stop offset="100%" stop-color="#00E5FF" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)" />
+  <rect width="1200" height="630" fill="url(#grid)" />
+
+  <!-- Outer Frame -->
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#1F1F1F" stroke-width="1.5" rx="4" />
+
+  <!-- Corner Accents -->
+  <path d="M 40 60 L 40 40 L 60 40" fill="none" stroke="#0052FF" stroke-width="3" />
+  <path d="M 1160 60 L 1160 40 L 1140 40" fill="none" stroke="#0052FF" stroke-width="3" />
+  <path d="M 40 570 L 40 590 L 60 590" fill="none" stroke="#0052FF" stroke-width="3" />
+  <path d="M 1160 570 L 1160 590 L 1140 590" fill="none" stroke="#0052FF" stroke-width="3" />
+
+  <!-- Header Metadata -->
+  <text x="80" y="100" font-family="monospace" font-size="14" font-weight="600" fill="#00FF66" letter-spacing="4">
+    SYSTEM // ARCHITECTURAL DOSSIER · AS65001
+  </text>
+  <circle cx="510" cy="95" r="4" fill="#00FF66" />
+  <text x="525" y="100" font-family="monospace" font-size="13" font-weight="500" fill="#888888" letter-spacing="2">
+    BACKBONE: NOMINAL
+  </text>
+
+  <!-- Name & Title -->
+  <text x="80" y="210" font-family="'Space Grotesk', -apple-system, sans-serif" font-size="72" font-weight="800" fill="#FFFFFF" letter-spacing="-2">
+    GAJENDRA RAJPUT
+  </text>
+
+  <text x="80" y="275" font-family="monospace" font-size="24" font-weight="700" fill="#0052FF" letter-spacing="3">
+    SENIOR NETWORK ENGINEER // NOC TIER 2/3
+  </text>
+
+  <text x="80" y="340" font-family="'Inter', -apple-system, sans-serif" font-size="20" font-weight="400" fill="#AAAAAA" max-width="800">
+    Engineering the invisible infrastructure people rarely see, but depend on every second.
+  </text>
+
+  <!-- Protocol Badges -->
+  <g transform="translate(80, 420)">
+    <rect x="0" y="0" width="130" height="38" fill="#111111" stroke="#333333" rx="2" />
+    <text x="65" y="24" font-family="monospace" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">BGP / OSPF</text>
+
+    <rect x="145" y="0" width="160" height="38" fill="#111111" stroke="#333333" rx="2" />
+    <text x="225" y="24" font-family="monospace" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">PALO ALTO / FORTINET</text>
+
+    <rect x="320" y="0" width="170" height="38" fill="#111111" stroke="#333333" rx="2" />
+    <text x="405" y="24" font-family="monospace" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">CISCO CATALYST STP</text>
+
+    <rect x="505" y="0" width="180" height="38" fill="#111111" stroke="#333333" rx="2" />
+    <text x="595" y="24" font-family="monospace" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">WIRESHARK DEEP PCAP</text>
+  </g>
+
+  <!-- Footer Link -->
+  <text x="80" y="535" font-family="monospace" font-size="14" font-weight="600" fill="#FFFFFF" letter-spacing="2">
+    HTTPS://GAJENDRA.NETWORK
+  </text>
+  <text x="1120" y="535" font-family="monospace" font-size="13" font-weight="500" fill="#666666" text-anchor="end">
+    CCNA · CEH v12 · NSE 3 · CCNP (IN PROGRESS)
+  </text>
+</svg>
