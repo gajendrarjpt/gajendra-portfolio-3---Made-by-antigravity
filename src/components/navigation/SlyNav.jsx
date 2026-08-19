@@ -3,6 +3,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { socials } from '../../data/portfolioData';
 import LiveClock from '../ui/LiveClock';
 import MagneticButton from '../ui/MagneticButton';
+import CelestialThemeToggle from '../ui/CelestialThemeToggle';
 
 export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,6 +17,12 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleThemeToggleClick = (e) => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+  };
 
   const navLinks = [
     { label: 'JOURNEY', href: '#journey' },
@@ -61,59 +68,17 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
             ))}
           </nav>
 
-          {/* Action Controls: Live Clock + Theme Switcher + Resume + Terminal + Bridge */}
+          {/* Action Controls: Live Clock + Celestial Theme Switcher + Resume + Terminal + Bridge */}
           <div className="hidden md:flex items-center gap-2 sm:gap-2.5 shrink-0">
             <LiveClock showStatus={false} className="hidden xl:flex mr-1" />
 
-            {/* Prominent Dark/Light Theme Button with Trending Animated SVG Icons */}
-            <button
-              type="button"
+            {/* Custom Signature Celestial Solar ↔ Eclipse Toggle */}
+            <CelestialThemeToggle
               id="theme-toggle-desktop-btn"
-              data-theme-toggle="true"
-              disabled={isSwitching}
-              onClick={(e) => {
-                e.stopPropagation();
-                const rect = e.currentTarget.getBoundingClientRect();
-                toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-              }}
-              className={`font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase w-[88px] justify-center py-2 border border-[#121212]/30 dark:border-[#2A2A2A] hover:border-[#121212] dark:hover:border-white bg-[#F4F1EA] dark:bg-[#111111] text-[#121212] dark:text-white transition-all flex items-center gap-1.5 shrink-0 group ${
-                isSwitching ? 'pointer-events-none opacity-80' : 'cursor-pointer pointer-events-auto'
-              }`}
-              title="Toggle Dark / Light Theme"
-            >
-              {theme === 'dark' ? (
-                <>
-                  <span className="relative flex items-center justify-center w-4 h-4 text-[#00FF66] transition-transform duration-500 ease-out group-hover:rotate-90 group-hover:scale-110">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="4.5" fill="currentColor" fillOpacity="0.25" />
-                      <line x1="12" y1="1" x2="12" y2="3.5" />
-                      <line x1="12" y1="20.5" x2="12" y2="23" />
-                      <line x1="4.22" y1="4.22" x2="5.99" y2="5.99" />
-                      <line x1="18.01" y1="18.01" x2="19.78" y2="19.78" />
-                      <line x1="1" y1="12" x2="3.5" y2="12" />
-                      <line x1="20.5" y1="12" x2="23" y2="12" />
-                      <line x1="4.22" y1="19.78" x2="5.99" y2="18.01" />
-                      <line x1="18.01" y1="5.99" x2="19.78" y2="4.22" />
-                    </svg>
-                  </span>
-                  <span>LIGHT</span>
-                </>
-              ) : (
-                <>
-                  <span className="relative flex items-center justify-center w-4 h-4 text-[#0052FF] transition-transform duration-500 ease-out group-hover:-rotate-12 group-hover:scale-110">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z" fill="currentColor" fillOpacity="0.2" />
-                      <path
-                        d="M19 3v4M17 5h4"
-                        strokeWidth="1.8"
-                        className="transition-transform duration-300 group-hover:scale-125 origin-center"
-                      />
-                    </svg>
-                  </span>
-                  <span>DARK</span>
-                </>
-              )}
-            </button>
+              theme={theme}
+              isSwitching={isSwitching}
+              onToggle={handleThemeToggleClick}
+            />
 
             {/* Direct 1-Click Recruiter Resume Button */}
             <a
@@ -147,53 +112,27 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
 
           {/* Mobile/Tablet Menu Toggle & Theme Switcher */}
           <div className="xl:hidden flex items-center gap-2">
-            <button
-              type="button"
+            <CelestialThemeToggle
               id="theme-toggle-mobile-btn"
-              data-theme-toggle="true"
-              disabled={isSwitching}
-              onClick={(e) => {
-                e.stopPropagation();
-                const rect = e.currentTarget.getBoundingClientRect();
-                toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-              }}
-              className={`font-mono text-[10px] font-bold w-[82px] justify-center py-1.5 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white uppercase bg-[#F4F1EA] dark:bg-[#111111] flex items-center gap-1.5 ${
-                isSwitching ? 'pointer-events-none opacity-80' : 'cursor-pointer pointer-events-auto'
-              }`}
-            >
-              {theme === 'dark' ? (
-                <>
-                  <svg className="w-3.5 h-3.5 text-[#00FF66]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="4.5" fill="currentColor" fillOpacity="0.25" />
-                    <line x1="12" y1="1" x2="12" y2="3.5" />
-                    <line x1="12" y1="20.5" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.99" y2="5.99" />
-                    <line x1="18.01" y1="18.01" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3.5" y2="12" />
-                    <line x1="20.5" y1="12" x2="23" y2="12" />
-                  </svg>
-                  <span>LIGHT</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-3.5 h-3.5 text-[#0052FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" fillOpacity="0.2" />
-                    <path d="M19 3v4M17 5h4" strokeWidth="1.8" />
-                  </svg>
-                  <span>DARK</span>
-                </>
-              )}
-            </button>
+              theme={theme}
+              isSwitching={isSwitching}
+              onToggle={handleThemeToggleClick}
+              compact
+            />
 
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex flex-col items-end gap-1.5 p-2 focus:outline-none cursor-pointer pointer-events-auto"
-              aria-label="Toggle Navigation Menu"
+              className="p-2 border border-[#121212]/20 dark:border-[#333] text-[#121212] dark:text-white cursor-pointer pointer-events-auto"
+              aria-label="Toggle Menu"
             >
-              <div className={`h-[2px] bg-[#121212] dark:bg-white transition-all ${mobileMenuOpen ? 'w-6 rotate-45 translate-y-2' : 'w-6'}`} />
-              <div className={`h-[2px] bg-[#121212] dark:bg-white transition-all ${mobileMenuOpen ? 'opacity-0 w-6' : 'w-4'}`} />
-              <div className={`h-[2px] bg-[#121212] dark:bg-white transition-all ${mobileMenuOpen ? 'w-6 -rotate-45 -translate-y-2' : 'w-5'}`} />
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                {mobileMenuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
+                )}
+              </svg>
             </button>
           </div>
         </div>
@@ -221,45 +160,13 @@ export default function SlyNav({ onOpenTerminal, onOpenBridge }) {
         </div>
 
         <div className="flex flex-col gap-4 pt-6 border-t border-[#121212]/10 dark:border-[#1F1F1F] font-mono text-xs text-[#5A5A57] dark:text-[#888888]">
-          <button
-            type="button"
+          <CelestialThemeToggle
             id="theme-toggle-drawer-btn"
-            data-theme-toggle="true"
-            onClick={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              toggleTheme(e, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-            }}
-            className="w-full py-3 border border-[#121212]/30 dark:border-[#333] text-[#121212] dark:text-white font-bold uppercase tracking-wider text-center cursor-pointer pointer-events-auto flex items-center justify-center gap-2 group"
-          >
-            {theme === 'dark' ? (
-              <>
-                <span className="text-[#00FF66] transition-transform duration-500 group-hover:rotate-90">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="4.5" fill="currentColor" fillOpacity="0.25" />
-                    <line x1="12" y1="1" x2="12" y2="3.5" />
-                    <line x1="12" y1="20.5" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.99" y2="5.99" />
-                    <line x1="18.01" y1="18.01" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3.5" y2="12" />
-                    <line x1="20.5" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="5.99" y2="18.01" />
-                    <line x1="18.01" y1="5.99" x2="19.78" y2="4.22" />
-                  </svg>
-                </span>
-                <span>SWITCH TO LIGHT MODE</span>
-              </>
-            ) : (
-              <>
-                <span className="text-[#0052FF] transition-transform duration-500 group-hover:-rotate-12">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" fillOpacity="0.2" />
-                    <path d="M19 3v4M17 5h4" strokeWidth="1.8" />
-                  </svg>
-                </span>
-                <span>SWITCH TO DARK MODE</span>
-              </>
-            )}
-          </button>
+            theme={theme}
+            isSwitching={isSwitching}
+            onToggle={handleThemeToggleClick}
+            className="w-full py-3"
+          />
 
           <a
             href="/resume/Gajendra_Rajput_Resume.pdf"
