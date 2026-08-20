@@ -4,12 +4,16 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    return saved ? saved : 'light';
+    try {
+      const saved = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
+      return saved ? saved : 'light';
+    } catch {
+      return 'light';
+    }
   });
 
   const [isSwitching, setIsSwitching] = useState(false);
-  const lastButtonCenter = useRef({ x: window.innerWidth - 220, y: 36 });
+  const lastButtonCenter = useRef({ x: typeof window !== 'undefined' ? window.innerWidth - 220 : 500, y: 36 });
 
   useEffect(() => {
     const root = document.documentElement;
@@ -18,7 +22,9 @@ export function ThemeProvider({ children }) {
     } else {
       root.classList.remove('dark');
     }
-    localStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {}
   }, [theme]);
 
   // Helper to locate the exact center of the active Dark/Light theme button
