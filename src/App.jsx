@@ -74,7 +74,7 @@ export default function App() {
         onClose={() => setTerminalOpen(false)} 
       />
 
-      <main className={`transition-opacity duration-700 ${loadingComplete ? 'opacity-100' : 'opacity-0'}`}>
+      <main className="w-full">
         <SlyHero onOpenBridge={handleOpenBridge} />
         <PacketJourney />
         <CareerStory />
