@@ -1,6 +1,8 @@
 export const profile = {
   name: 'GAJENDRA RAJPUT',
   shortName: 'Gajendra Rajput',
+  // Add { src: '/images/gajendra.webp', alt: 'Gajendra Rajput' } when a real portrait is available.
+  portrait: null,
   initials: 'GR',
   title: 'Senior Network Engineer',
   level: 'NOC Tier 2/3',
@@ -609,7 +611,10 @@ export const featuredProjects = [
     label: 'INDEPENDENT ENGINEERING PROJECT',
     category: 'AI-Powered Web Application',
     summary: 'Full-stack AI-powered plant diagnosis web application built with React, Vite, Tailwind CSS, and Google Gemini APIs.',
-    description: 'An independent project demonstrating end-to-end product design and software engineering capability. Users capture or upload a plant photo, and the application identifies diagnoses, health metrics, and customized care guidelines using multimodal AI.',
+    description: 'A plant-care companion that turns a photo into a likely diagnosis and a practical care plan. An exploration of making AI useful in everyday life.',
+    contribution: 'Product design and development, from the photo-upload experience to the Gemini-powered diagnosis flow.',
+    image: '/projects/plantrx-home.webp',
+    imageAlt: 'PlantRx live homepage, with its plant-care introduction and Diagnose my plant action.',
     tech: ['React', 'Vite', 'Tailwind CSS', 'Google Gemini API', 'Vercel', 'Web APIs'],
     liveUrl: 'https://plantrx-gamma.vercel.app',
     repoUrl: 'https://github.com/gajendrarjpt/plantrx',
@@ -774,4 +779,3 @@ export const protocolStateMachines = [
     ]
   }
 ];
-
