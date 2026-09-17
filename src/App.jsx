@@ -1,18 +1,20 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ArrowDown, ArrowRight, Menu, X, Pause, Play, RotateCcw, Sun, Moon } from 'lucide-react';
 import { profile, featuredProjects, socials } from './data/portfolioData';
+import { themes, getTheme } from './data/themes';
+import ObservatoryFallback from './components/ObservatoryFallback';
 const Sculpture = lazy(() => import('./components/Sculpture'));
 const chapters = [
   {name:'Connect', tag:'01 / NETWORK ENGINEERING', title:'Good things start with a connection.', text:'My foundation is network engineering: connecting people and keeping the systems behind them running.', note:'Networks → connections'},
   {name:'Create', tag:'02 / WEBSITES & PRODUCTS', title:'Then, turn an idea into something useful.', text:'I take that problem-solving mindset into building websites. From the first idea to the details that make it work.', note:'Ideas → experiences'},
   {name:'Explore', tag:'03 / PRACTICAL AI', title:'Stay curious. See what comes next.', text:'I experiment with AI to solve everyday problems. PlantRx is one of those ideas, brought to life.', note:'Curiosity → possibilities'},
 ];
-function FallbackArt({chapter=0}){return <div className={"fallback-art fallback-chapter-"+chapter} aria-hidden="true"><i/><i/><i/><b/></div>}
+function FallbackArt({chapter=0}){return <ObservatoryFallback chapter={chapter}/>}
 export default function App(){
-  const [theme,setTheme]=useState(() => document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+  const [theme,setTheme]=useState(() => getTheme(document.documentElement.dataset.theme).id);
   useEffect(()=>{
     document.documentElement.dataset.theme=theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='light'?'#f4f2eb':'#141517');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',getTheme(theme).background);
     try { localStorage.setItem('theme',theme); } catch { /* Theme still works without storage. */ }
   },[theme]);
   const [chapter,setChapter]=useState(0), [paused,setPaused]=useState(false), [reset,setReset]=useState(0);
@@ -49,7 +51,7 @@ export default function App(){
         <nav className="nav-dock" aria-label="Main navigation">
           {[['Home','home'],['Work','work'],['About','about'],['Contact','contact']].map(([label,id])=><a key={id} href={'#'+id} aria-current={activeSection===id?'location':undefined}>{label}<span aria-hidden="true"/></a>)}
         </nav>
-        <div className="header-actions"><button className="icon-button theme-toggle" type="button" aria-label={theme==='dark'?'Switch to light mode':'Switch to dark mode'} onClick={()=>setTheme(t=>t==='dark'?'light':'dark')}>{theme==='dark'?<Sun size={20}/>:<Moon size={20}/>}</button><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} aria-controls="mobile-navigation" onClick={()=>setMenu(true)}><Menu/></button></div>
+        <div className="header-actions"><label className="theme-picker"><span className="theme-swatch" aria-hidden="true"/><span className="sr-only">Color theme</span><select aria-label="Color theme" value={theme} onChange={e=>setTheme(e.target.value)}>{themes.map(t=><option key={t.id} value={t.id}>{t.name}</option>)}</select></label><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} aria-controls="mobile-navigation" onClick={()=>setMenu(true)}><Menu/></button></div>
       </div><span className="header-progress" aria-hidden="true"/>
     </header>
     <dialog ref={dialog} id="mobile-navigation" className="mobile-menu" aria-label="Site navigation" onCancel={()=>setMenu(false)} onClose={()=>setMenu(false)}><div className="menu-top"><span className="eyebrow">TAKE A LOOK AROUND</span><button className="icon-button" aria-label="Close menu" onClick={()=>setMenu(false)}><X/></button></div><nav aria-label="Mobile navigation">{[['Home','home'],['Selected work','work'],['About me','about'],['Let’s talk','contact']].map(([label,id],i)=><a key={id} href={'#'+id} aria-current={activeSection===id?'location':undefined} onClick={()=>setMenu(false)}><small>0{i+1}</small>{label}<ArrowUpRight/></a>)}</nav></dialog>
@@ -58,7 +60,7 @@ export default function App(){
         <div className="hero-kicker"><p className="eyebrow"><span className="status-dot"/> INDEPENDENT MIND. CONNECTED WORLD.</p><span className="location">Pune, India ↗</span></div>
         <div className="hero-main">
           <div className="hero-copy"><h1 id="hero-title">Curiosity,<br/><span>made real.</span></h1><p className="intro">I’m Gajendra. An engineer who builds for the web, experiments with AI, and makes room for a little creativity.</p><div className="hero-actions"><a className="button primary" href="#work">Discover my work <ArrowDown size={19}/></a><a className="quiet-link" href="#about">The person behind it <ArrowUpRight size={18}/></a></div><p className="hero-note"><span aria-hidden="true">✳</span> Engineering roots. No single box.</p></div>
-          <div className="hero-art"><div className="orbit-guide" aria-hidden="true"/><span className="art-coordinate art-coordinate-top" aria-hidden="true">FIG. 0{chapter+1} — {chapters[chapter].name.toUpperCase()}</span><div className="scene-wrap"><Suspense fallback={<FallbackArt chapter={chapter}/>}><Sculpture chapter={chapter} paused={paused||reduced} reset={reset} onReady={setSceneReady} fallback={<FallbackArt chapter={chapter}/>}/></Suspense></div><div className="scene-toolbar"><span>{sceneReady?'Yours to play with. Drag to rotate.':'Three interests. One curious mind.'}</span>{sceneReady&&<div><button className="icon-button" aria-label="Reset sculpture rotation" onClick={()=>setReset(v=>v+1)}><RotateCcw size={16}/></button><button className="icon-button" aria-label={paused||reduced?'Play sculpture animation':'Pause sculpture animation'} aria-pressed={paused||reduced} onClick={()=>{setPaused(!(paused||reduced));setReduced(false)}}>{paused||reduced?<Play size={16}/>:<Pause size={16}/>}</button></div>}</div></div>
+          <div className="hero-art"><div className="orbit-guide" aria-hidden="true"/><span className="art-coordinate art-coordinate-top" aria-hidden="true">THE MAKER’S OBSERVATORY / 0{chapter+1}</span><div className="scene-wrap"><Suspense fallback={<FallbackArt chapter={chapter}/>}><Sculpture theme={theme} chapter={chapter} paused={paused||reduced} reset={reset} onReady={setSceneReady} fallback={<FallbackArt chapter={chapter}/>}/></Suspense></div><div className="scene-toolbar"><span>{sceneReady?'Yours to play with. Drag to rotate.':'Three interests. One curious mind.'}</span>{sceneReady&&<div><button className="icon-button" aria-label="Reset sculpture rotation" onClick={()=>setReset(v=>v+1)}><RotateCcw size={16}/></button><button className="icon-button" aria-label={paused||reduced?'Play sculpture animation':'Pause sculpture animation'} aria-pressed={paused||reduced} onClick={()=>{setPaused(!(paused||reduced));setReduced(false)}}>{paused||reduced?<Play size={16}/>:<Pause size={16}/>}</button></div>}</div></div>
         </div>
         <div className="story-strip"><div className="story-label"><span className="eyebrow">A FEW SIDES OF ME</span><span>Pick a chapter <ArrowRight size={16}/></span></div><div className="chapter-tabs" role="tablist" aria-label="Explore my story">{chapters.map((c,i)=><button key={c.name} ref={el=>tabs.current[i]=el} id={'chapter-'+i} role="tab" aria-selected={chapter===i} aria-controls="chapter-panel" tabIndex={chapter===i?0:-1} onClick={()=>setChapter(i)} onKeyDown={e=>tabKey(e,i)}><small>0{i+1}</small>{c.name}<ArrowUpRight size={18}/></button>)}</div><div id="chapter-panel" role="tabpanel" aria-labelledby={'chapter-'+chapter} className="chapter-panel" tabIndex={0}><p className="eyebrow">{chapters[chapter].tag}</p><p>{chapters[chapter].text}</p></div></div>
       </section>
