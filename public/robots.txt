@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://gajendra.network/sitemap.xml
+Sitemap: https://www.gajendrarajput.in/sitemap.xml
