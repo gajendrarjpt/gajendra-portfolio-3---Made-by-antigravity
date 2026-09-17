@@ -22,9 +22,9 @@ export default function Sculpture({ chapter, paused, reset, fallback, onReady })
     const environment=pmrem.fromScene(room,0.04);scene.environment=environment.texture;room.dispose();pmrem.dispose();
     scene.add(new THREE.HemisphereLight(0xffffff,0x756495,3));
     const light=new THREE.DirectionalLight(0xffffff,4);light.position.set(3,5,5);scene.add(light);
-    const purple=new THREE.DirectionalLight(0xa898ff,3);purple.position.set(-4,1,-2);scene.add(purple);
+    const purple=new THREE.DirectionalLight(0x91a8ff,3);purple.position.set(-4,1,-2);scene.add(purple);
     const silver=new THREE.MeshPhysicalMaterial({color:0xd8d3e7,metalness:0.88,roughness:0.2,clearcoat:1});
-    const violet=new THREE.MeshPhysicalMaterial({color:0x9d87ec,metalness:0.55,roughness:0.25,clearcoat:1});
+    const violet=new THREE.MeshPhysicalMaterial({color:0x6e87ed,metalness:0.55,roughness:0.25,clearcoat:1});
     const lime=new THREE.MeshPhysicalMaterial({color:0xd6fa79,metalness:0.12,roughness:0.22,clearcoat:1});
     const dark=new THREE.MeshStandardMaterial({color:0x252330,roughness:0.45,metalness:0.3});
     const root=new THREE.Group();scene.add(root);
@@ -44,7 +44,7 @@ export default function Sculpture({ chapter, paused, reset, fallback, onReady })
     // An orbit of possibilities: curiosity and practical AI experiments.
     mesh(new THREE.IcosahedronGeometry(.75,2),lime,groups[2]);
     for(let i=0;i<3;i++){const ring=mesh(new THREE.TorusGeometry(1.42,.075,16,80),i===1?violet:silver,groups[2]);ring.rotation.set(i*.95+.2,i*.6,.3);const bead=mesh(new THREE.SphereGeometry(.19,20,16),i===1?lime:violet,ring,1.42,0,0);}
-    const resize=()=>{const w=element.clientWidth,h=element.clientHeight;if(!w||!h)return;renderer.setSize(w,h);camera.aspect=w/h;camera.position.z=w/h<1?9.8:8.7;camera.updateProjectionMatrix();};
+    const resize=()=>{const w=element.clientWidth,h=element.clientHeight;if(!w||!h)return;renderer.setSize(w,h);camera.aspect=w/h;camera.position.z=w/h<.85?9.0:8.2;camera.updateProjectionMatrix();};
     const ro=new ResizeObserver(resize);ro.observe(element);resize();
     let visible=true,dragging=false,lastX=0,lastY=0,spin=0,tilt=0,lastReset=reset,lastTime=0,clock=0,frame=0;
     const io=new IntersectionObserver(([entry])=>visible=entry.isIntersecting);io.observe(element);
