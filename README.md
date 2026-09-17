@@ -8,7 +8,7 @@ Run `npm ci`, then `npm run dev`. Run `npm run build` for a production build. Ve
 
 ## Design and interaction
 
-Outfit headlines, Manrope body text, charcoal backgrounds, lilac surfaces, and lime accents. Fonts are bundled and self-hosted. Drag the sculpture or focus it and use arrow keys. Chapter tabs support arrow keys, Home, and End. Pause and reset controls are visible. Reduced-motion preferences disable automatic movement. The renderer pauses drawing offscreen and in hidden tabs and limits pixel ratio. CSS artwork provides a fallback if WebGL is unavailable. The mobile menu uses a native modal dialog.
+Outfit headlines, Manrope body text, charcoal backgrounds, lilac surfaces, and lime accents. The header sun/moon toggle switches to a matching warm-white and lilac light palette on desktop and mobile. The selected theme is remembered locally and applied before page rendering; dark is the default when no preference is saved. Fonts are bundled and self-hosted. Drag the sculpture or focus it and use arrow keys. Chapter tabs support arrow keys, Home, and End. Pause and reset controls are visible. Reduced-motion preferences disable automatic movement. The renderer pauses drawing offscreen and in hidden tabs and limits pixel ratio. CSS artwork provides a fallback if WebGL is unavailable. The mobile menu uses a native modal dialog.
 
 ## Content
 

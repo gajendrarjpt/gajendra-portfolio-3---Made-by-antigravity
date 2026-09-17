@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, ArrowDown, ArrowRight, Menu, X, Pause, Play, RotateCcw } from 'lucide-react';
+import { ArrowUpRight, ArrowDown, ArrowRight, Menu, X, Pause, Play, RotateCcw, Sun, Moon } from 'lucide-react';
 import { profile, featuredProjects, socials } from './data/portfolioData';
 const Sculpture = lazy(() => import('./components/Sculpture'));
 const chapters = [
@@ -9,6 +9,12 @@ const chapters = [
 ];
 function FallbackArt({chapter=0}){return <div className={"fallback-art fallback-chapter-"+chapter} aria-hidden="true"><i/><i/><i/><b/></div>}
 export default function App(){
+  const [theme,setTheme]=useState(() => document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+  useEffect(()=>{
+    document.documentElement.dataset.theme=theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='light'?'#f6f5f1':'#17181a');
+    try { localStorage.setItem('theme',theme); } catch { /* Theme still works without storage. */ }
+  },[theme]);
   const [chapter,setChapter]=useState(0), [paused,setPaused]=useState(false), [reset,setReset]=useState(0);
   const [menu,setMenu]=useState(false), [reduced,setReduced]=useState(false), [sceneReady,setSceneReady]=useState(null);
   const dialog=useRef(null),trigger=useRef(null), tabs=useRef([]);
@@ -18,7 +24,7 @@ export default function App(){
   function tabKey(e,index){let next;if(e.key==='ArrowRight')next=(index+1)%3;if(e.key==='ArrowLeft')next=(index+2)%3;if(e.key==='Home')next=0;if(e.key==='End')next=2;if(next!==undefined){e.preventDefault();setChapter(next);tabs.current[next].focus()}}
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="header shell"><a href="#home" className="brand" aria-label="Gajendra Rajput home"><span className="brand-symbol">g<span>r</span><i/></span><span>Gajendra Rajput<small>Engineer & maker</small></span></a><nav aria-label="Main navigation"><a href="#work">Selected work</a><a href="#about">About me</a></nav><a href="#contact" className="nav-contact">Let’s talk <ArrowUpRight size={17}/></a><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} onClick={()=>setMenu(true)}><Menu/></button></header>
+    <header className="header shell"><a href="#home" className="brand" aria-label="Gajendra Rajput home"><span className="brand-symbol">g<span>r</span><i/></span><span>Gajendra Rajput<small>Engineer & maker</small></span></a><nav aria-label="Main navigation"><a href="#work">Selected work</a><a href="#about">About me</a></nav><div className="header-actions"><a href="#contact" className="nav-contact">Let’s talk <ArrowUpRight size={17}/></a><button className="icon-button theme-toggle" type="button" aria-label={theme==='dark'?'Switch to light mode':'Switch to dark mode'} title={theme==='dark'?'Switch to light mode':'Switch to dark mode'} onClick={()=>setTheme(t=>t==='dark'?'light':'dark')}>{theme==='dark'?<Sun size={18}/>:<Moon size={18}/>}</button><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} onClick={()=>setMenu(true)}><Menu/></button></div></header>
     <dialog ref={dialog} className="mobile-menu" onCancel={()=>setMenu(false)} onClose={()=>setMenu(false)}><button className="icon-button" aria-label="Close menu" onClick={()=>setMenu(false)}><X/></button><nav aria-label="Mobile navigation">{[['Selected work','work'],['About me','about'],['Let’s talk','contact']].map(([label,id])=><a key={id} href={'#'+id} onClick={()=>setMenu(false)}>{label}<ArrowUpRight/></a>)}</nav></dialog>
     <main id="main" tabIndex={-1}>
       <section id="home" className="hero shell" aria-labelledby="hero-title">

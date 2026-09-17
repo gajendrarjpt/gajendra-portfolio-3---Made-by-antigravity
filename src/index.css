@@ -7,3 +7,31 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.project-art:hover .browser-frame{transform:none}.button:hover,.project-art:hover .project-open,.contact-circle:hover{transform:none}}
 
 .fallback-chapter-1 i{border-radius:16px;width:215px;height:150px;border-width:12px;transform:translate(-60%,-70%) rotateX(12deg) rotateY(-22deg) rotateZ(-8deg)}.fallback-chapter-1 i:nth-child(2){transform:translate(-40%,-35%) rotateX(12deg) rotateY(-22deg) rotateZ(-8deg)}.fallback-chapter-1 b{width:80px;height:17px;border-radius:4px;left:42%;top:51%;transform:rotate(-8deg)}.fallback-chapter-2 i{width:230px;height:230px;border-width:9px;transform:translate(-50%,-50%) rotateY(60deg) rotateZ(30deg)}.fallback-chapter-2 i:nth-child(2){transform:translate(-50%,-50%) rotateX(60deg) rotateZ(-25deg)}.fallback-chapter-2 b{width:90px;height:90px;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 30% 25%,#f1ffc9,#d6fa79 45%,#6d8d33)}
+
+/* Both palettes share the same geometry, type scale and interaction. */
+.header-actions{display:flex;align-items:center;gap:14px}
+.theme-toggle{width:44px;height:44px;flex-shrink:0}
+:root[data-theme="light"]{color-scheme:light;background:#f6f5f1;color:#202124;--muted:#5c5e65;--line:#d9d8d4}
+:root[data-theme="light"] :focus-visible{outline-color:#655099}
+:root[data-theme="light"] h1>span{color:#4f6528}
+:root[data-theme="light"] .brand-symbol span{color:#705998}
+:root[data-theme="light"] .brand-symbol i,:root[data-theme="light"] .status-dot{background:#628032}
+:root[data-theme="light"] .header a:hover,:root[data-theme="light"] .text-link:hover{color:#5b4584}
+:root[data-theme="light"] .intro,:root[data-theme="light"] .hero-copy .eyebrow,:root[data-theme="light"] .hero-signoff,:root[data-theme="light"] .chapter-divider,:root[data-theme="light"] .section-title>p,:root[data-theme="light"] .project-info .eyebrow,:root[data-theme="light"] .project-info p:last-child,:root[data-theme="light"] .project-actions>span,:root[data-theme="light"] .subdued,:root[data-theme="light"] .about-copy>.eyebrow,:root[data-theme="light"] .about-copy>p:not(.eyebrow),:root[data-theme="light"] .footer{color:#5c5e65}
+:root[data-theme="light"] .nav-contact,:root[data-theme="light"] .icon-button{border-color:#c9c7ce}
+:root[data-theme="light"] .icon-button:hover{background:#00000008}
+:root[data-theme="light"] .playground{background:#eae6f2;border-color:#d4cddd}
+:root[data-theme="light"] .stage-top,:root[data-theme="light"] .chapter-panel .eyebrow{color:#654d8b}
+:root[data-theme="light"] .scene-toolbar,:root[data-theme="light"] .chapter-panel>p:last-child{color:#5e5867}
+:root[data-theme="light"] .scene-word{color:#4a34590d}
+:root[data-theme="light"] .chapter-tabs{border-color:#cec5db}
+:root[data-theme="light"] .chapter-tabs button{color:#50445e}
+:root[data-theme="light"] .chapter-tabs button[aria-selected=true]{background:#705593;color:#fff}
+:root[data-theme="light"] .chapter-tabs button:hover:not([aria-selected=true]){background:#70559312}
+:root[data-theme="light"] .dim{color:#6e7076}
+:root[data-theme="light"] .text-link{border-color:#b4b3b9}
+:root[data-theme="light"] .about{background:#edede8;border-color:#d9d8d4}
+:root[data-theme="light"] .lilac-text{color:#705593}
+:root[data-theme="light"] .mobile-menu{background:#f6f5f1;color:#202124;border-color:#d4cddd}
+:root[data-theme="light"] .mobile-menu nav a{border-color:#d4cddd}
+@media(max-width:760px){.header-actions{gap:10px}.theme-toggle{width:38px;height:38px}}
