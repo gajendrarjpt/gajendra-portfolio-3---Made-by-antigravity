@@ -3,19 +3,19 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
-export default function Sculpture({ chapter, paused, reset, fallback }) {
+export default function Sculpture({ chapter, paused, reset, fallback, onReady }) {
   const host = useRef(null), state = useRef({chapter,paused,reset});
   const [failed,setFailed]=useState(false);
   useEffect(()=>{state.current={chapter,paused,reset}},[chapter,paused,reset]);
   useEffect(()=>{
     const element=host.current;
     let renderer;
-    try {renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});}catch {setFailed(true);return;}
+    try {renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});}catch {setFailed(true);onReady(false);return;}
     renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));
     renderer.setClearColor(0x000000,0);
     renderer.toneMapping=THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure=1.25;
-    element.appendChild(renderer.domElement);
+    element.appendChild(renderer.domElement);onReady(true);
     const scene=new THREE.Scene();
     const camera=new THREE.PerspectiveCamera(35,1,0.1,100);camera.position.set(0,0.15,8.7);
     const pmrem=new THREE.PMREMGenerator(renderer), room=new RoomEnvironment();
@@ -52,7 +52,7 @@ export default function Sculpture({ chapter, paused, reset, fallback }) {
     const move=e=>{if(dragging){spin+=(e.clientX-lastX)*.008;tilt=THREE.MathUtils.clamp(tilt+(e.clientY-lastY)*.005,-.8,.8);lastX=e.clientX;lastY=e.clientY;}};
     const up=()=>dragging=false;
     const key=e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();if(e.key==='ArrowLeft')spin-=.2;if(e.key==='ArrowRight')spin+=.2;if(e.key==='ArrowUp')tilt-=.15;if(e.key==='ArrowDown')tilt+=.15}};
-    const lost=e=>{e.preventDefault();setFailed(true);cancelAnimationFrame(frame)};
+    const lost=e=>{e.preventDefault();setFailed(true);onReady(false);cancelAnimationFrame(frame)};
     element.addEventListener('pointerdown',down);element.addEventListener('pointermove',move);element.addEventListener('pointerup',up);element.addEventListener('pointercancel',up);element.addEventListener('keydown',key);renderer.domElement.addEventListener('webglcontextlost',lost);
     function animate(now){frame=requestAnimationFrame(animate);const dt=Math.min((now-lastTime)/1000,.05);lastTime=now;if(!visible||document.hidden)return;const current=state.current;if(lastReset!==current.reset){spin=0;tilt=0;lastReset=current.reset}if(!current.paused){clock+=dt;if(!dragging)spin+=dt*.16;}root.rotation.y=spin;root.rotation.x=tilt;root.position.y=current.paused?0:Math.sin(clock*.9)*.09;
       groups.forEach((g,i)=>{const target=i===current.chapter?1:.001;const scale=current.paused?target:THREE.MathUtils.damp(g.scale.x,target,8,dt);g.scale.setScalar(scale);g.visible=scale>.01;});
