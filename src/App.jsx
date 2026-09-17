@@ -20,12 +20,31 @@ export default function App(){
   const dialog=useRef(null),trigger=useRef(null), tabs=useRef([]);
   useEffect(()=>{const q=matchMedia('(prefers-reduced-motion: reduce)'); const change=()=>setReduced(q.matches); change();q.addEventListener('change',change);return()=>q.removeEventListener('change',change)},[]);
   useEffect(()=>{if(menu){dialog.current.showModal();const previous=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.body.style.overflow=previous;}}else if(dialog.current.open){dialog.current.close();trigger.current?.focus()}},[menu]);
+  const [activeSection,setActiveSection]=useState('home');
+  const headerRef=useRef(null);
+  useEffect(()=>{
+    let frame=0;
+    const update=()=>{
+      frame=0;
+      const ids=['home','work','about','contact'];
+      const marker=window.innerHeight*.35;
+      let active='home';
+      for(const id of ids){if(document.getElementById(id)?.getBoundingClientRect().top<=marker)active=id;}
+      if(window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-4)active='contact';
+      setActiveSection(active);
+      const range=document.documentElement.scrollHeight-window.innerHeight;
+      headerRef.current?.style.setProperty('--page-progress',String(range>0?window.scrollY/range:0));
+    };
+    const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)};
+    update();window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);
+    return()=>{cancelAnimationFrame(frame);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule)};
+  },[]);
   const project=featuredProjects[0];
   function tabKey(e,index){let next;if(e.key==='ArrowRight')next=(index+1)%3;if(e.key==='ArrowLeft')next=(index+2)%3;if(e.key==='Home')next=0;if(e.key==='End')next=2;if(next!==undefined){e.preventDefault();setChapter(next);tabs.current[next].focus()}}
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="header shell"><a href="#home" className="brand" aria-label="Gajendra Rajput home"><span className="brand-symbol">g<span>r</span><i/></span><span>Gajendra Rajput<small>Engineer & maker</small></span></a><nav aria-label="Main navigation"><a href="#work">Selected work</a><a href="#about">About me</a></nav><div className="header-actions"><a href="#contact" className="nav-contact">Let’s talk <ArrowUpRight size={17}/></a><button className="icon-button theme-toggle" type="button" aria-label={theme==='dark'?'Switch to light mode':'Switch to dark mode'} title={theme==='dark'?'Switch to light mode':'Switch to dark mode'} onClick={()=>setTheme(t=>t==='dark'?'light':'dark')}>{theme==='dark'?<Sun size={18}/>:<Moon size={18}/>}</button><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} onClick={()=>setMenu(true)}><Menu/></button></div></header>
-    <dialog ref={dialog} className="mobile-menu" onCancel={()=>setMenu(false)} onClose={()=>setMenu(false)}><button className="icon-button" aria-label="Close menu" onClick={()=>setMenu(false)}><X/></button><nav aria-label="Mobile navigation">{[['Selected work','work'],['About me','about'],['Let’s talk','contact']].map(([label,id])=><a key={id} href={'#'+id} onClick={()=>setMenu(false)}>{label}<ArrowUpRight/></a>)}</nav></dialog>
+    <header ref={headerRef} className="header shell"><a href="#home" className="brand" aria-label="Gajendra Rajput home"><span className="brand-symbol">g<span>r</span><i/></span><span>Gajendra Rajput<small>Engineer & maker</small></span></a><nav className="nav-dock" aria-label="Main navigation" style={{'--active-index':['home','work','about','contact'].indexOf(activeSection)}}><span className="nav-indicator" aria-hidden="true"/>{[['Home','home'],['Work','work'],['About','about'],['Contact','contact']].map(([label,id])=><a key={id} href={'#'+id} aria-current={activeSection===id?'location':undefined}>{label}</a>)}</nav><div className="header-actions"><button className="icon-button theme-toggle" type="button" aria-label={theme==='dark'?'Switch to light mode':'Switch to dark mode'} title={theme==='dark'?'Switch to light mode':'Switch to dark mode'} onClick={()=>setTheme(t=>t==='dark'?'light':'dark')}>{theme==='dark'?<Sun size={18}/>:<Moon size={18}/>}</button><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} onClick={()=>setMenu(true)}><Menu/></button></div><span className="header-progress" aria-hidden="true"/></header>
+    <dialog ref={dialog} className="mobile-menu" onCancel={()=>setMenu(false)} onClose={()=>setMenu(false)}><button className="icon-button" aria-label="Close menu" onClick={()=>setMenu(false)}><X/></button><nav aria-label="Mobile navigation">{[['Home','home'],['Selected work','work'],['About me','about'],['Let’s talk','contact']].map(([label,id])=><a key={id} href={'#'+id} aria-current={activeSection===id?'location':undefined} onClick={()=>setMenu(false)}>{label}<ArrowUpRight/></a>)}</nav></dialog>
     <main id="main" tabIndex={-1}>
       <section id="home" className="hero shell" aria-labelledby="hero-title">
         <div className="hero-copy"><p className="eyebrow"><span className="status-dot"/> Based in Pune, India</p><h1 id="hero-title">Connecting<br/>ideas to<br/><span>real things.</span></h1><p className="intro">I’m Gajendra. A network engineer who builds websites and explores what AI can do.</p><a className="button lime" href="#work">Explore my work <ArrowDown size={18}/></a><div className="hero-signoff"><span>Engineering mind.</span><span>Creative curiosity.</span></div></div>
