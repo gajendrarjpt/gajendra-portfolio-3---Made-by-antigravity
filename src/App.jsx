@@ -1,7 +1,9 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ArrowDown, ArrowRight, Menu, X, Pause, Play, RotateCcw, Sun, Moon } from 'lucide-react';
 import { profile, featuredProjects, socials } from './data/portfolioData';
-import { themes, getTheme } from './data/themes';
+import { getTheme } from './data/themes';
+import { flushSync } from 'react-dom';
+import ThemePicker from './components/ThemePicker';
 import ObservatoryFallback from './components/ObservatoryFallback';
 const Sculpture = lazy(() => import('./components/Sculpture'));
 const chapters = [
@@ -12,6 +14,21 @@ const chapters = [
 function FallbackArt({chapter=0}){return <ObservatoryFallback chapter={chapter}/>}
 export default function App(){
   const [theme,setTheme]=useState(() => getTheme(document.documentElement.dataset.theme).id);
+  const [switching,setSwitching]=useState(false);
+  const transitionLock=useRef(false);
+  async function changeTheme(next,origin){
+    if(next===theme||transitionLock.current)return;
+    const apply=()=>{document.documentElement.dataset.theme=next;flushSync(()=>setTheme(next))};
+    if(!document.startViewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches){apply();return;}
+    const {x,y}=origin;
+    const radius=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
+    document.documentElement.style.setProperty('--theme-x',`${x}px`);
+    document.documentElement.style.setProperty('--theme-y',`${y}px`);
+    document.documentElement.style.setProperty('--theme-radius',`${radius}px`);
+    transitionLock.current=true;setSwitching(true);
+    try {const transition=document.startViewTransition(apply);await transition.finished;} catch {apply();}
+    finally {transitionLock.current=false;setSwitching(false);}
+  }
   useEffect(()=>{
     document.documentElement.dataset.theme=theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content',getTheme(theme).background);
@@ -51,7 +68,7 @@ export default function App(){
         <nav className="nav-dock" aria-label="Main navigation">
           {[['Home','home'],['Work','work'],['About','about'],['Contact','contact']].map(([label,id])=><a key={id} href={'#'+id} aria-current={activeSection===id?'location':undefined}>{label}<span aria-hidden="true"/></a>)}
         </nav>
-        <div className="header-actions"><label className="theme-picker"><span className="theme-swatch" aria-hidden="true"/><span className="sr-only">Color theme</span><select aria-label="Color theme" value={theme} onChange={e=>setTheme(e.target.value)}>{themes.map(t=><option key={t.id} value={t.id}>{t.name}</option>)}</select></label><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} aria-controls="mobile-navigation" onClick={()=>setMenu(true)}><Menu/></button></div>
+        <div className="header-actions"><ThemePicker theme={theme} onChange={changeTheme} switching={switching}/><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} aria-controls="mobile-navigation" onClick={()=>setMenu(true)}><Menu/></button></div>
       </div><span className="header-progress" aria-hidden="true"/>
     </header>
     <dialog ref={dialog} id="mobile-navigation" className="mobile-menu" aria-label="Site navigation" onCancel={()=>setMenu(false)} onClose={()=>setMenu(false)}><div className="menu-top"><span className="eyebrow">TAKE A LOOK AROUND</span><button className="icon-button" aria-label="Close menu" onClick={()=>setMenu(false)}><X/></button></div><nav aria-label="Mobile navigation">{[['Home','home'],['Selected work','work'],['About me','about'],['Let’s talk','contact']].map(([label,id],i)=><a key={id} href={'#'+id} aria-current={activeSection===id?'location':undefined} onClick={()=>setMenu(false)}><small>0{i+1}</small>{label}<ArrowUpRight/></a>)}</nav></dialog>
