@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "@fontsource/instrument-serif/latin-400.css";
+import "@fontsource-variable/outfit";
 import "@fontsource-variable/manrope";
 import App from "./App.jsx";
 import ErrorBoundary from "./components/layout/ErrorBoundary.jsx";

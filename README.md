@@ -1,24 +1,15 @@
-# Gajendra Rajput — personal portfolio
+# Gajendra Rajput — interactive personal portfolio
 
-A single-page React/Vite portfolio. The homepage features selected work, a concise professional introduction, and direct contact links.
+React and Vite portfolio with a three-chapter story: Connect, Create, Explore. The Three.js scene uses procedural interlocking rings, browser windows, and an orbital sculpture. No external models, image APIs, or paid services are needed.
 
 ## Development
 
-- `npm ci`
-- `npm run dev`
-- `npm run build`
-- `npm run preview`
+Run `npm ci`, then `npm run dev`. Run `npm run build` for a production build. Vercel deploys `main` using `npm run build` and the `dist` output directory. The production domain is https://www.gajendrarajput.in/.
 
-There are no lint or test scripts in this project. Vercel uses the existing `gajendra-portfolio` project, `npm run build`, and `dist` (also specified in `vercel.json`). Production deploys from `main` to www.gajendrarajput.in. The old dashboard implementation has been removed.
+## Design and interaction
 
-## Content and assets
+Outfit headlines, Manrope body text, charcoal backgrounds, lilac surfaces, and lime accents. Fonts are bundled and self-hosted. Drag the sculpture or focus it and use arrow keys. Chapter tabs support arrow keys, Home, and End. Pause and reset controls are visible. Reduced-motion preferences disable automatic movement. The renderer pauses drawing offscreen and in hidden tabs and limits pixel ratio. CSS artwork provides a fallback if WebGL is unavailable. The mobile menu uses a native modal dialog.
 
-Contact information, résumé, and the featured project come from `src/data/portfolioData.js`. PlantRx is confirmed at https://github.com/gajendrarjpt/plantrx and https://plantrx-gamma.vercel.app. The local WebP is an actual screenshot of the live homepage captured on September 11, 2026; it is not a mockup. The résumé PDF is preserved unchanged.
+## Content
 
-To add a real portrait, place an optimized photo in `public/images/` and set `profile.portrait` to `{ src: '/images/gajendra.webp', alt: 'Gajendra Rajput' }`. The hero renders an inset photo only when this field is set. With `null`, the typography composition is complete on its own.
-
-## Interaction
-
-Native anchors provide scrolling. Motion supplies short, once-only entrance movement; CSS handles hover feedback. Reduced-motion preferences disable entrance movement, smooth scrolling, and animated hover transitions. The mobile menu uses a native modal dialog plus explicit Tab wrapping, Escape dismissal, scroll locking, and focus restoration. Copy-email feedback reflects the actual clipboard result, including a failure message.
-
-The optional light/dark control remembers the theme locally and still works when browser storage is unavailable. Instrument Serif and Manrope are self-hosted through Fontsource. The palette uses near-white, charcoal, and vermilion, with a matching dark theme. No API keys, backend, external image services, or additional production dependencies are needed.
+Contact details and project data live in `src/data/portfolioData.js`. PlantRx uses a real local screenshot. The original résumé PDF remains available under `public/resume/`. No invented projects or portrait assets are included.

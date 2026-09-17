@@ -1,28 +1,34 @@
-import { MotionConfig } from "framer-motion";
-import { ThemeProvider } from "./context/ThemeContext";
-import SlyNav from "./components/navigation/SlyNav";
-import SlyHero from "./components/hero/SlyHero";
-import ScreeningRoom from "./components/notes/ScreeningRoom";
-import AboutHuman from "./components/about/AboutHuman";
-import ContactBridge from "./components/contact/ContactBridge";
-import SlyFooter from "./components/footer/SlyFooter";
-
-export default function App() {
-  return (
-    <ThemeProvider>
-      <MotionConfig reducedMotion="user">
-        <a className="skip-link" href="#main">
-          Skip to content
-        </a>
-        <SlyNav />
-        <main id="main" tabIndex={-1}>
-          <SlyHero />
-          <ScreeningRoom />
-          <AboutHuman />
-          <ContactBridge />
-        </main>
-        <SlyFooter />
-      </MotionConfig>
-    </ThemeProvider>
-  );
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, ArrowDown, ArrowRight, Menu, X, Pause, Play, RotateCcw } from 'lucide-react';
+import { profile, featuredProjects, socials } from './data/portfolioData';
+const Sculpture = lazy(() => import('./components/Sculpture'));
+const chapters = [
+  {name:'Connect', tag:'01 / NETWORK ENGINEERING', title:'Good things start with a connection.', text:'My foundation is network engineering: connecting people and keeping the systems behind them running.', note:'Networks → connections'},
+  {name:'Create', tag:'02 / WEBSITES & PRODUCTS', title:'Then, turn an idea into something useful.', text:'I take that problem-solving mindset into building websites. From the first idea to the details that make it work.', note:'Ideas → experiences'},
+  {name:'Explore', tag:'03 / PRACTICAL AI', title:'Stay curious. See what comes next.', text:'I experiment with AI to solve everyday problems. PlantRx is one of those ideas, brought to life.', note:'Curiosity → possibilities'},
+];
+function FallbackArt(){return <div className="fallback-art" aria-hidden="true"><i/><i/><i/><b/></div>}
+export default function App(){
+  const [chapter,setChapter]=useState(0), [paused,setPaused]=useState(false), [reset,setReset]=useState(0);
+  const [menu,setMenu]=useState(false), [reduced,setReduced]=useState(false);
+  const dialog=useRef(null),trigger=useRef(null), tabs=useRef([]);
+  useEffect(()=>{const q=matchMedia('(prefers-reduced-motion: reduce)'); const change=()=>setReduced(q.matches); change();q.addEventListener('change',change);return()=>q.removeEventListener('change',change)},[]);
+  useEffect(()=>{if(menu){dialog.current.showModal();const previous=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.body.style.overflow=previous;}}else if(dialog.current.open){dialog.current.close();trigger.current?.focus()}},[menu]);
+  const project=featuredProjects[0];
+  function tabKey(e,index){let next;if(e.key==='ArrowRight')next=(index+1)%3;if(e.key==='ArrowLeft')next=(index+2)%3;if(e.key==='Home')next=0;if(e.key==='End')next=2;if(next!==undefined){e.preventDefault();setChapter(next);tabs.current[next].focus()}}
+  return <>
+    <a className="skip-link" href="#main">Skip to content</a>
+    <header className="header shell"><a href="#home" className="brand" aria-label="Gajendra Rajput home"><span className="brand-symbol">g<span>r</span><i/></span><span>Gajendra Rajput<small>Engineer & maker</small></span></a><nav aria-label="Main navigation"><a href="#work">Selected work</a><a href="#about">About me</a></nav><a href="#contact" className="nav-contact">Let’s talk <ArrowUpRight size={17}/></a><button ref={trigger} className="menu-trigger icon-button" aria-label="Open menu" aria-expanded={menu} onClick={()=>setMenu(true)}><Menu/></button></header>
+    <dialog ref={dialog} className="mobile-menu" onCancel={()=>setMenu(false)} onClose={()=>setMenu(false)}><button className="icon-button" aria-label="Close menu" onClick={()=>setMenu(false)}><X/></button><nav aria-label="Mobile navigation">{[['Selected work','work'],['About me','about'],['Let’s talk','contact']].map(([label,id])=><a key={id} href={'#'+id} onClick={()=>setMenu(false)}>{label}<ArrowUpRight/></a>)}</nav></dialog>
+    <main id="main" tabIndex={-1}>
+      <section id="home" className="hero shell" aria-labelledby="hero-title">
+        <div className="hero-copy"><p className="eyebrow"><span className="status-dot"/> Based in Pune, India</p><h1 id="hero-title">Connecting<br/>ideas to<br/><span>real things.</span></h1><p className="intro">I’m Gajendra. A network engineer who builds websites and explores what AI can do.</p><a className="button lime" href="#work">Explore my work <ArrowDown size={18}/></a><div className="hero-signoff"><span>Engineering mind.</span><span>Creative curiosity.</span></div></div>
+        <div className="playground"><div className="stage-top"><span className="eyebrow">A little world of what I do</span><span className="stage-star" aria-hidden="true">✳</span></div><div className="scene-wrap"><Suspense fallback={<FallbackArt/>}><Sculpture chapter={chapter} paused={paused||reduced} reset={reset} fallback={<FallbackArt/>}/></Suspense><span className="scene-word" aria-hidden="true">{chapters[chapter].name.toLowerCase()}.</span></div><div className="scene-toolbar"><span>Drag to rotate · Try a chapter below</span><div><button className="icon-button" aria-label="Reset sculpture rotation" onClick={()=>setReset(v=>v+1)}><RotateCcw size={15}/></button><button className="icon-button" aria-label={paused||reduced?'Play sculpture animation':'Pause sculpture animation'} aria-pressed={paused||reduced} onClick={()=>{setPaused(!(paused||reduced));setReduced(false)}}>{paused||reduced?<Play size={15}/>:<Pause size={15}/>}</button></div></div><div className="chapter-tabs" role="tablist" aria-label="Explore my story">{chapters.map((c,i)=><button key={c.name} ref={el=>tabs.current[i]=el} id={'chapter-'+i} role="tab" aria-selected={chapter===i} aria-controls="chapter-panel" tabIndex={chapter===i?0:-1} onClick={()=>setChapter(i)} onKeyDown={e=>tabKey(e,i)}><span>0{i+1}</span>{c.name}<ArrowUpRight size={16}/></button>)}</div><div id="chapter-panel" role="tabpanel" aria-labelledby={'chapter-'+chapter} className="chapter-panel" tabIndex={0}><p className="eyebrow">{chapters[chapter].tag}</p><h2>{chapters[chapter].title}</h2><p>{chapters[chapter].text}</p></div></div>
+      </section>
+      <div className="chapter-divider shell"><span>Different interests. One curious mind.</span><a href="#work">Keep exploring <ArrowDown size={15}/></a></div>
+      <section id="work" className="work shell section" aria-labelledby="work-title"><div className="section-title"><div><p className="eyebrow">01 — FROM IDEA TO REALITY</p><h2 id="work-title">Less talk.<br/><span className="dim">More making.</span></h2></div><p>A small selection, with a real purpose.<br/>Here’s something I’ve built.</p></div><article className="project"><a className="project-art" href={project.liveUrl} target="_blank" rel="noreferrer" aria-label="Open PlantRx in a new tab"><div className="project-art-top"><span className="project-logo"><span aria-hidden="true">✳</span> PlantRx</span><span className="pill">AI meets everyday life</span></div><div className="browser-frame"><div className="browser-bar"><span>● ● ●</span><span>plantrx</span><ArrowUpRight size={13}/></div><img src={project.image} alt={project.imageAlt} loading="lazy" width="1270" height="714"/></div><span className="project-orb" aria-hidden="true"/><span className="project-open"><ArrowUpRight size={27}/></span></a><div className="project-info"><div><p className="eyebrow">WEB APP / DESIGN & DEVELOPMENT</p><h3>A little help for your plants.</h3><p>Take a photo. Understand what’s wrong. Get a practical care plan. PlantRx makes AI useful for the things we grow.</p></div><div className="project-actions"><a className="text-link" href={project.liveUrl} target="_blank" rel="noreferrer">Explore PlantRx <ArrowUpRight size={18}/></a><a className="text-link subdued" href={project.repoUrl} target="_blank" rel="noreferrer">View the code <ArrowUpRight size={18}/></a><span>React · Gemini API · Vite</span></div></div></article></section>
+      <section id="about" className="about section" aria-labelledby="about-title"><div className="shell about-grid"><div className="about-art" aria-hidden="true"><div className="about-art-label">ALWAYS A WORK IN PROGRESS</div><div className="initial-sculpture">g<span>r</span><i>✳</i></div><div className="about-art-footer"><span>PUNE, INDIA</span><span>18.52° N · 73.86° E</span></div></div><div className="about-copy"><p className="eyebrow">02 — THE PERSON BEHIND THE PIXELS</p><h2 id="about-title">An engineer.<br/>A maker.<br/><span className="lilac-text">Always curious.</span></h2><p>I’m Gajendra Rajput, a Senior Network Engineer at PHN Technology. My day job is about keeping people connected.</p><p>Outside of that, I build for the web and experiment with AI. Different tools, same instinct: understand a problem, try an idea, make it better.</p><a className="text-link" href={profile.resume.url} target="_blank" rel="noreferrer">More about my background <ArrowUpRight size={18}/></a></div></div></section>
+      <section id="contact" className="contact" aria-labelledby="contact-title"><div className="shell"><p className="eyebrow">03 — YOUR NEXT IDEA?</p><div className="contact-heading"><h2 id="contact-title">Let’s make<br/>something <span>click.</span></h2><a className="contact-circle" href={socials.email.url} aria-label="Email Gajendra"><ArrowUpRight/></a></div><div className="contact-bottom"><div><p>Have an idea, a question, or just a hello?</p><a className="email-link" href={socials.email.url}>{profile.email}<ArrowUpRight size={20}/></a></div><div className="social-links">{[socials.linkedin,socials.github].map(s=><a key={s.label} href={s.url} target="_blank" rel="noreferrer">{s.label}<ArrowUpRight size={16}/></a>)}</div></div></div></section>
+    </main><footer className="footer shell"><span>© {new Date().getFullYear()} Gajendra Rajput</span><span>Built with curiosity. Made to connect.</span><a href="#home">Back to top ↑</a></footer>
+  </>
 }
