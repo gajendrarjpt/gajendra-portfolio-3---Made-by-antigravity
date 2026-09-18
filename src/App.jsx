@@ -58,6 +58,7 @@ export default function App(){
   const project=featuredProjects[0];
   function tabKey(e,index){let next;if(e.key==='ArrowRight')next=(index+1)%3;if(e.key==='ArrowLeft')next=(index+2)%3;if(e.key==='Home')next=0;if(e.key==='End')next=2;if(next!==undefined){e.preventDefault();setChapter(next);tabs.current[next].focus()}}
   return <>
+    <div className="theme-landscape" aria-hidden="true"><div className="landscape-pattern"/><div className="landscape-form landscape-form-one"/><div className="landscape-form landscape-form-two"/><div className="landscape-grain"/></div>
     <a className="skip-link" href="#main">Skip to content</a>
     <header ref={headerRef} className="header">
       <div className="shell header-inner">

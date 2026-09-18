@@ -8,6 +8,7 @@ import "./index.css";
 import "./experiences.css";
 import "./glass.css";
 import "./case-study.css";
+import "./backgrounds.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
