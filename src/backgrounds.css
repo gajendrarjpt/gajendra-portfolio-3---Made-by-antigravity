@@ -1,42 +1,21 @@
-/* Five backgrounds, rendered without images, canvas, or pointer tracking. */
+/* Each theme owns a different interactive environment, not a palette swap. */
 #root{position:relative;isolation:isolate}
 body{background:var(--bg)}
-.theme-landscape{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--bg);contain:strict}
-.theme-landscape>div{position:absolute;pointer-events:none}
-.landscape-pattern,.landscape-grain{inset:0}
-.landscape-grain{opacity:.15;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23808080' filter='url(%23n)' opacity='.23' d='M0 0h180v180H0z'/%3E%3C/svg%3E");background-size:180px 180px}
+.interactive-environment{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;contain:strict;background:#101a29}
+.interactive-environment canvas{display:block;width:100%;height:100%}
+.environment-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#101a2940,transparent 65%)}
 :root[data-theme] .hero{background-image:none}
-/* Midnight: a blue drafting field with illuminated orbital lines. */
-:root[data-theme=dark] .theme-landscape{background:radial-gradient(ellipse at 90% 30%,#273c684a,transparent 60%),linear-gradient(125deg,#10151d,#171b2a 70%,#11191e)}
-:root[data-theme=dark] .landscape-pattern{background-image:linear-gradient(#a8b8ff0d 1px,transparent 1px),linear-gradient(90deg,#a8b8ff0d 1px,transparent 1px),radial-gradient(circle,#b9caff45 1px,transparent 1.5px);background-size:72px 72px,72px 72px,144px 144px;mask-image:linear-gradient(90deg,#0005,#000)}
-:root[data-theme=dark] .landscape-form-one{width:76vw;height:76vw;right:-31vw;top:-18vw;border:1px solid #9aacff30;border-radius:50%;box-shadow:0 0 0 70px #93a8ff06,0 0 0 71px #93a8ff16,0 0 0 150px #93a8ff04,0 0 0 151px #93a8ff0d;transform:rotate(-25deg) scaleY(.75)}
-:root[data-theme=dark] .landscape-form-two{width:70vw;height:1px;right:-15vw;top:67%;background:linear-gradient(90deg,transparent,#8baeff65,transparent);transform:rotate(-35deg);box-shadow:0 45px 0 #839eff0b}
-/* Porcelain: warm stock, fine ruled margins and a large embossed sun. */
-:root[data-theme=light] .theme-landscape{background:radial-gradient(ellipse at 83% 15%,#e9dfce 0,transparent 55%),linear-gradient(110deg,#f7f5ef,#eee9dd)}
-:root[data-theme=light] .landscape-pattern{background:repeating-linear-gradient(90deg,transparent 0,transparent calc(25% - 1px),#877b6220 calc(25% - 1px),#877b6220 25%);margin-inline:4%}
-:root[data-theme=light] .landscape-form-one{width:62vw;height:62vw;right:-22vw;top:7%;border-radius:50%;border:1px solid #9a825d25;box-shadow:0 0 0 28px #9a825d06,0 0 0 29px #9a825d18,0 0 0 62px #9a825d04,0 0 0 63px #9a825d10;background:radial-gradient(circle at 30% 30%,#ffffff50,transparent 70%)}
-:root[data-theme=light] .landscape-form-two{width:35vw;height:110vh;left:-24vw;top:-10%;background:#cbbca025;transform:rotate(-24deg)}
-:root[data-theme=light] .landscape-grain{opacity:.4;mix-blend-mode:multiply}
-/* Botanical: shaded green leaves and soft light through a canopy. */
-:root[data-theme=forest] .theme-landscape{background:radial-gradient(ellipse at 5% 10%,#43674455,transparent 55%),radial-gradient(ellipse at 100% 70%,#38645455,transparent 50%),linear-gradient(130deg,#12291f,#0f211b 55%,#1b372a)}
-:root[data-theme=forest] .landscape-pattern{background:repeating-linear-gradient(115deg,transparent 0 130px,#c9e5ae05 140px,#c9e5ae09 180px,transparent 220px 310px)}
-:root[data-theme=forest] .landscape-form-one{width:43vw;height:72vw;right:-21vw;top:-20vw;border-radius:100% 0 100% 0;border:1px solid #abd99e24;background:repeating-linear-gradient(32deg,transparent 0 40px,#b8df9912 41px,transparent 42px 80px),linear-gradient(45deg,#77a97514,#b0c98512);transform:rotate(20deg);box-shadow:-80px 120px 0 -45px #91ba8110,-160px 240px 0 -90px #b6d2910b}
-:root[data-theme=forest] .landscape-form-two{width:40vw;height:57vw;left:-25vw;bottom:-24vw;border-radius:0 100% 0 100%;border:1px solid #b4d79b20;background:linear-gradient(125deg,#66864e22,transparent);transform:rotate(-20deg)}
-/* Terracotta: an architectural sunset, stepped arches and clay planes. */
-:root[data-theme=sunset] .theme-landscape{background:linear-gradient(120deg,#f6e8d8,#edd7bc 65%,#e5c6a5)}
-:root[data-theme=sunset] .landscape-pattern{background:linear-gradient(90deg,transparent 66%,#934b3210 66%,#934b3210 calc(66% + 1px),transparent calc(66% + 1px)),linear-gradient(0deg,#b96f3e0c,transparent 50%)}
-:root[data-theme=sunset] .landscape-form-one{width:54vw;height:100vh;right:-18vw;top:14%;border-radius:50% 50% 0 0;border:1px solid #a4563d30;background:linear-gradient(125deg,#bd735820,#ce946319);box-shadow:0 0 0 30px #b3693e08,0 0 0 31px #a4563d25,0 0 0 64px #b3693e05,0 0 0 65px #a4563d15;transform:rotate(-12deg)}
-:root[data-theme=sunset] .landscape-form-two{width:36vw;height:36vw;left:-20vw;bottom:-18vw;border-radius:50%;background:#a8573520;box-shadow:0 0 0 35px #b16a4010}
-:root[data-theme=sunset] .landscape-grain{opacity:.35;mix-blend-mode:multiply}
-/* Amethyst: luminous silk, slow drifting color and a quiet star field. */
-:root[data-theme=plum] .theme-landscape{background:radial-gradient(ellipse at 80% 20%,#6b3f7045,transparent 60%),linear-gradient(125deg,#1c1629,#291d39 65%,#171b30)}
-:root[data-theme=plum] .landscape-pattern{background-image:radial-gradient(circle,#efdcff60 .8px,transparent 1.3px),radial-gradient(circle,#c7cfff30 1px,transparent 1.5px);background-size:131px 157px,223px 197px;background-position:20px 40px,75px 110px;mask-image:linear-gradient(90deg,#0003,#000)}
-:root[data-theme=plum] .landscape-form-one{width:100vw;height:65vw;top:-38vw;right:-20vw;border-radius:50%;background:radial-gradient(ellipse,transparent 50%,#b78be33b 59%,#bfa9e91a 65%,transparent 73%);transform:rotate(-30deg);animation:silk-drift 24s ease-in-out infinite alternate}
-:root[data-theme=plum] .landscape-form-two{width:90vw;height:70vw;bottom:-50vw;left:-30vw;border-radius:50%;background:radial-gradient(ellipse,transparent 45%,#798ed030 60%,#bb7edb15 67%,transparent 73%);animation:silk-drift 30s ease-in-out infinite alternate-reverse}
-/* Let the environments remain visible between glass surfaces. */
+:root[data-theme=light] .interactive-environment{background:linear-gradient(115deg,#f8f6ef,#ebe7da)}
+:root[data-theme=light] .environment-scrim{background:linear-gradient(90deg,#f8f6ef60,transparent 65%)}
+:root[data-theme=forest] .interactive-environment{background:radial-gradient(ellipse at 45% 0,#284b32,#10251d 70%)}
+:root[data-theme=forest] .environment-scrim{background:radial-gradient(ellipse at center,#10251d28,transparent 65%)}
+:root[data-theme=sunset] .interactive-environment{background:linear-gradient(115deg,#f8e9d2,#e8c3a0)}
+:root[data-theme=sunset] .environment-scrim{background:linear-gradient(90deg,#f8e9d250,transparent 65%)}
+:root[data-theme=plum] .interactive-environment{background:linear-gradient(140deg,#161124,#221831 65%,#141b2c)}
+:root[data-theme=plum] .environment-scrim{background:linear-gradient(90deg,#16112430,transparent 65%)}
 :root[data-theme] .about{background:color-mix(in srgb,var(--bg) 40%,transparent)}
 :root[data-theme=dark] .contact,:root[data-theme=forest] .contact,:root[data-theme=plum] .contact{background:color-mix(in srgb,var(--bg) 60%,transparent)}
-@keyframes silk-drift{to{transform:translate3d(-3%,5%,0) rotate(-18deg)}}
-@media(max-width:760px){.landscape-grain{display:none}:root[data-theme] .landscape-form-one{width:110vw;right:-68vw}:root[data-theme=forest] .landscape-form-one{height:150vw}:root[data-theme=plum] .landscape-form-one{width:160vw;height:130vw;top:-65vw}:root[data-theme=plum] .landscape-form-two{width:160vw;height:130vw;bottom:-85vw}.landscape-form-one,.landscape-form-two{animation:none!important}}
-@media(prefers-reduced-motion:reduce){.landscape-form-one,.landscape-form-two{animation:none!important}}
-@media(forced-colors:active){.theme-landscape{display:none}}
+.background-motion{position:fixed;bottom:12px;right:15px;z-index:20;display:flex;align-items:center;gap:7px;padding:9px 12px;min-height:36px;border:1px solid var(--glass-line);border-radius:30px;background:var(--glass);color:var(--ink);font-size:11px;backdrop-filter:blur(16px);box-shadow:0 3px 15px #0001;opacity:.75;transition:opacity .2s}
+.background-motion:hover,.background-motion:focus-visible{opacity:1}
+@media(max-width:760px){.background-motion{bottom:10px;right:10px;min-width:44px;min-height:44px;justify-content:center}.background-motion span{display:none}.environment-scrim{opacity:.7}}
+@media(forced-colors:active){.interactive-environment,.background-motion{display:none}}

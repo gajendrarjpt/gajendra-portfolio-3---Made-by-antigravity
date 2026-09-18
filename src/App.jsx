@@ -4,6 +4,7 @@ import { profile, featuredProjects, socials } from './data/portfolioData';
 import { getTheme } from './data/themes';
 import { flushSync } from 'react-dom';
 import ThemePicker from './components/ThemePicker';
+import InteractiveBackground from './components/InteractiveBackground';
 const chapters = [
   {name:'Connect', tag:'01 / NETWORK ENGINEERING', title:'Good things start with a connection.', text:'My foundation is network engineering: connecting people and keeping the systems behind them running.', note:'Networks → connections'},
   {name:'Create', tag:'02 / WEBSITES & PRODUCTS', title:'Then, turn an idea into something useful.', text:'I take that problem-solving mindset into building websites. From the first idea to the details that make it work.', note:'Ideas → experiences'},
@@ -58,7 +59,7 @@ export default function App(){
   const project=featuredProjects[0];
   function tabKey(e,index){let next;if(e.key==='ArrowRight')next=(index+1)%3;if(e.key==='ArrowLeft')next=(index+2)%3;if(e.key==='Home')next=0;if(e.key==='End')next=2;if(next!==undefined){e.preventDefault();setChapter(next);tabs.current[next].focus()}}
   return <>
-    <div className="theme-landscape" aria-hidden="true"><div className="landscape-pattern"/><div className="landscape-form landscape-form-one"/><div className="landscape-form landscape-form-two"/><div className="landscape-grain"/></div>
+    <InteractiveBackground theme={theme}/>
     <a className="skip-link" href="#main">Skip to content</a>
     <header ref={headerRef} className="header">
       <div className="shell header-inner">
