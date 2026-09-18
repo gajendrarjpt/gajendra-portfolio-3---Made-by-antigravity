@@ -81,9 +81,24 @@ export default function App(){
       <section id="work" className="work shell section" aria-labelledby="work-title">
         <div className="section-topline"><p className="eyebrow">01 / SELECTED WORK</p><span>A thought, turned into a thing.</span></div>
         <div className="section-title"><h2 id="work-title">Small ideas.<br/><span className="muted">Real possibilities.</span></h2><p>Useful things for everyday life.<br/>Made with care, built with curiosity.</p></div>
-        <article className="project">
-          <a className="project-art" href={project.liveUrl} target="_blank" rel="noreferrer" aria-label="Open PlantRx in a new tab"><div className="project-art-top"><span className="project-logo"><span aria-hidden="true">✳</span> PlantRx</span><span className="pill">A little care. A little AI.</span></div><div className="plant-orbit" aria-hidden="true"/><div className="browser-frame"><div className="browser-bar"><span aria-hidden="true">● ● ●</span><span>PlantRx / Your plant-care companion</span><ArrowUpRight size={16}/></div><img src={project.image} alt={project.imageAlt} loading="lazy" width="1270" height="714"/></div><span className="project-open" aria-hidden="true"><ArrowUpRight size={30}/></span><span className="project-image-label">INDEPENDENT PROJECT / WEB APPLICATION</span></a>
-          <div className="project-info"><div><p className="eyebrow">01 — DESIGN & DEVELOPMENT</p><h3>Plant care,<br/>without the guesswork.</h3></div><div className="project-description"><p>A photo of a struggling plant becomes a likely diagnosis and a practical care plan. An exploration of making AI useful in everyday life.</p><div className="project-actions"><a className="text-link" href={project.liveUrl} target="_blank" rel="noreferrer">Try PlantRx <ArrowUpRight size={19}/></a><a className="text-link secondary" href={project.repoUrl} target="_blank" rel="noreferrer">View source <ArrowUpRight size={19}/></a></div><details className="project-details"><summary>Behind the build <span aria-hidden="true">+</span></summary><div><p><strong>My role</strong>Product design and development, from the photo-upload experience to the diagnosis flow.</p><p><strong>Built with</strong>React · Vite · Tailwind CSS · Gemini API</p></div></details></div></div>
+        <article className="case-study" aria-labelledby="plantrx-title">
+          <div className="case-preview">
+            <div className="case-preview-heading"><span>PRODUCT SPOTLIGHT</span><span>01 / PlantRx</span></div>
+            <a className="case-screen" href={project.liveUrl} target="_blank" rel="noreferrer" aria-label="Open PlantRx live website in a new tab">
+              <div className="case-screen-bar" aria-hidden="true"><span className="case-window-dots">● ● ●</span><span>PlantRx / live preview</span><ArrowUpRight size={16}/></div>
+              <img src={project.image} alt={project.imageAlt} loading="lazy" width="1270" height="714"/>
+              <span className="case-screen-hover">Explore the live website <ArrowUpRight size={18}/></span>
+            </a>
+            <div className="case-journey" aria-label="How PlantRx works"><span><b>01</b> Photograph</span><i aria-hidden="true">→</i><span><b>02</b> Understand</span><i aria-hidden="true">→</i><span><b>03</b> Care</span></div>
+          </div>
+          <div className="case-copy">
+            <p className="case-category">WEB APPLICATION · PRACTICAL AI</p>
+            <h3 id="plantrx-title">A little clarity.<br/>A healthier plant.</h3>
+            <p className="case-summary">Meet PlantRx. Turn a photo of a struggling plant into a likely diagnosis and a simple care plan.</p>
+            <div className="case-role"><span>MY CONTRIBUTION</span><p>Product design & development</p></div>
+            <div className="case-actions"><a className="case-primary" href={project.liveUrl} target="_blank" rel="noreferrer">Explore PlantRx <ArrowUpRight size={19}/></a><a className="case-source" href={project.repoUrl} target="_blank" rel="noreferrer">View code <ArrowUpRight size={17}/></a></div>
+            <details className="case-details"><summary>Behind the build <span aria-hidden="true">+</span></summary><p>Designed and built the photo-upload experience and diagnosis flow using React, Vite, Tailwind CSS, and the Gemini API.</p></details>
+          </div>
         </article>
         <a className="creator-feature" href={socials.youtube.url} target="_blank" rel="noreferrer" aria-label="Visit Artwork. Productions on YouTube"><div className="creator-visual" aria-hidden="true"><div className="video-line video-line-one"/><div className="video-line video-line-two"/><span className="creator-word">PRESS<br/><i>PLAY.</i></span><span className="creator-play"><Play size={30} fill="currentColor"/></span><span className="creator-caption">ARTWORK. PRODUCTIONS</span><span className="record-dot"/></div><div className="creator-copy"><p className="eyebrow">02 — A CREATIVE OUTLET</p><h3>Beyond<br/>the browser.</h3><p>Different medium. Same curiosity. Find another side of me on Artwork. Productions, my YouTube channel.</p><span className="text-link">Explore the channel <ArrowUpRight size={20}/></span></div></a>
       </section>

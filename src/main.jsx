@@ -7,6 +7,7 @@ import ErrorBoundary from "./components/layout/ErrorBoundary.jsx";
 import "./index.css";
 import "./experiences.css";
 import "./glass.css";
+import "./case-study.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
