@@ -1,0 +1,50 @@
+/* Portrait stays photographic. Glass is reserved for the surrounding interface. */
+:root{--glass:rgba(28,31,39,.8);--glass-line:rgba(211,222,255,.2);--glass-shadow:0 18px 50px #0002,inset 0 1px 0 #ffffff0c}
+:root[data-theme=light]{--glass:rgba(250,249,244,.82);--glass-line:rgba(97,101,128,.22);--glass-shadow:0 18px 50px #3e49600d,inset 0 1px 0 #fff}
+:root[data-theme=forest]{--glass:rgba(25,49,39,.82);--glass-line:rgba(177,219,191,.23)}
+:root[data-theme=sunset]{--glass:rgba(250,235,221,.85);--glass-line:rgba(147,84,61,.27);--glass-shadow:0 15px 40px #8a4b2910,inset 0 1px 0 #fff8}
+:root[data-theme=plum]{--glass:rgba(50,37,65,.79);--glass-line:rgba(221,195,242,.23)}
+body{background:radial-gradient(ellipse at 95% 6%,color-mix(in srgb,var(--accent) 13%,transparent),transparent 38%),radial-gradient(ellipse at 0 38%,color-mix(in srgb,var(--model-glow) 6%,transparent),transparent 30%),var(--bg);background-attachment:scroll}
+:root[data-theme] .header{top:12px;background:transparent;backdrop-filter:none;margin-top:12px}
+:root[data-theme] .header-inner{height:80px;padding-inline:23px;border:1px solid var(--glass-line);border-radius:22px;background:var(--glass);backdrop-filter:blur(24px) saturate(135%);-webkit-backdrop-filter:blur(24px) saturate(135%);box-shadow:var(--glass-shadow);margin-top:0}
+:root[data-theme] .header-progress{display:none}
+:root[data-theme=dark] .nav-dock{background:#ffffff05;border-color:var(--glass-line);border-radius:10px}
+:root[data-theme] .appearance-panel,:root[data-theme] .mobile-menu{background:var(--glass);border-color:var(--glass-line);backdrop-filter:blur(30px) saturate(140%);-webkit-backdrop-filter:blur(30px) saturate(140%);box-shadow:0 24px 70px #0003,inset 0 1px 0 #ffffff15}
+:root[data-theme] .appearance-trigger{background:color-mix(in srgb,var(--ink) 5%,transparent);border-color:var(--glass-line)}
+:root[data-theme] .hero-main{gap:44px;padding-block:38px 40px}
+:root[data-theme] .hero-art.portrait-stage{position:relative;isolation:isolate;display:block;height:520px;min-height:0;width:100%;max-width:470px;justify-self:center;align-self:center;padding:0;margin:0;background:none;border:0;border-radius:0;box-shadow:none;transform:none}
+.portrait-stage::before{display:none}.portrait-frame{position:absolute;inset:0 17px 0;overflow:hidden;border:1px solid var(--glass-line);border-radius:24px;background:#242424;box-shadow:0 28px 65px #0003;animation:portrait-arrive .85s cubic-bezier(.2,.7,.3,1) both}
+.hero-portrait{width:100%;height:100%;object-fit:cover;object-position:50% 25%;filter:none;transform:none}
+.portrait-edge{position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px #ffffff0f;pointer-events:none}
+.portrait-backword{position:absolute;top:28px;left:-22px;z-index:-1;writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Outfit Variable',sans-serif;font-size:53px;letter-spacing:-.05em;color:var(--accent);opacity:.26;font-weight:650;line-height:1;pointer-events:none}
+.portrait-caption{position:absolute;bottom:22px;left:0;right:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:21px 23px;border:1px solid #ffffff3b;border-radius:17px;background:#191c24c9;backdrop-filter:blur(22px) saturate(120%);-webkit-backdrop-filter:blur(22px) saturate(120%);color:#f7f7f4;box-shadow:0 16px 35px #0003,inset 0 1px 0 #ffffff12}
+.portrait-caption>div{display:grid;gap:5px}.portrait-caption-label{font-size:12px;letter-spacing:.075em;color:#dbdce0}.portrait-caption strong{font-family:'Outfit Variable';font-size:25px;letter-spacing:-.025em;font-weight:500}.portrait-caption>div>span:last-child{font-size:14px;color:#e1e2e5}.portrait-caption-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:#ffffff12;border:1px solid #ffffff2b;flex-shrink:0}.portrait-side-note{position:absolute;right:-8px;top:18px;writing-mode:vertical-rl;font-size:12px;letter-spacing:.055em;color:var(--muted)}
+:root[data-theme=dark] .portrait-frame{border-radius:8px}:root[data-theme=dark] .portrait-caption{border-radius:10px}
+:root[data-theme=light] .portrait-frame{border-radius:4px;padding:8px;background:#fbfaf5;border:1px solid var(--line)}
+:root[data-theme=light] .portrait-caption{border-radius:4px;background:#f8f7f0cf;color:#252824;border-color:#ffffffa0}
+:root[data-theme=light] .portrait-caption-label,:root[data-theme=light] .portrait-caption>div>span:last-child{color:#454943}
+:root[data-theme=light] .portrait-caption-icon{border-color:#25282425;background:#25282409}
+:root[data-theme=forest] .portrait-frame{border-radius:180px 180px 30px 30px}
+:root[data-theme=forest] .portrait-caption{background:#193528cf;border-radius:24px}
+:root[data-theme=sunset] .portrait-frame{border-radius:3px;border:2px solid var(--ink);box-shadow:9px 9px 0 color-mix(in srgb,var(--accent) 65%,transparent)}
+:root[data-theme=sunset] .portrait-caption{border-radius:6px;background:#703926d9;border-color:#ecc6a873}
+:root[data-theme=plum] .portrait-frame{border-radius:32px;box-shadow:0 0 75px #bf9aeb24,0 20px 50px #0003}
+:root[data-theme=plum] .portrait-caption{background:#352444cc}
+:root[data-theme=plum] .hero-art.portrait-stage{height:470px;max-width:440px}
+:root[data-theme] .story-strip{background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:var(--glass-shadow);padding:24px;border-radius:20px}
+:root[data-theme=sunset] .story-strip,:root[data-theme=light] .story-strip{border-radius:5px}
+:root[data-theme] .project{background:var(--glass);border:1px solid var(--glass-line);border-radius:22px;box-shadow:var(--glass-shadow);overflow:hidden;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+:root[data-theme=light] .project-info,:root[data-theme=sunset] .project-info{padding:28px;border-bottom:0}
+:root[data-theme=light] .project-art,:root[data-theme=sunset] .project-art{box-shadow:none;margin:0;border:0}
+:root[data-theme=forest] .project{gap:0}:root[data-theme=forest] .project-info{padding:28px}
+:root[data-theme] .principles>div{background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;padding:24px;box-shadow:var(--glass-shadow)}
+:root[data-theme] .principles{border:0;gap:20px}
+:root[data-theme] .creator-feature{background:var(--glass);border:1px solid var(--glass-line);border-radius:24px;padding:18px;box-shadow:var(--glass-shadow);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+:root[data-theme] .creator-copy{padding:12px 20px}:root[data-theme] .creator-visual{box-shadow:none}
+:root[data-theme=light] .creator-feature,:root[data-theme=sunset] .creator-feature,:root[data-theme=sunset] .project{border-radius:6px}
+@keyframes portrait-arrive{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1100px){:root[data-theme] .hero-art.portrait-stage{height:480px;max-width:420px}:root[data-theme] .header-inner{padding-inline:16px}:root[data-theme] .hero-main{gap:28px}.portrait-caption{padding:18px}.portrait-caption strong{font-size:23px}.portrait-caption-label{letter-spacing:.02em}}
+@media(max-width:760px){:root[data-theme] .header{top:9px;margin-top:9px}:root[data-theme] .header-inner{height:70px;width:calc(100% - 24px);padding-inline:12px;border-radius:18px}:root[data-theme] .hero-main{gap:30px;padding-block:26px}:root[data-theme] .hero-art.portrait-stage{height:480px;max-width:410px}:root[data-theme] .story-strip{padding:20px}.portrait-frame{inset-inline:12px}.portrait-caption{left:0;right:0;bottom:18px;padding:17px;gap:8px}.portrait-caption-label{font-size:12px}.portrait-caption strong{font-size:23px}.portrait-caption-icon{width:38px;height:38px}.portrait-backword{left:-4px;font-size:37px}.portrait-side-note{right:-4px;font-size:11px}:root[data-theme] .project-info{padding:24px 20px}:root[data-theme] .creator-feature{padding:10px;gap:15px}:root[data-theme] .creator-copy{padding:10px 10px 16px}:root[data-theme=plum] .hero-art.portrait-stage{height:470px}}
+@media(max-width:400px){:root[data-theme] .hero-art.portrait-stage{height:420px}.portrait-caption{padding:14px}.portrait-caption-label{font-size:11px}.portrait-caption>div>span:last-child{font-size:13px}.portrait-caption-icon{display:none}}
+@supports not (backdrop-filter:blur(1px)){:root[data-theme] .header-inner,:root[data-theme] .appearance-panel,:root[data-theme] .story-strip,:root[data-theme] .project,:root[data-theme] .creator-feature{background:var(--surface)}.portrait-caption{background:#20242bf2}:root[data-theme=light] .portrait-caption{background:#f8f7f0f5}}
+@media(prefers-reduced-motion:reduce){.portrait-frame{animation:none}}

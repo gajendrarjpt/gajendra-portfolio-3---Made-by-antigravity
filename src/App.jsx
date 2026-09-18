@@ -1,17 +1,14 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, ArrowDown, ArrowRight, Menu, X, Pause, Play, RotateCcw, Sun, Moon } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, ArrowDown, ArrowRight, Menu, X, Play } from 'lucide-react';
 import { profile, featuredProjects, socials } from './data/portfolioData';
 import { getTheme } from './data/themes';
 import { flushSync } from 'react-dom';
 import ThemePicker from './components/ThemePicker';
-import ObservatoryFallback from './components/ObservatoryFallback';
-const Sculpture = lazy(() => import('./components/Sculpture'));
 const chapters = [
   {name:'Connect', tag:'01 / NETWORK ENGINEERING', title:'Good things start with a connection.', text:'My foundation is network engineering: connecting people and keeping the systems behind them running.', note:'Networks → connections'},
   {name:'Create', tag:'02 / WEBSITES & PRODUCTS', title:'Then, turn an idea into something useful.', text:'I take that problem-solving mindset into building websites. From the first idea to the details that make it work.', note:'Ideas → experiences'},
   {name:'Explore', tag:'03 / PRACTICAL AI', title:'Stay curious. See what comes next.', text:'I experiment with AI to solve everyday problems. PlantRx is one of those ideas, brought to life.', note:'Curiosity → possibilities'},
 ];
-function FallbackArt({chapter=0}){return <ObservatoryFallback chapter={chapter}/>}
 export default function App(){
   const [theme,setTheme]=useState(() => getTheme(document.documentElement.dataset.theme).id);
   const [switching,setSwitching]=useState(false);
@@ -34,10 +31,10 @@ export default function App(){
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content',getTheme(theme).background);
     try { localStorage.setItem('theme',theme); } catch { /* Theme still works without storage. */ }
   },[theme]);
-  const [chapter,setChapter]=useState(0), [paused,setPaused]=useState(false), [reset,setReset]=useState(0);
-  const [menu,setMenu]=useState(false), [reduced,setReduced]=useState(false), [sceneReady,setSceneReady]=useState(null);
+  const [chapter,setChapter]=useState(0);
+  const [menu,setMenu]=useState(false);
   const dialog=useRef(null),trigger=useRef(null), tabs=useRef([]);
-  useEffect(()=>{const q=matchMedia('(prefers-reduced-motion: reduce)'); const change=()=>setReduced(q.matches); change();q.addEventListener('change',change);return()=>q.removeEventListener('change',change)},[]);
+
   useEffect(()=>{if(menu){dialog.current.showModal();const previous=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.body.style.overflow=previous;}}else if(dialog.current.open){dialog.current.close();trigger.current?.focus()}},[menu]);
   const [activeSection,setActiveSection]=useState('home');
   const headerRef=useRef(null);
@@ -77,7 +74,7 @@ export default function App(){
         <div className="hero-kicker"><p className="eyebrow"><span className="status-dot"/> INDEPENDENT MIND. CONNECTED WORLD.</p><span className="location">{getTheme(theme).style} / Pune, India ↗</span></div>
         <div className="hero-main">
           <div className="hero-copy"><h1 id="hero-title">Curiosity,<br/><span>made real.</span></h1><p className="intro">I’m Gajendra. An engineer who builds for the web, experiments with AI, and makes room for a little creativity.</p><div className="hero-actions"><a className="button primary" href="#work">Discover my work <ArrowDown size={19}/></a><a className="quiet-link" href="#about">The person behind it <ArrowUpRight size={18}/></a></div><p className="hero-note"><span aria-hidden="true">✳</span> Engineering roots. No single box.</p></div>
-          <div className="hero-art"><div className="orbit-guide" aria-hidden="true"/><span className="art-coordinate art-coordinate-top" aria-hidden="true">THE MAKER’S OBSERVATORY / 0{chapter+1}</span><div className="scene-wrap"><Suspense fallback={<FallbackArt chapter={chapter}/>}><Sculpture theme={theme} chapter={chapter} paused={paused||reduced} reset={reset} onReady={setSceneReady} fallback={<FallbackArt chapter={chapter}/>}/></Suspense></div><div className="scene-toolbar"><span>{sceneReady?'Yours to play with. Drag to rotate.':'Three interests. One curious mind.'}</span>{sceneReady&&<div><button className="icon-button" aria-label="Reset sculpture rotation" onClick={()=>setReset(v=>v+1)}><RotateCcw size={16}/></button><button className="icon-button" aria-label={paused||reduced?'Play sculpture animation':'Pause sculpture animation'} aria-pressed={paused||reduced} onClick={()=>{setPaused(!(paused||reduced));setReduced(false)}}>{paused||reduced?<Play size={16}/>:<Pause size={16}/>}</button></div>}</div></div>
+          <figure className="hero-art portrait-stage"><span className="portrait-backword" aria-hidden="true">GAJENDRA</span><div className="portrait-frame"><img className="hero-portrait" src="/portrait/gajendra-rajput.jpg" alt="Black-and-white portrait of Gajendra Rajput" width="1080" height="1350" fetchPriority="high"/><span className="portrait-edge" aria-hidden="true"/></div><figcaption className="portrait-caption"><div><span className="portrait-caption-label">THE PERSON BEHIND THE IDEAS</span><strong>Gajendra Rajput</strong><span>Engineer. Maker. Curious human.</span></div><span className="portrait-caption-icon" aria-hidden="true"><ArrowUpRight size={24}/></span></figcaption><span className="portrait-side-note" aria-hidden="true">PUNE, INDIA / ALWAYS CURIOUS</span></figure>
         </div>
         <div className="story-strip"><div className="story-label"><span className="eyebrow">A FEW SIDES OF ME</span><span>Pick a chapter <ArrowRight size={16}/></span></div><div className="chapter-tabs" role="tablist" aria-label="Explore my story">{chapters.map((c,i)=><button key={c.name} ref={el=>tabs.current[i]=el} id={'chapter-'+i} role="tab" aria-selected={chapter===i} aria-controls="chapter-panel" tabIndex={chapter===i?0:-1} onClick={()=>setChapter(i)} onKeyDown={e=>tabKey(e,i)}><small>0{i+1}</small>{c.name}<ArrowUpRight size={18}/></button>)}</div><div id="chapter-panel" role="tabpanel" aria-labelledby={'chapter-'+chapter} className="chapter-panel" tabIndex={0}><p className="eyebrow">{chapters[chapter].tag}</p><p>{chapters[chapter].text}</p></div></div>
       </section>
