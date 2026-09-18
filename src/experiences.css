@@ -1,0 +1,185 @@
+/* Five art directions. Shared content and semantic order keep every experience usable. */
+.appearance-name small{display:block;font-size:12px;line-height:1.35;font-weight:400;color:var(--muted);margin-top:4px}.appearance-options{row-gap:16px}.appearance-panel{width:390px}.appearance-preview{height:72px}
+.appearance-option[data-design=light] .preview-line{height:2px;top:16px;width:39px}.appearance-option[data-design=light] .preview-line.short{top:23px;width:30px}.appearance-option[data-design=light] .preview-disc{border-radius:50% 50% 0 0;height:36px;top:25px}
+.appearance-option[data-design=forest] .preview-disc{right:auto;left:9px;width:35px;height:42px;border-radius:40% 60% 55% 45%;top:15px}.appearance-option[data-design=forest] .preview-line{left:auto;right:8px;width:28px}.appearance-option[data-design=forest] .preview-line.short{width:21px}.appearance-option[data-design=forest] .preview-button{left:auto;right:15px;border-radius:8px}
+.appearance-option[data-design=sunset] .appearance-preview{border-radius:1px}.appearance-option[data-design=sunset] .preview-line{width:67%;height:8px;left:10px;top:12px;border-radius:0}.appearance-option[data-design=sunset] .preview-line.short{top:25px;width:45%;height:8px}.appearance-option[data-design=sunset] .preview-disc{width:20px;height:20px;top:42px;right:11px;border-radius:0;transform:rotate(-10deg)}
+.appearance-option[data-design=plum] .preview-line{left:30%;width:40%;top:10px}.appearance-option[data-design=plum] .preview-line.short{left:37%;width:26%;top:19px}.appearance-option[data-design=plum] .preview-disc{left:calc(50% - 15px);top:30px}.appearance-option[data-design=plum] .preview-button{display:none}
+/* MIDNIGHT — precision, grids and compact instrument-like surfaces. */
+:root[data-theme=dark] .hero{background-image:linear-gradient(#8ea5ff08 1px,transparent 1px),linear-gradient(90deg,#8ea5ff08 1px,transparent 1px);background-size:48px 48px}
+:root[data-theme=dark] .eyebrow,:root[data-theme=dark] .location,:root[data-theme=dark] .art-coordinate,:root[data-theme=dark] .principles span{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.025em}
+:root[data-theme=dark] .hero-main{gap:32px;grid-template-columns:1.05fr 1fr;padding-block:28px}
+:root[data-theme=dark] .hero h1{font-size:clamp(65px,6.8vw,98px)}
+:root[data-theme=dark] .hero-art{border:1px solid var(--line);background:linear-gradient(135deg,#a8b8ff0c,transparent 60%),var(--surface);border-radius:8px;padding:20px 12px 12px}
+:root[data-theme=dark] .art-coordinate{position:static;text-align:center}.hero-art .scene-wrap{min-width:0}
+:root[data-theme=dark] .nav-dock{background:var(--surface);padding:0 16px;border:1px solid var(--line);border-radius:5px;gap:24px}
+:root[data-theme=dark] .story-strip{border:1px solid var(--line);padding:23px;border-radius:8px;background:var(--surface)}
+:root[data-theme=dark] .project{display:grid;grid-template-columns:1.1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+:root[data-theme=dark] .project-art{min-height:440px;border-radius:0;padding:25px 25px 0;display:flex;flex-direction:column;justify-content:space-between}
+:root[data-theme=dark] .browser-frame{width:110%;margin-top:35px}
+:root[data-theme=dark] .project-info{display:flex;flex-direction:column;padding:32px;gap:22px;justify-content:center}
+:root[data-theme=dark] .project-info h3{font-size:34px}:root[data-theme=dark] .project-image-label{display:none}
+:root[data-theme=dark] .principles{border:0;gap:16px;padding-top:0}.principles>div{min-width:0}
+:root[data-theme=dark] .principles>div{border:1px solid var(--line);padding:24px;border-radius:6px}
+:root[data-theme=dark] .contact{background:var(--bg);color:var(--ink);border-bottom:1px solid var(--line)}
+:root[data-theme=dark] .contact-heading h2>span{color:var(--accent);opacity:1}
+:root[data-theme=dark] .contact-circle{background:var(--accent);color:var(--bg)}
+/* PORCELAIN — generous editorial typesetting and a framed sculptural plate. */
+:root[data-theme=light] h1,:root[data-theme=light] h2,:root[data-theme=light] h3{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.055em}
+:root[data-theme=light] .hero h1{font-size:clamp(70px,7.6vw,108px);line-height:1.04}:root[data-theme=light] .hero h1>span{font-style:italic}
+:root[data-theme=light] .header-inner{border-bottom:3px double var(--line)}
+:root[data-theme=light] .hero-main{gap:40px;grid-template-columns:1.1fr 1fr;padding-block:32px 40px}
+:root[data-theme=light] .hero-art{border:1px solid var(--line);border-radius:50% 50% 3px 3px;background:#ebe8df;padding:40px 16px 18px}
+:root[data-theme=light] .art-coordinate{position:static;text-align:center;margin-top:15px}
+:root[data-theme=light] .button{border-radius:0;background:var(--ink);color:var(--bg)}
+:root[data-theme=light] .story-strip{grid-template-columns:.65fr 1.15fr 1.2fr;border-block:3px double var(--line)}
+:root[data-theme=light] .chapter-tabs button{border:0;border-bottom:1px solid var(--line);border-radius:0;padding-inline:10px}
+:root[data-theme=light] .section-title h2{font-size:clamp(50px,5.5vw,76px)}
+:root[data-theme=light] .project-art{background:#e3e6da;border-radius:0;border:1px solid var(--line);padding-top:38px}
+:root[data-theme=light] .browser-frame{transform:none;width:80%;margin-top:35px}
+:root[data-theme=light] .project-info{grid-template-columns:.8fr 1.2fr;border-bottom:1px solid var(--line);padding-bottom:30px}
+:root[data-theme=light] .creator-visual{border-radius:50% 50% 0 0;min-height:380px}
+:root[data-theme=light] .about{background:transparent;border-block:3px double var(--line)}
+:root[data-theme=light] .contact{background:var(--surface);color:var(--ink)}
+:root[data-theme=light] .contact-heading h2>span{font-style:italic;color:var(--accent);opacity:1}
+:root[data-theme=light] .contact-circle{border:1px solid var(--ink);background:transparent;color:var(--ink)}
+/* BOTANICAL — reversed composition, rounded edges and natural asymmetry. */
+:root[data-theme=forest] .header{top:12px;background:transparent;backdrop-filter:none;margin-top:12px}
+:root[data-theme=forest] .header-inner{height:80px;padding-inline:24px;border:1px solid var(--line);border-radius:50px;background:var(--header);backdrop-filter:blur(20px)}
+:root[data-theme=forest] .header-progress{display:none}
+:root[data-theme=forest] .hero-main{grid-template-columns:1fr 1fr;gap:48px;padding-block:40px}
+:root[data-theme=forest] .hero-art{grid-column:1;grid-row:1;background:radial-gradient(ellipse at 30% 20%,#7ecba923,transparent 70%),var(--surface);border-radius:45% 45% 24% 24%;padding:34px 12px 22px;align-self:stretch}
+:root[data-theme=forest] .hero-copy{grid-column:2;grid-row:1}
+:root[data-theme=forest] .hero h1{font-size:clamp(64px,6.5vw,90px);line-height:1.06}
+:root[data-theme=forest] .art-coordinate{position:static;text-align:center}
+:root[data-theme=forest] .button{border-radius:40px;background:var(--model-glow);color:#183c2b}
+:root[data-theme=forest] .story-strip{padding:25px;border-radius:24px;background:var(--surface);border:1px solid var(--line);grid-template-columns:1fr 1.1fr}
+:root[data-theme=forest] .story-label{display:none}
+:root[data-theme=forest] .project{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center}
+:root[data-theme=forest] .project-art{border-radius:32px 100px 32px 32px;min-height:400px;padding:26px 24px 0;display:flex;flex-direction:column;justify-content:space-between}
+:root[data-theme=forest] .project-info{display:flex;flex-direction:column;gap:20px;padding:12px 0}
+:root[data-theme=forest] .project-info h3{font-size:38px}
+:root[data-theme=forest] .browser-frame{width:115%;margin-left:0}
+:root[data-theme=forest] .project-image-label{display:none}
+:root[data-theme=forest] .creator-feature{grid-template-columns:1fr 1.05fr}
+:root[data-theme=forest] .creator-visual{grid-column:2;grid-row:1;border-radius:80px 28px 28px 28px;background:#274b3b;color:#ecf3e9}
+:root[data-theme=forest] .creator-copy{grid-column:1;grid-row:1}
+:root[data-theme=forest] .about{border-radius:60px 60px 0 0;border:0}
+:root[data-theme=forest] .principles{gap:20px;border:0;padding-top:0}
+:root[data-theme=forest] .principles>div{border:1px solid var(--line);border-radius:22px;padding:24px}
+:root[data-theme=forest] .contact{border-radius:0 0 60px 60px;background:#cfdfb9;color:#193c2b}
+:root[data-theme=forest] .contact-circle{background:#193c2b;color:#cfdfb9}
+/* TERRACOTTA — a graphic poster: oversized centered type, thick rules and offset shadows. */
+:root[data-theme=sunset] .header-inner{border-bottom:2px solid var(--ink)}
+:root[data-theme=sunset] .nav-dock a{font-weight:700;text-transform:uppercase;font-size:14px}
+:root[data-theme=sunset] .nav-dock a[aria-current=location]{box-shadow:inset 0 -3px var(--accent)}
+:root[data-theme=sunset] .nav-dock a span{display:none}
+:root[data-theme=sunset] .hero-main{grid-template-columns:1.35fr .8fr;gap:25px;padding-block:38px;align-items:center}
+:root[data-theme=sunset] .hero h1{font-size:clamp(65px,7.5vw,108px);font-weight:750;text-transform:uppercase;letter-spacing:-.065em;white-space:normal;line-height:.95}
+:root[data-theme=sunset] .hero h1>span{color:var(--ink)}
+:root[data-theme=sunset] .hero-art{border:2px solid var(--ink);background:#e8cdbd;box-shadow:9px 9px 0 var(--accent);padding:20px 8px 12px;transform:rotate(2deg);margin-right:10px}
+:root[data-theme=sunset] .art-coordinate{position:static;text-align:center;font-weight:650}
+:root[data-theme=sunset] .button{border:2px solid var(--ink);border-radius:0;box-shadow:4px 4px 0 var(--ink)}
+:root[data-theme=sunset] .story-strip{border-block:2px solid var(--ink);grid-template-columns:1fr 1.2fr;gap:30px}
+:root[data-theme=sunset] .story-label{display:none}
+:root[data-theme=sunset] .chapter-tabs button{border:1px solid var(--ink);border-radius:0;font-weight:650}
+:root[data-theme=sunset] .section-title h2{font-size:clamp(54px,6vw,85px);font-weight:650;text-transform:uppercase;line-height:.96}
+:root[data-theme=sunset] .project-art{border:2px solid var(--ink);border-radius:0;background:#e2d99e;box-shadow:8px 8px 0 var(--ink);margin:0 8px 8px 0}
+:root[data-theme=sunset] .project-info{border-bottom:2px solid var(--ink);padding-bottom:28px}
+:root[data-theme=sunset] .project-info h3{font-weight:650}
+:root[data-theme=sunset] .creator-visual{background:#b45134;border:2px solid var(--ink);box-shadow:7px 7px 0 var(--ink);border-radius:0}
+:root[data-theme=sunset] .creator-word{color:#fff4e9}.creator-copy{min-width:0}
+:root[data-theme=sunset] .about{background:var(--bg);border-block:2px solid var(--ink)}
+:root[data-theme=sunset] .about-intro h2{font-weight:650}
+:root[data-theme=sunset] .principles{border-top:2px solid var(--ink)}
+:root[data-theme=sunset] .contact-heading h2{font-weight:650;text-transform:uppercase;font-size:clamp(62px,8vw,112px)}
+:root[data-theme=sunset] .contact-circle{border-radius:0;transform:rotate(-5deg)}
+/* AMETHYST — a centered gallery with a wide sculptural stage and floating panels. */
+:root[data-theme=plum] .header-inner{border:1px solid #cba8e830;border-radius:20px;margin-top:12px;height:80px;padding-inline:24px;background:linear-gradient(110deg,#ffffff08,#ffffff02)}
+:root[data-theme=plum] .header-progress{display:none}
+:root[data-theme=plum] .hero-main{grid-template-columns:1fr;padding-block:32px 20px;gap:12px}
+:root[data-theme=plum] .hero-copy{text-align:center;display:flex;flex-direction:column;align-items:center}
+:root[data-theme=plum] .hero h1{font-size:clamp(68px,7.5vw,106px)}
+:root[data-theme=plum] .hero h1 br{display:none}
+:root[data-theme=plum] .hero h1>span{margin-left:.2em}
+:root[data-theme=plum] .intro{max-width:570px;margin-top:20px}
+:root[data-theme=plum] .hero-actions{justify-content:center;margin-top:22px}
+:root[data-theme=plum] .hero-note{display:none}
+:root[data-theme=plum] .hero-art{width:min(100%,740px);justify-self:center;background:radial-gradient(ellipse at center,#bf9aeb24,transparent 65%);padding:18px 0 0;min-height:320px}
+:root[data-theme=plum] .scene-wrap{height:330px;min-height:300px;flex:none}
+:root[data-theme=plum] .art-coordinate{top:24px;right:0;font-size:14px}
+:root[data-theme=plum] .button{border-radius:40px;background:linear-gradient(110deg,#dbbdf4,#bd9be7);box-shadow:0 6px 30px #bf9aeb20}
+:root[data-theme=plum] .story-strip{border:1px solid #cba8e835;border-radius:24px;padding:24px;background:linear-gradient(110deg,#ffffff08,#ffffff02);grid-template-columns:.7fr 1.1fr 1.2fr}
+:root[data-theme=plum] .section-title{justify-content:center;text-align:center;flex-direction:column;align-items:center;gap:20px}
+:root[data-theme=plum] .section-title h2 br{display:none}
+:root[data-theme=plum] .section-title h2>span{margin-left:.18em}
+:root[data-theme=plum] .project{border:1px solid #cba8e835;border-radius:28px;padding:18px;background:linear-gradient(145deg,#ffffff08,#ffffff02)}
+:root[data-theme=plum] .project-art{border-radius:16px;background:#d8d3e5}
+:root[data-theme=plum] .project-info{padding:26px 15px 10px}
+:root[data-theme=plum] .creator-feature{padding:18px;border:1px solid #cba8e835;border-radius:28px;background:#ffffff05;gap:35px}
+:root[data-theme=plum] .creator-visual{border-radius:16px;background:#59416f}
+:root[data-theme=plum] .creator-copy{padding-right:18px}
+:root[data-theme=plum] .about{background:radial-gradient(ellipse at 10% 50%,#bf9aeb10,transparent 65%),var(--bg)}
+:root[data-theme=plum] .principles{border:0;gap:18px;padding-top:0}
+:root[data-theme=plum] .principles>div{padding:25px;background:#ffffff05;border:1px solid #cba8e830;border-radius:20px}
+:root[data-theme=plum] .contact{background:radial-gradient(ellipse at top right,#bf9aeb24,transparent 65%),var(--surface);color:var(--ink)}
+:root[data-theme=plum] .contact-heading h2>span{color:var(--accent);opacity:1}
+:root[data-theme=plum] .contact-circle{background:var(--accent);color:var(--bg);box-shadow:0 0 50px #bf9aeb20}
+/* Responsive compositions keep visual order and controls predictable. */
+@media(max-width:1100px){
+:root[data-theme] .story-strip{grid-template-columns:1fr 1.1fr}:root[data-theme] .story-label{display:none}
+:root[data-theme=dark] .nav-dock{gap:17px;padding-inline:12px}
+:root[data-theme=forest] .hero-main{gap:25px}:root[data-theme=forest] .hero h1{font-size:65px}
+:root[data-theme=forest] .header-inner,:root[data-theme=plum] .header-inner{padding-inline:17px}
+:root[data-theme=light] .hero-main{gap:25px}
+:root[data-theme=dark] .project,:root[data-theme=forest] .project{grid-template-columns:1fr 1fr;gap:0}
+:root[data-theme=forest] .project-info{padding-left:25px}
+:root[data-theme=dark] .project-info{padding:24px}
+:root[data-theme=plum] .hero h1{white-space:normal}
+}
+@media(max-width:900px){
+:root[data-theme=forest] .hero h1,:root[data-theme=dark] .hero h1,:root[data-theme=light] .hero h1{font-size:60px}
+:root[data-theme=sunset] .hero h1{font-size:65px}
+:root[data-theme=dark] .project,:root[data-theme=forest] .project{grid-template-columns:1fr}
+:root[data-theme=dark] .project-art,:root[data-theme=forest] .project-art{min-height:330px;max-height:420px}
+:root[data-theme=forest] .project-info{padding:26px 0 0}
+:root[data-theme=dark] .browser-frame,:root[data-theme=forest] .browser-frame{width:90%;margin-inline:auto}
+}
+@media(max-width:760px){
+.appearance-panel{width:350px}.appearance-name small{font-size:12px}
+:root[data-theme] .hero-main{grid-template-columns:1fr;gap:25px;padding-block:26px 22px}
+:root[data-theme] .hero-copy{grid-column:auto;grid-row:auto}
+:root[data-theme] .hero-art{grid-column:auto;grid-row:auto;width:100%;max-width:530px;margin:0 auto;height:370px;min-height:0;transform:none}
+:root[data-theme] .hero h1{font-size:clamp(54px,11vw,80px);white-space:normal}
+:root[data-theme=light] .hero-art{padding-top:25px;height:390px}
+:root[data-theme=forest] .hero-art{border-radius:45% 45% 24px 24px;padding-top:25px}
+:root[data-theme=sunset] .hero-art{width:calc(100% - 8px);margin-left:0}
+:root[data-theme=plum] .hero h1 br{display:block}:root[data-theme=plum] .hero h1>span{margin-left:0}
+:root[data-theme=plum] .hero-art{padding-top:25px}:root[data-theme=plum] .scene-wrap{height:285px;min-height:0}
+:root[data-theme] .art-coordinate{position:static;font-size:14px;text-align:center}
+:root[data-theme] .hero-art .scene-wrap{min-height:0}
+:root[data-theme] .story-strip{grid-template-columns:1fr;gap:18px;padding:20px}
+:root[data-theme=light] .story-strip,:root[data-theme=sunset] .story-strip{padding-inline:0}
+:root[data-theme] .chapter-panel{border-left:0;padding:0}
+:root[data-theme=dark] .nav-dock{display:none}
+:root[data-theme=forest] .header-inner,:root[data-theme=plum] .header-inner{padding-inline:13px;height:70px;gap:8px;width:calc(100% - 24px)}
+:root[data-theme] .project-info{grid-template-columns:1fr;gap:20px}
+:root[data-theme=dark] .project-art,:root[data-theme=forest] .project-art{min-height:0;max-height:none;padding:20px 20px 0}
+:root[data-theme=forest] .project-art{border-radius:24px 60px 24px 24px}
+:root[data-theme=dark] .browser-frame,:root[data-theme=forest] .browser-frame{width:105%;margin-left:0}
+:root[data-theme=dark] .project-info{padding:24px 20px}
+:root[data-theme] .creator-feature{grid-template-columns:1fr;gap:23px}
+:root[data-theme=forest] .creator-visual,:root[data-theme=forest] .creator-copy{grid-column:auto;grid-row:auto}
+:root[data-theme=forest] .creator-visual{border-radius:60px 24px 24px 24px}
+:root[data-theme=light] .creator-visual{min-height:330px}
+:root[data-theme=plum] .project{padding:10px;border-radius:20px}
+:root[data-theme=plum] .project-info{padding:22px 8px 10px}
+:root[data-theme=plum] .creator-feature{padding:10px;border-radius:20px}
+:root[data-theme=plum] .creator-copy{padding:0 10px 15px}
+:root[data-theme] .section-title h2{font-size:clamp(42px,8vw,60px)}
+:root[data-theme=plum] .section-title h2 br{display:block}:root[data-theme=plum] .section-title h2>span{margin-left:0}
+:root[data-theme] .principles{grid-template-columns:1fr}
+:root[data-theme=forest] .about{border-radius:32px 32px 0 0}
+:root[data-theme=forest] .contact{border-radius:0 0 32px 32px}
+:root[data-theme=sunset] .contact-heading h2{font-size:clamp(44px,8.5vw,65px)}
+}
+@media(prefers-reduced-motion:reduce){:root[data-theme=sunset] .hero-art{transform:none}}

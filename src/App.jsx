@@ -57,7 +57,7 @@ export default function App(){
     const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)};
     update();window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);
     return()=>{cancelAnimationFrame(frame);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule)};
-  },[]);
+  },[theme]);
   const project=featuredProjects[0];
   function tabKey(e,index){let next;if(e.key==='ArrowRight')next=(index+1)%3;if(e.key==='ArrowLeft')next=(index+2)%3;if(e.key==='Home')next=0;if(e.key==='End')next=2;if(next!==undefined){e.preventDefault();setChapter(next);tabs.current[next].focus()}}
   return <>
@@ -74,7 +74,7 @@ export default function App(){
     <dialog ref={dialog} id="mobile-navigation" className="mobile-menu" aria-label="Site navigation" onCancel={()=>setMenu(false)} onClose={()=>setMenu(false)}><div className="menu-top"><span className="eyebrow">TAKE A LOOK AROUND</span><button className="icon-button" aria-label="Close menu" onClick={()=>setMenu(false)}><X/></button></div><nav aria-label="Mobile navigation">{[['Home','home'],['Selected work','work'],['About me','about'],['Let’s talk','contact']].map(([label,id],i)=><a key={id} href={'#'+id} aria-current={activeSection===id?'location':undefined} onClick={()=>setMenu(false)}><small>0{i+1}</small>{label}<ArrowUpRight/></a>)}</nav></dialog>
     <main id="main" tabIndex={-1}>
       <section id="home" className="hero shell" aria-labelledby="hero-title">
-        <div className="hero-kicker"><p className="eyebrow"><span className="status-dot"/> INDEPENDENT MIND. CONNECTED WORLD.</p><span className="location">Pune, India ↗</span></div>
+        <div className="hero-kicker"><p className="eyebrow"><span className="status-dot"/> INDEPENDENT MIND. CONNECTED WORLD.</p><span className="location">{getTheme(theme).style} / Pune, India ↗</span></div>
         <div className="hero-main">
           <div className="hero-copy"><h1 id="hero-title">Curiosity,<br/><span>made real.</span></h1><p className="intro">I’m Gajendra. An engineer who builds for the web, experiments with AI, and makes room for a little creativity.</p><div className="hero-actions"><a className="button primary" href="#work">Discover my work <ArrowDown size={19}/></a><a className="quiet-link" href="#about">The person behind it <ArrowUpRight size={18}/></a></div><p className="hero-note"><span aria-hidden="true">✳</span> Engineering roots. No single box.</p></div>
           <div className="hero-art"><div className="orbit-guide" aria-hidden="true"/><span className="art-coordinate art-coordinate-top" aria-hidden="true">THE MAKER’S OBSERVATORY / 0{chapter+1}</span><div className="scene-wrap"><Suspense fallback={<FallbackArt chapter={chapter}/>}><Sculpture theme={theme} chapter={chapter} paused={paused||reduced} reset={reset} onReady={setSceneReady} fallback={<FallbackArt chapter={chapter}/>}/></Suspense></div><div className="scene-toolbar"><span>{sceneReady?'Yours to play with. Drag to rotate.':'Three interests. One curious mind.'}</span>{sceneReady&&<div><button className="icon-button" aria-label="Reset sculpture rotation" onClick={()=>setReset(v=>v+1)}><RotateCcw size={16}/></button><button className="icon-button" aria-label={paused||reduced?'Play sculpture animation':'Pause sculpture animation'} aria-pressed={paused||reduced} onClick={()=>{setPaused(!(paused||reduced));setReduced(false)}}>{paused||reduced?<Play size={16}/>:<Pause size={16}/>}</button></div>}</div></div>
